@@ -2,7 +2,7 @@ import React from "react";
 
 import type { Metadata } from "next";
 
-import Register from "@/app/components/auth/register/Register";
+import Register from "@components/auth/register/Register";
 
 export const metadata: Metadata = {
   title: "Admin | Register",
