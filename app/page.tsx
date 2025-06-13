@@ -1,9 +1,9 @@
-import ContentPage from "@/app/content/Content";
+import Home from "@components/home/Home";
 
-const Home: React.FC = () => {
+const HomePage: React.FC = () => {
     return (
-        <ContentPage></ContentPage>
+        <Home></Home>
     );
 };
 
-export default Home;
+export default HomePage;

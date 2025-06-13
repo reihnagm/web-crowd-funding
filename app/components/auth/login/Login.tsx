@@ -53,7 +53,7 @@ const Login: React.FC = () => {
             type="submit"
             className="w-1/4 bg-[#321B87] text-white py-3 rounded-full font-bold hover:bg-[#2A1572] transition"
           >
-            Daftar
+            Masuk
           </button>
         </div>
 
