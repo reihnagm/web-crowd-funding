@@ -5,6 +5,48 @@ import React, { useEffect, useState } from "react";
 const Home: React.FC = () => {
   const [isSticky, setIsSticky] = useState(false);
 
+  const faqData = {
+    Umum: [
+      {
+        question: "Apa itu Fulusme?",
+        answer:
+          "FULUSME adalah Penyelenggara Layanan Urun Dana Berbasis Teknologi Informasi (Securities Crowdfunding) yang merupakan tempat bertemunya Pemodal dan Penerbit dalam satu wadah platform.",
+      },
+      {
+        question: "Apa itu Efek?",
+        answer:
+          "Efek adalah surat berharga seperti saham, obligasi, atau surat utang lainnya yang dapat diperdagangkan di pasar modal.",
+      },
+    ],
+    Pemodal: [
+      {
+        question: "Bagaimana cara menjadi Pemodal?",
+        answer:
+          "Anda bisa mendaftar di platform FULUSME, melakukan verifikasi, dan mulai berinvestasi pada proyek yang tersedia.",
+      },
+      {
+        question: "Apa risiko menjadi Pemodal?",
+        answer:
+          "Semua investasi memiliki risiko, termasuk risiko gagal bayar dari penerbit. Lakukan analisis terlebih dahulu.",
+      },
+    ],
+    Penerbit: [
+      {
+        question: "Apa itu Penerbit?",
+        answer:
+          "Penerbit adalah pihak yang mencari pendanaan melalui platform FULUSME dengan menawarkan efek kepada publik.",
+      },
+      {
+        question: "Apa syarat menjadi Penerbit?",
+        answer:
+          "Penerbit harus merupakan badan hukum Indonesia dan memenuhi persyaratan dari OJK serta regulasi terkait.",
+      },
+    ],
+  };
+
+  const [activeTab, setActiveTab] = useState<"Umum" | "Pemodal" | "Penerbit">("Umum");
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsSticky(window.scrollY > 50);
@@ -178,42 +220,118 @@ const Home: React.FC = () => {
         </button>
 
       </section>
+
       {/* What is Securities Crowd Funding Section */}
-<section className="bg-white text-black py-16 px-6 md:px-20 text-center">
+      <section className="bg-white text-black py-16 px-6 md:px-20 text-center">
+
+        <div className="grid md:grid-cols-2 items-center gap-8 text-left">
+          <h2 className="text-2xl md:text-3xl font-bold">
+            Apa itu Securities <span className="text-[#4CD137]">Crowd</span>{" "}
+            <span className="text-[#3C2B90]">Funding?</span>
+          </h2>
+          <p className="text-gray-600 text-sm leading-relaxed">
+            <strong>Securities Crowd Funding</strong> merupakan langkah mudah bagi
+            Pemodal untuk memiliki bisnis dengan cara cepat dan dijalankan oleh
+            praktisi yang berpengalaman di bidangnya, tanpa harus repot membangun
+            bisnis baru.
+          </p>
+        </div>
+
+        {/* Logos */}
+        <div className="mt-16">
+          <h3 className="text-sm font-bold text-gray-500 mb-4">
+            TELAH DILIPUT OLEH
+          </h3>
+          <div className="flex flex-wrap justify-center items-center gap-6">
+            <img src="/logos/kompas.png" alt="Kompas" className="h-6" />
+            <img src="/logos/detik.png" alt="Detik" className="h-6" />
+            <img src="/logos/cnbc.png" alt="CNBC" className="h-6" />
+            <img src="/logos/salaam.png" alt="Salaam Gateway" className="h-6" />
+            <img src="/logos/kontan.png" alt="Kontan" className="h-6" />
+            <img src="/logos/dailysocial.png" alt="Dailysocial" className="h-6" />
+            <img src="/logos/bisnis.png" alt="Bisnis.com" className="h-6" />
+          </div>
+
+          <h3 className="text-sm font-bold text-gray-500 mt-10">DIDUKUNG OLEH</h3>
+          {/* Add logos or sponsors here if needed */}
+        </div>
+      </section>
 
 
-  <div className="grid md:grid-cols-2 items-center gap-8 text-left">
-    <h2 className="text-2xl md:text-3xl font-bold">
-      Apa itu Securities <span className="text-[#4CD137]">Crowd</span>{" "}
-      <span className="text-[#3C2B90]">Funding?</span>
-    </h2>
-    <p className="text-gray-600 text-sm leading-relaxed">
-      <strong>Securities Crowd Funding</strong> merupakan langkah mudah bagi
-      Pemodal untuk memiliki bisnis dengan cara cepat dan dijalankan oleh
-      praktisi yang berpengalaman di bidangnya, tanpa harus repot membangun
-      bisnis baru.
-    </p>
+      {/* DIDUKUNG OLEH Logos */}
+      <div className="flex flex-wrap justify-center items-center gap-8 mt-6">
+        <img src="/logos/kominfo.png" alt="Kominfo" className="h-10" />
+        <img src="/logos/danamon.png" alt="Danamon" className="h-10" />
+        <img src="/logos/aludi.png" alt="ALUDI" className="h-10" />
+        <img src="/logos/ksei.png" alt="KSEI" className="h-10" />
+        <img src="/logos/pse.png" alt="PSE" className="h-10" />
+        <img src="/logos/pefindo.png" alt="PEFINDO" className="h-10" />
+        <img src="/logos/rapidssl.png" alt="RapidSSL" className="h-10" />
+      </div>
+
+    <section className="bg-gray-100 text-black py-16 px-6 md:px-20">
+  <div className="text-center mb-10">
+    <h2 className="text-2xl font-bold mb-2">FAQ</h2>
+    <p className="text-sm text-gray-600">Pertanyaan yang sering ditanyakan</p>
   </div>
 
-  {/* Logos */}
-  <div className="mt-16">
-    <h3 className="text-sm font-bold text-gray-500 mb-4">
-      TELAH DILIPUT OLEH
-    </h3>
-    <div className="flex flex-wrap justify-center items-center gap-6">
-      <img src="/logos/kompas.png" alt="Kompas" className="h-6" />
-      <img src="/logos/detik.png" alt="Detik" className="h-6" />
-      <img src="/logos/cnbc.png" alt="CNBC" className="h-6" />
-      <img src="/logos/salaam.png" alt="Salaam Gateway" className="h-6" />
-      <img src="/logos/kontan.png" alt="Kontan" className="h-6" />
-      <img src="/logos/dailysocial.png" alt="Dailysocial" className="h-6" />
-      <img src="/logos/bisnis.png" alt="Bisnis.com" className="h-6" />
-    </div>
+  {/* Tabs */}
+  <div className="flex justify-center gap-4 mb-8">
+    {(["Umum", "Pemodal", "Penerbit"] as const).map((tab) => (
+      <button
+        key={tab}
+        onClick={() => {
+          setActiveTab(tab);
+          setOpenIndex(null); // close all on tab switch
+        }}
+        className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 ${
+          activeTab === tab
+            ? "bg-[#3C2B90] text-white"
+            : "border border-[#3C2B90] text-[#3C2B90] hover:bg-[#3C2B90] hover:text-white"
+        }`}
+      >
+        {tab}
+      </button>
+    ))}
+  </div>
+  <div className="max-w-3xl mx-auto space-y-4">
+    {faqData[activeTab].map((item, index) => {
+      const isOpen = openIndex === index;
 
-    <h3 className="text-sm font-bold text-gray-500 mt-10">DIDUKUNG OLEH</h3>
-    {/* Add logos or sponsors here if needed */}
+      return (
+        <div
+          key={index}
+          onClick={() => setOpenIndex(isOpen ? null : index)}
+          className="group relative cursor-pointer bg-white rounded-lg border border-gray-300 shadow-sm transition hover:bg-gray-50"
+        >
+          <div className="flex justify-between items-center px-6 py-5">
+            <span className="font-semibold text-base">{item.question}</span>
+            <span
+              className={`transition-transform duration-300 ${
+                isOpen ? "rotate-180" : ""
+              }`}
+            >
+              ▼
+            </span>
+          </div>
+
+
+          <div
+            className={`px-6 text-sm text-gray-600 transition-all duration-300 ${
+              isOpen ? "max-h-[500px] py-4 opacity-100" : "max-h-0 py-0 opacity-0"
+            } overflow-hidden`}
+          >
+            {item.answer}
+          </div>
+        </div>
+      );
+    })}
   </div>
 </section>
+
+
+
+
 
 
       {/* WhatsApp Floating Button */}
