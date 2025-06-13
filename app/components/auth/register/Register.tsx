@@ -3,20 +3,13 @@
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@redux/store";
-import {
-  setEmail,
-  setPassword,
-  setShowPassword,
-} from "@redux/slices/authSlice";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { setEmail } from "@redux/slices/authSlice";
 
 const Register: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
 
   const email = useSelector((state: RootState) => state.auth.value);
-  const password = useSelector((state: RootState) => state.auth.password);
-  const showPassword = useSelector((state: RootState) => state.auth.showPassword);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,49 +32,44 @@ const Register: React.FC = () => {
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
-        {/* Daftar Sebagai */}
         <div>
           <label className="font-bold text-[#321B87] block mb-1">Daftar Sebagai</label>
-          <select className="w-full p-3 bg-[#F1F5F9] rounded">
+          <select className="w-full p-3 bg-[#F1F5F9] rounded text-black">
             <option>Pilih Tipe Pemodal</option>
             <option>Individu</option>
             <option>Institusi</option>
           </select>
         </div>
 
-        {/* Nama Depan dan Nama Belakang */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="font-bold text-[#321B87] block mb-1">Nama Depan</label>
-            <input type="text" className="w-full p-3 bg-[#F1F5F9] rounded" />
+            <input type="text" className="w-full p-3 bg-[#F1F5F9] rounded text-black" />
           </div>
           <div>
             <label className="font-bold text-[#321B87] block mb-1">Nama Belakang (Opsional)</label>
-            <input type="text" className="w-full p-3 bg-[#F1F5F9] rounded" />
+            <input type="text" className="w-full p-3 bg-[#F1F5F9] rounded text-black" />
           </div>
         </div>
 
-        {/* Email */}
         <div>
           <label className="font-bold text-[#321B87] block mb-1">Email</label>
           <input
             type="email"
-            className="w-full p-3 bg-[#F1F5F9] rounded"
+            className="w-full p-3 bg-[#F1F5F9] rounded text-black"
             value={email}
             onChange={(e) => dispatch(setEmail(e.target.value))}
           />
         </div>
 
-        {/* Nomor Handphone */}
         <div>
           <label className="font-bold text-[#321B87] block mb-1">Nomor Handphone</label>
           <input
             type="tel"
-            className="w-full p-3 bg-[#F1F5F9] rounded"
+            className="w-full p-3 bg-[#F1F5F9] rounded text-black"
           />
         </div>
 
-        {/* Submit Button */}
         <button
           type="submit"
           className="w-full bg-[#321B87] text-white py-3 rounded font-bold hover:bg-[#2A1572] transition"
