@@ -5,8 +5,8 @@ import type { Metadata } from "next";
 import Register from "@components/auth/register/Register";
 
 export const metadata: Metadata = {
-  title: "Admin | Register",
-  description: "Register",
+  title: "Daftar | MyApp",
+  description: "MyApp",
 };
 
 const RegisterPage: React.FC = () => {

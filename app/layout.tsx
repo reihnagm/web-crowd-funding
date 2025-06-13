@@ -37,19 +37,15 @@ export default function RootLayout({
     <Provider store={store}>
         <html lang="en">
           <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-            {pathname === "/auth/login" 
+            {pathname === "/auth/login" || pathname == "/auth/register" 
               ? (
-                  <div className="flex items-center justify-center h-screen">
+                  <div className="w-full flex items-center justify-center h-screen">
                     {children}
                   </div>
                 ) 
               : ( 
                   <div className="flex">
-                    <LeftSidebar />
-
-                    <div className="ml-64 flex flex-col flex-grow">
-                      <Header />
-
+                    <div className="flex flex-col flex-grow">
                       <div className="flex flex-grow">
                         {children}
                       </div>

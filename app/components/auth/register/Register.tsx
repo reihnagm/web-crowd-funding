@@ -17,14 +17,14 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white px-6 md:px-20 py-10">
+    <div className="w-1/2 bg-white px-6 md:px-20 py-10">
       <div className="flex justify-between items-center mb-10">
-        <img src="/logo.svg" alt="Fulusme Logo" className="w-20 h-20" />
+        <img src="https://www.shutterstock.com/image-vector/image-icon-trendy-flat-style-600nw-643080895.jpg" alt="Fulusme Logo" className="w-20 h-20" />
         <button className="text-[#321B87] font-bold text-sm">&lt; Kembali Ke Beranda</button>
       </div>
 
       <h1 className="text-3xl font-medium text-[#321B87] mb-2">
-        Selamat Datang <span className="font-bold">di Fulusme,</span>
+        Selamat Datang <span className="font-bold">di MyApp,</span>
       </h1>
       <p className="text-lg text-[#321B87] mb-10">
         Silahkan berinvestasi dengan <br className="md:hidden" />
@@ -70,12 +70,16 @@ const Register: React.FC = () => {
           />
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-[#321B87] text-white py-3 rounded font-bold hover:bg-[#2A1572] transition"
-        >
-          Daftar
-        </button>
+        <div className="flex flex-row flex-wrap justify-between">
+          <p className="w-1/2">Butuh pertanyaan? <a href="javascript:void(0)" className="text-[#321B87] cursor-pointer font-bold hover:underline">Hubungi Kami</a> </p>
+          <button
+            type="submit"
+            className="w-1/4 bg-[#321B87] text-white py-3 rounded-full font-bold hover:bg-[#2A1572] transition"
+          >
+            Daftar
+          </button>
+        </div>
+
       </form>
     </div>
   );

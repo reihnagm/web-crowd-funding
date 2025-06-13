@@ -1,108 +1,63 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-
-import Cookies from "js-cookie";
-
-import { AppDispatch, RootState } from "@redux/store";
 import { useDispatch, useSelector } from "react-redux";
-
-import { loginAdminAsync, setEmail, setPassword, setShowPassword } from "@redux/slices/authSlice";
-
-import { FaEye, FaEyeSlash } from "react-icons/fa"; 
+import { AppDispatch, RootState } from "@redux/store";
+import { setEmail } from "@redux/slices/authSlice";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-
-  const val = useSelector((state: RootState) => state.auth.value);
-  const password = useSelector((state: RootState) => state.auth.password);
-  const loading = useSelector((state: RootState) => state.auth.loading);
-  const showPassword = useSelector((state: RootState) => state.auth.showPassword);
-  
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const email = useSelector((state: RootState) => state.auth.value);
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    const result = await dispatch(
-      loginAdminAsync({ val, password })
-    ).unwrap();
-
-    Cookies.set("token", result.data.token, {
-      expires: 365,
-      secure: true,
-      sameSite: "strict",
-    });
-
-    Cookies.set("user_id", result.data.id, {
-      expires: 365,
-      secure: true,
-      sameSite: "strict",
-    });
-
-    Cookies.set("username", result.data.username, {
-      expires: 365,
-      secure: true,
-      sameSite: "strict",
-    });
-
     router.push("/");
   };
 
   return (
-    <div className="flex w-full items-center justify-center h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold text-center text-gray-800">Log In</h2>
+    <div className="w-1/2  bg-white px-6 md:px-20 py-10">
+      <div className="flex justify-between items-center mb-10">
+        <img src="https://www.shutterstock.com/image-vector/image-icon-trendy-flat-style-600nw-643080895.jpg" alt="Fulusme Logo" className="w-20 h-20" />
+        <button className="text-[#321B87] font-bold text-sm">&lt; Kembali Ke Beranda</button>
+      </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="value" className="block text-sm font-medium text-gray-600">
-              Username
-            </label>
-            <input
-              type="text"
-              id="value"
-              value={val}
-              onChange={(e) => dispatch(setEmail(e.target.value))}
-              className="w-full px-4 text-black py-2 mt-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-100 focus:border-indigo-300"
-              required
-            />
+      <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
+        <div>
+          <label className="font-bold text-[#321B87] block mb-1">Email</label>
+          <input
+            type="email"
+            className="w-full p-3 bg-[#F1F5F9] rounded text-black"
+            value={email}
+            onChange={(e) => dispatch(setEmail(e.target.value))}
+          />
+        </div>
+
+        <div>
+          <label className="font-bold text-[#321B87] block mb-1">Kata Sandi</label>
+          <input
+            type="email"
+            className="w-full p-3 bg-[#F1F5F9] rounded text-black"
+            value={email}
+            onChange={(e) => dispatch(setEmail(e.target.value))}
+          />
+        </div>
+
+        <div className="flex flex-row flex-wrap justify-between">
+          <div  className="w-1/2">
+            <p>Lupa Kata Sandi</p>
+            <p>Belum Punya Akun? <a href="javascript:void(0)" className="text-[#321B87] cursor-pointer font-bold hover:underline">Daftar Sekarang</a></p>
           </div>
-
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-600">
-              Password
-            </label>
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                value={password}
-                onChange={(e) => dispatch(setPassword(e.target.value))}
-                className="w-full px-4 text-black py-2 mt-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-100 focus:border-indigo-300"
-                required
-              />
-              <button
-                type="button"
-                onClick={() => dispatch(setShowPassword(!showPassword))}
-                className="absolute right-3 top-0 transform translate-y-5 text-gray-500"
-              >
-                {showPassword ? <FaEyeSlash className="h-5 w-5" /> : <FaEye className="h-5 w-5" />} 
-              </button>
-            </div>
-          </div>
-
           <button
             type="submit"
-            className="w-full py-2 mt-4 font-semibold text-white bg-blue rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
+            className="w-1/4 bg-[#321B87] text-white py-3 rounded-full font-bold hover:bg-[#2A1572] transition"
           >
-            {loading 
-              ? "Please wait..." 
-              : "Log In"
-            }
+            Daftar
           </button>
-        </form>
-      </div>
+        </div>
+
+      </form>
     </div>
   );
 };
