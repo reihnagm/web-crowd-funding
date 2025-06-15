@@ -50,10 +50,8 @@ const Home: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"Umum" | "Pemodal" | "Penerbit">("Umum");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-
-  
   return (
-    <main className="min-h-screen  text-white relative overflow-hidden">
+    <div>
 
       <Navbar />
       
@@ -301,7 +299,6 @@ const Home: React.FC = () => {
 
       </section>
 
-      {/* What is Securities Crowd Funding Section */}
       <section className="bg-white text-black py-16 px-6 md:px-20 text-center">
 
         <div className="grid md:grid-cols-2 items-center gap-8 text-left">
@@ -317,7 +314,6 @@ const Home: React.FC = () => {
           </p>
         </div>
 
-        {/* Logos */}
         <div className="mt-16">
           <h3 className="text-sm relative font-bold text-gray-500 mb-4">
             TELAH DILIPUT OLEH
@@ -337,7 +333,6 @@ const Home: React.FC = () => {
 
       <h3 className="text-sm relative text-center font-bold text-gray-500 mt-10">DIDUKUNG OLEH</h3>
 
-      {/* DIDUKUNG OLEH Logos */}
       <div className="flex flex-wrap justify-center items-center gap-8 mt-6">
         <img src="/images/supportby/kominfo.png" alt="Kominfo" className="h-32" />
         <img src="/images/supportby/danamon.png" alt="Danamon" className="h-24" />
@@ -354,7 +349,6 @@ const Home: React.FC = () => {
           <p className="relative text-sm text-gray-600">Pertanyaan yang sering ditanyakan</p>
         </div>
 
-        {/* Tabs */}
         <div className="flex justify-center gap-4 mb-8">
           {(["Umum", "Pemodal", "Penerbit"] as const).map((tab) => (
             <button
@@ -471,7 +465,6 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* WhatsApp Floating Button */}
       <div className="fixed bottom-4 right-4 z-50">
         <button className="flex items-center bg-[#4CD137] text-white px-4 py-2 rounded-full shadow-lg">
           <img src="/images/wa.png" alt="WA" className="w-5 h-5 mr-2" />
@@ -479,9 +472,7 @@ const Home: React.FC = () => {
         </button>
       </div>
 
-    <Footer />
-
-    </main>
+    </div>
   );
 };
 

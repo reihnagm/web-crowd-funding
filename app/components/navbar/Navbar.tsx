@@ -1,9 +1,12 @@
 'use client';
 
+import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const Navbar: React.FC = () => {
     const [isSticky, setIsSticky] = useState(false);
+
+    const pathname = usePathname();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -16,7 +19,7 @@ const Navbar: React.FC = () => {
     return (
         <nav
             className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-                isSticky ? "bg-white text-black shadow-md" : "bg-[#4821C1] text-white"
+                isSticky ? "bg-white text-[#322783] shadow-md" : "bg-[#4821C1]"
             }`}
         >
             <div className="flex justify-between items-center px-10 py-6 text-sm font-semibold">
@@ -24,15 +27,15 @@ const Navbar: React.FC = () => {
                 MyApp
             </div>
             <ul className="flex gap-6 items-center">
-                <li className={isSticky ? "text-[#321B87] font-semibold" : "text-[#4CD137]"}>
+                <li className={pathname == "/" ? "text-[#4CD137]" : ""}>
                     <a href="/">Beranda</a>
                 </li>
-                <li> 
-                    <a href="javascript:void(0)">
+                <li className={pathname == "/business-list" ? "text-[#4CD137]" : ""}> 
+                    <a href="/business-list">
                         Daftar Bisnis
                     </a>
                 </li>
-                <li>
+                <li className={pathname == "/aboutus" ? "text-[#4CD137]" : ""}>
                     <a href="/aboutus">
                         Tentang Kami
                     </a>
