@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import Navbar from "@components/navbar/Navbar";
+import Footer from "@components/footer/Footer";
 
 const Home: React.FC = () => {
-  const [isSticky, setIsSticky] = useState(false);
 
   const faqData = {
     Umum: [
@@ -49,45 +50,13 @@ const Home: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"Umum" | "Pemodal" | "Penerbit">("Umum");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsSticky(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+
   
   return (
     <main className="min-h-screen  text-white relative overflow-hidden">
-      <nav
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-          isSticky ? "bg-white text-black shadow-md" : "bg-[#4821C1] text-white"
-        }`}
-      >
-        <div className="flex justify-between items-center px-10 py-6 text-sm font-semibold">
-          <div className={`text-xl font-bold ${isSticky ? "text-[#321B87]" : "text-white"}`}>
-            MyApp
-          </div>
-          <ul className="flex gap-6 items-center">
-            <li className={isSticky ? "text-[#321B87] font-semibold" : "text-[#4CD137]"}>Beranda</li>
-            <li>Daftar Bisnis</li>
-            <li>Tentang Kami</li>
-            <li>Pasar Sekunder</li>
-            <li>Penerbit</li>
-            <li>
-              <button
-                className={`px-5 py-2 rounded-full ${
-                  isSticky ? "bg-[#4CD137] text-white" : "bg-[#4CD137] text-white"
-                }`}
-              >
-                Masuk
-              </button>
-            </li>
-            <li>Daftar</li>
-          </ul>
-        </div>
-      </nav>
 
+      <Navbar />
+      
       {/* Hero Section */}
       <section className="bg-[#4821C1] rounded-b-5xl grid grid-cols-1 md:grid-cols-2 items-center px-10 md:px-20 py-40">
         {/* Left content */}
@@ -112,15 +81,15 @@ const Home: React.FC = () => {
         <div className="mt-10 md:mt-0 z-10 relative text-white">
           <div className="space-y-6 text-right">
             <div>
-              <p className="text-sm">Dana Tersalurkan</p>
+              <p className="text-md text-white">Dana Tersalurkan</p>
               <p className="text-2xl font-bold text-[#4CD137]">Rp 2.250.000.000</p>
             </div>
             <div>
-              <p className="text-sm">Pengembalian Dana</p>
+              <p className="text-md text-white">Pengembalian Dana</p>
               <p className="text-2xl font-bold text-[#4CD137]">Rp 900.000.000</p>
             </div>
             <div>
-              <p className="text-sm">Rata-rata Realisasi ROI</p>
+              <p className="text-md text-white">Rata-rata Realisasi ROI</p>
               <p className="text-2xl font-bold text-[#4CD137]">20%</p>
             </div>
           </div>
@@ -510,63 +479,7 @@ const Home: React.FC = () => {
         </button>
       </div>
 
-      <footer className="w-full bg-[#4821C1] relative text-white py-12 rounded-t-5xl">
-        <div className="container mx-auto px-6 md:px-20 grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Logo & Links */}
-          <div className="space-y-4">
-            <img src="/logo-footer.png" alt="MyApp Logo" className="h-12" />
-            <ul className="space-y-2 text-sm">
-              <li><a href="#" className="hover:underline">Syarat dan Ketentuan</a></li>
-              <li><a href="#" className="hover:underline">Kebijakan Privasi</a></li>
-              <li><a href="#" className="hover:underline">FAQ</a></li>
-            </ul>
-          </div>
-
-          {/* Alamat */}
-          <div className="space-y-2 text-sm">
-            <h4 className="text-white font-semibold">ALAMAT</h4>
-            <p className="text-white">Gedung Menara 165, Lantai 3</p>
-            <p className="text-white">Jl. TB. Simatupang Kav 1</p>
-            <p className="text-white">Cilandak, Pasar Minggu</p>
-            <p className="text-white">Jakarta Selatan, DKI Jakarta 12560</p>
-          </div>
-
-          {/* Informasi */}
-          <div className="space-y-2 text-sm">
-            <h4 className="font-semibold">INFORMASI</h4>
-            <ul className="space-y-2">
-              <li><a href="#" className="hover:underline">Beranda</a></li>
-              <li><a href="#" className="hover:underline">Daftar Bisnis</a></li>
-              <li><a href="#" className="hover:underline">Tentang Kami</a></li>
-              <li><a href="#" className="hover:underline">Pasar Sekunder</a></li>
-              <li><a href="#" className="hover:underline">Penerbit</a></li>
-            </ul>
-          </div>
-
-          {/* Kontak */}
-          <div className="space-y-2 text-sm">
-            <h4 className="font-semibold">HUBUNGI KAMI</h4>
-            <p className="text-white">Nomor Telepon</p>
-            <p className="text-white font-semibold">+62 21 388 20 133</p>
-            <p className="text-white">WhatsApp</p>
-            <p className="text-white font-semibold">+62 812 9990 0150</p>
-            <p className="text-white">Email</p>
-            <p className="text-white font-semibold">info@fulusme.id</p>
-            <div className="flex space-x-3 pt-2">
-              <a href="#"><i className="fab fa-facebook-f"></i></a>
-              <a href="#"><i className="fab fa-instagram"></i></a>
-              <a href="#"><i className="fab fa-youtube"></i></a>
-              <a href="#"><i className="fab fa-tumblr"></i></a>
-            </div>
-          </div>
-        </div>
-
-        {/* OJK & Sertifikat */}
-        <div className="container mx-auto px-6 md:px-20 mt-10 flex flex-wrap items-center justify-center space-x-6">
-          <img src="/images/covered/ojk.png" alt="OJK" className="h-10" />
-          <img src="/images/covered/iso.png" alt="ISO 27001:2013" className="h-10" />
-        </div>
-      </footer>
+    <Footer />
 
     </main>
   );

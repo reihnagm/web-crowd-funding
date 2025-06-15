@@ -19,8 +19,10 @@ const Login: React.FC = () => {
   return (
     <div className="w-1/2  bg-white px-6 md:px-20 py-10">
       <div className="flex justify-between items-center mb-10">
-        <img src="https://www.shutterstock.com/image-vector/image-icon-trendy-flat-style-600nw-643080895.jpg" alt="Fulusme Logo" className="w-20 h-20" />
-        <button className="text-[#321B87] font-bold text-sm">&lt; Kembali Ke Beranda</button>
+        <img src="https://www.shutterstock.com/image-vector/image-icon-trendy-flat-style-600nw-643080895.jpg" alt="MyApp Logo" className="w-20 h-20" />
+        <a href="/">
+          <button className="text-[#321B87] font-bold text-sm">&lt; Kembali Ke Beranda</button>
+        </a>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
@@ -47,7 +49,7 @@ const Login: React.FC = () => {
         <div className="flex flex-row flex-wrap justify-between">
           <div  className="w-1/2">
             <p>Lupa Kata Sandi</p>
-            <p>Belum Punya Akun? <a href="javascript:void(0)" className="text-[#321B87] cursor-pointer font-bold hover:underline">Daftar Sekarang</a></p>
+            <p>Belum Punya Akun? <a href="/auth/register" className="text-[#321B87] cursor-pointer font-bold hover:underline">Daftar Sekarang</a></p>
           </div>
           <button
             type="submit"
