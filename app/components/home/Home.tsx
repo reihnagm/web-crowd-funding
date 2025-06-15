@@ -9,42 +9,39 @@ const Home: React.FC = () => {
     Umum: [
       {
         question: "Apa itu MyApp?",
-        answer:
-          "MyApp adalah Penyelenggara Layanan Urun Dana Berbasis Teknologi Informasi (Securities Crowdfunding) yang merupakan tempat bertemunya Pemodal dan Penerbit dalam satu wadah platform.",
+        answer:"MyApp adalah Penyelenggara Layanan Urun Dana Berbasis Teknologi Informasi (Securities Crowdfunding) yang merupakan tempat bertemunya Pemodal dan Penerbit dalam satu wadah platform.",
       },
       {
         question: "Apa itu Efek?",
-        answer:
-          "Efek adalah surat berharga seperti saham, obligasi, atau surat utang lainnya yang dapat diperdagangkan di pasar modal.",
+        answer:"Efek adalah surat berharga seperti saham, obligasi, atau surat utang lainnya yang dapat diperdagangkan di pasar modal.",
       },
       {
         question: "Apa itu Lembaga Penyimpanan dan Penyelesaian?",
-        answer:
-          "• Lembaga Penyimpanan dan Penyelesaian (LPP) adalah pihak yang menyelenggarakan kegiatan kustodian sentral bagi bank kustodian, perusahaan efek, dan pihak lain.\n • Fungsi LPP pada kegiatan Layanan Urun Dana antara lain: \n - Mengadministrasikan efek yang ditawarkan Penerbit \n - Menyelesaikan transaksi efek setelah terjadi pembelian oleh Pemodal \n - Mendistribusikan efek yang telah dibeli untuk dapat disimpan di rekening efek milik Pemodal yang ada Bank Kustodian \n • LPP dalam Layanan Urun Dana ini menggunakan Kustodian Sentral Efek Indonesia (KSEI).",
+        answer:"• Lembaga Penyimpanan dan Penyelesaian (LPP) adalah pihak yang menyelenggarakan kegiatan kustodian sentral bagi bank kustodian, perusahaan efek, dan pihak lain.\n • Fungsi LPP pada kegiatan Layanan Urun Dana antara lain: \n - Mengadministrasikan efek yang ditawarkan Penerbit \n - Menyelesaikan transaksi efek setelah terjadi pembelian oleh Pemodal \n - Mendistribusikan efek yang telah dibeli untuk dapat disimpan di rekening efek milik Pemodal yang ada Bank Kustodian \n • LPP dalam Layanan Urun Dana ini menggunakan Kustodian Sentral Efek Indonesia (KSEI).",
       },
     ],
     Pemodal: [
       {
-        question: "Bagaimana cara menjadi Pemodal?",
-        answer:
-          "Anda bisa mendaftar di platform MyApp, melakukan verifikasi, dan mulai berinvestasi pada proyek yang tersedia.",
+        question: "Apa itu Pemodal?",
+        answer:"Anda bisa mendaftar di platform MyApp, melakukan verifikasi, dan mulai berinvestasi pada proyek yang tersedia.",
       },
       {
-        question: "Apa risiko menjadi Pemodal?",
-        answer:
-          "Semua investasi memiliki risiko, termasuk risiko gagal bayar dari penerbit. Lakukan analisis terlebih dahulu.",
+        question: "Bagaimana cara berinvestasi di MyApp?",
+        answer:"Untuk berinvestasi, langkah pertama Anda harus memiliki akun di Fulusme. Berikut tata cara pembuatan Akun Pemodal : \n • Daftarkan diri Anda pada tautan berikut. \n • Masukkan data diri anda, email, dan nomor ponsel yang anda pakai \n • Setelah memasukkan nomor ponsel pada langkah pertama, anda akan diminta memasukkan kode OTP yang dikirimkan ke nomor ponsel anda \n • Kemudian masukkan kata sandi yang ingin anda gunakan \n • Anda harus membaca dan menyetujui syarat dan ketentuan kami sebelum mendaftarkan diri. Kemudian akan dikirimkan email verifikasi pada email yang anda masukkan \n • Verifikasi email dan kemudian masuk menggunakan Email dan kata sandi anda. \n • Langkah berikutnya adalah proses KYC yang berada di posisi sebelah kiri Dashboard, dimana Anda harus mengisi semua tahapan dan pertanyaan yang ada. Setelah Anda mengisi semua data pada proses KYC, maka akan dilakukan verifikasi data oleh tim Fulusme yang memerlukan waktu 2x24 jam di hari kerja. \n • Anda akan menerima pemberitahuan via email terkait status verifikasi data Anda. Jika data Anda sudah terverifikasi, maka Anda dapat mulai berinvestasi di Fulusme.",
+      },
+      {
+        question: "Apa yang dimaksud dengan Prospekstus?",
+        answer:"Prospektus adalah seluruh informasi penting dan relevan mengenai penawaran investasi yang ditawarkan Penerbit untuk membantu Pemodal dalam membuat keputusan investasi.",
       },
     ],
     Penerbit: [
       {
         question: "Apa itu Penerbit?",
-        answer:
-          "Penerbit adalah pihak yang mencari pendanaan melalui platform MyApp dengan menawarkan efek kepada publik.",
+        answer:"Penerbit adalah pihak yang mencari pendanaan melalui platform MyApp dengan menawarkan efek kepada publik.",
       },
       {
-        question: "Apa syarat menjadi Penerbit?",
-        answer:
-          "Penerbit harus merupakan badan hukum Indonesia dan memenuhi persyaratan dari OJK serta regulasi terkait.",
+        question: "Bagaimana jika masa penawaran (45 Hari) berakhir namun pendanaan belum terkumpul?",
+        answer:"• TIDAK ada masa penambahan jangka waktu penawaran sesuai dengan POJK Nomor 57/2020. \n • Jika penghimpunan dana tidak mencapai batas minimum pendanaan yang telah disepakati, maka proses kerjasama batal demi hukum dan dana investasi akan dikembalikan 100% kepada Pemodal. \n • Jika penghimpunan dana telah mencapai batas minimum pendanaan yang telah disepakati, maka kerjasama akan tetap dilanjutkan sesuai minimum pendanaan yang terkumpul",
       },
     ],
   };
@@ -59,13 +56,12 @@ const Home: React.FC = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
+  
   return (
-    <main className="min-h-screen bg-gradient-to-r from-[#321B87] to-[#4821C1] text-white relative overflow-hidden">
-      {/* Sticky Navbar */}
+    <main className="min-h-screen  text-white relative overflow-hidden">
       <nav
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-          isSticky ? "bg-white text-black shadow-md" : "bg-transparent text-white"
+          isSticky ? "bg-white text-black shadow-md" : "bg-[#4821C1] text-white"
         }`}
       >
         <div className="flex justify-between items-center px-10 py-6 text-sm font-semibold">
@@ -92,11 +88,8 @@ const Home: React.FC = () => {
         </div>
       </nav>
 
-      {/* Spacer to avoid layout jump */}
-      <div className="h-[90px]" />
-
       {/* Hero Section */}
-      <section className="grid grid-cols-1 md:grid-cols-2 items-center px-10 md:px-20 py-16">
+      <section className="bg-[#4821C1] rounded-b-5xl grid grid-cols-1 md:grid-cols-2 items-center px-10 md:px-20 py-40">
         {/* Left content */}
         <div className="space-y-6 z-10 relative">
           <h1 className="text-3xl md:text-4xl font-bold leading-tight">
@@ -110,8 +103,8 @@ const Home: React.FC = () => {
 
           {/* Logos */}
           <div className="flex gap-6 items-center">
-            {/* <img src="/ojk.png" alt="OJK Logo" className="h-12" />
-            <img src="/iso.png" alt="ISO Logo" className="h-12" /> */}
+            <img src="/images/covered/ojk.png" alt="OJK Logo" className="h-12" />
+            <img src="/images/covered/iso.png" alt="ISO Logo" className="h-12" />
           </div>
         </div>
 
@@ -136,15 +129,15 @@ const Home: React.FC = () => {
 
       {/* Background overlay */}
       <div className="absolute inset-0 z-0 opacity-10">
-        {/* <img
+        <img
           src="/bg.png"
           alt="background"
           className="w-full h-full object-cover"
-        /> */}
+        />
       </div>
 
       {/* Investment Project Section */}
-      <section className="bg-white text-black py-12 px-6 text-center md:px-16">
+      <section className="bg-white relative text-black py-12 px-6 text-center md:px-16">
         <h2 className="text-2xl font-bold text-center mb-2">
           Investasi Proyek Yang Sedang Berjalan
         </h2>
@@ -153,74 +146,187 @@ const Home: React.FC = () => {
           untuk berinvestasi hari ini.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {/* Project cards */}
-          <div className="border p-4 rounded-xl bg-gray-100">
-            <div className="text-xs font-bold text-center text-white bg-purple-700 rounded-full py-1 mb-2">
-              Proyek Berakhir
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-40">
+
+          {/* CARD - PROYEK BERAKHIR */}
+          <div className="rounded-xl overflow-hidden shadow border">
+            <div className="relative h-40">
+              <img
+                src="/images/mitra.jpg"
+                alt="Mitra10"
+                className="object-cover w-full h-full"
+              />
+              <div className="absolute inset-0 bg-purple-900 bg-opacity-60"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <span className="bg-white text-purple-800 text-xs font-bold px-4 py-1 rounded-full shadow">
+                  Proyek Berakhir
+                </span>
+              </div>
             </div>
-            <p className="font-semibold text-sm mb-1">
-              PROYEK PENGADAAN MATERIAL DAN INSTALASI PERALATAN MITRA10 GARUT TAHUN 2024
-            </p>
-            <ul className="text-xs space-y-1 mt-2">
-              <li>Dana Terkumpul: Rp 500.000.000</li>
-              <li>Kebutuhan Modal: Rp 500.000.000</li>
-              <li>Minimal Investasi: Rp 1.000.000</li>
-              <li>Jangka Waktu: 2 Bulan</li>
-              <li>Proyeksi ROI: 4% (24% p.a)</li>
-            </ul>
+            <div className="p-4 bg-gray-100">
+              <p className="font-semibold text-sm text-start mb-2">
+                PROYEK PENGADAAN MATERIAL DAN INSTALASI PERALATAN MITRA10 GARUT TAHUN 2024
+              </p>
+              <ul className="text-xs my-4 space-y-1">
+                <li className="flex justify-between">
+                  <span className="font-bold">Dana Terkumpul</span> 
+                  <span className="font-bold">Rp 500.000.000</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Kebutuhan Modal</span> 
+                  <span>Rp 500.000.000</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Minimal Investasi</span> 
+                  <span>Rp 1.000.000</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Jangka Waktu</span> 
+                  <span>2 Bulan</span>
+                </li>
+                 <li className="flex justify-between">
+                  <span>Proyeksi ROI</span> 
+                  <span>4%(24% p.a)</span>
+                </li>
+              </ul>
+            </div>
           </div>
 
-          <div className="border p-4 rounded-xl bg-green-100">
-            <div className="text-xs font-bold text-center text-white bg-green-600 rounded-full py-1 mb-2">
-              Proyek Berjalan
+          {/* CARD - PROYEK BERJALAN */}
+          <div className="rounded-xl relative overflow-hidden shadow border">
+            <div className="relative h-40">
+              <img
+                src="/images/tower.jpg"
+                alt="Tower Bersama"
+                className="object-cover w-full h-full"
+              />
+              <div className="absolute inset-0 bg-green-700 bg-opacity-60"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <span className="bg-white text-green-700 text-xs font-bold px-4 py-1 rounded-full shadow">
+                  Proyek Berjalan
+                </span>
+              </div>
             </div>
-            <p className="font-semibold text-sm mb-1">
-              Jasa Pemeliharaan Perangkat Penunjang Infrastruktur Telekomunikasi Tower Bersama Group (TBG)
-            </p>
-            <ul className="text-xs space-y-1 mt-2">
-              <li>Dana Terkumpul: Rp 850.000.000</li>
-              <li>Kebutuhan Modal: Rp 850.000.000</li>
-              <li>Minimal Investasi: Rp 1.000.000</li>
-              <li>Jangka Waktu: 6 Bulan</li>
-              <li>Proyeksi ROI: 9.5% (19.01% p.a)</li>
-            </ul>
+            <div className="p-4 bg-gray-100">
+              <p className="font-semibold text-sm text-start mb-2">
+                Jasa Pemeliharaan Perangkat Penunjang Infrastruktur Telekomunikasi Tower Bersama Group (TBG)
+              </p>
+              <ul className="text-xs my-4 space-y-1">
+                <li className="flex justify-between">
+                  <span className="font-bold">Dana Terkumpul</span> 
+                  <span className="font-bold">Rp 850.000.000</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Kebutuhan Modal</span> 
+                  <span>Rp 850.000.000</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Minimal Investasi</span> 
+                  <span>Rp 1.000.000</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Jangka Waktu</span> 
+                  <span>6 Bulan</span>
+                </li>
+                 <li className="flex justify-between">
+                  <span>Proyeksi ROI</span> 
+                  <span>9.5%(19.01% p.a)</span>
+                </li>
+              </ul>
+            </div>
           </div>
 
-          <div className="border p-4 rounded-xl bg-gray-100">
-            <div className="text-xs font-bold text-center text-white bg-purple-700 rounded-full py-1 mb-2">
-              Proyek Berakhir
+          {/* CARD - PROYEK BERAKHIR */}
+          <div className="rounded-xl overflow-hidden shadow border">
+            <div className="relative h-40">
+              <img
+                src="/images/pln.jpg"
+                alt="Mitra10"
+                className="object-cover w-full h-full"
+              />
+              <div className="absolute inset-0 bg-purple-900 bg-opacity-60"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <span className="bg-white text-purple-800 text-xs font-bold px-4 py-1 rounded-full shadow">
+                  Proyek Berakhir
+                </span>
+              </div>
             </div>
-            <p className="font-semibold text-sm mb-1">
-              Pembangunan Extention Bay Trafo Gardu Induk Balikpapan PT PLN Indonesia
-            </p>
-            <ul className="text-xs space-y-1 mt-2">
-              <li>Dana Terkumpul: Rp 300.000.000</li>
-              <li>Kebutuhan Modal: Rp 300.000.000</li>
-              <li>Minimal Investasi: Rp 1.000.000</li>
-              <li>Jangka Waktu: 2 Bulan</li>
-              <li>Proyeksi ROI: 18% p.a</li>
-            </ul>
+            <div className="p-4 bg-gray-100">
+              <p className="font-semibold text-sm text-start mb-2">
+                Pembangunan Extention Bay Trafo Gardu Induk Balikpapan PT PLN Indonesia
+              </p>
+              <ul className="text-xs my-4 space-y-1">
+                <li className="flex justify-between">
+                  <span className="font-bold">Dana Terkumpul</span> 
+                  <span className="font-bold">Rp 300.000.000</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Kebutuhan Modal</span> 
+                  <span>Rp 300.000.000</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Minimal Investasi</span> 
+                  <span>Rp 1.000.000</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Jangka Waktu</span> 
+                  <span>2 Bulan</span>
+                </li>
+                 <li className="flex justify-between">
+                  <span>Proyeksi ROI</span> 
+                  <span>18% p.a</span>
+                </li>
+              </ul>
+            </div>
           </div>
 
-          <div className="border p-4 rounded-xl bg-gray-100">
-            <div className="text-xs font-bold text-center text-white bg-purple-700 rounded-full py-1 mb-2">
-              Proyek Berakhir
+          {/* CARD - PROYEK BERAKHIR */}
+          <div className="rounded-xl overflow-hidden shadow border">
+            <div className="relative h-40">
+              <img
+                src="/images/resto.jpg"
+                alt="Mitra10"
+                className="object-cover w-full h-full"
+              />
+              <div className="absolute inset-0 bg-purple-900 bg-opacity-60"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <span className="bg-white text-purple-800 text-xs font-bold px-4 py-1 rounded-full shadow">
+                  Proyek Berakhir
+                </span>
+              </div>
             </div>
-            <p className="font-semibold text-sm mb-1">
-              Renovasi Interior Resto M-Lounge
-            </p>
-            <ul className="text-xs space-y-1 mt-2">
-              <li>Dana Terkumpul: Rp 400.000.000</li>
-              <li>Kebutuhan Modal: Rp 400.000.000</li>
-              <li>Minimal Investasi: Rp 1.000.000</li>
-              <li>Jangka Waktu: 12 Bulan</li>
-              <li>Proyeksi ROI: 18% p.a</li>
-            </ul>
+            <div className="p-4 bg-gray-100">
+              <p className="font-semibold text-sm text-start mb-2">
+                Renovasi Interior Resto M-Lounge
+              </p>
+              <ul className="text-xs my-4 space-y-1">
+                <li className="flex justify-between">
+                  <span className="font-bold">Dana Terkumpul</span> 
+                  <span className="font-bold">Rp 400.000.000</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Kebutuhan Modal</span> 
+                  <span>Rp 400.000.000</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Minimal Investasi</span> 
+                  <span>Rp 1.000.000</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Jangka Waktu</span> 
+                  <span>12 Bulan</span>
+                </li>
+                 <li className="flex justify-between">
+                  <span>Proyeksi ROI</span> 
+                  <span>18% p.a</span>
+                </li>
+              </ul>
+            </div>
           </div>
+
         </div>
 
-        <button className="bg-[#3C2B90] hover:bg-[#2d2171] text-white px-6 py-2 rounded-full font-semibold mb-10">
+        <button className="bg-[#3C2B90] relative hover:bg-[#2d2171] text-white px-6 py-2 rounded-full font-semibold my-10">
           Lihat Proyek Selengkapnya
         </button>
 
@@ -230,11 +336,11 @@ const Home: React.FC = () => {
       <section className="bg-white text-black py-16 px-6 md:px-20 text-center">
 
         <div className="grid md:grid-cols-2 items-center gap-8 text-left">
-          <h2 className="text-2xl md:text-3xl font-bold">
+          <h2 className="text-2xl relative md:text-3xl font-bold">
             Apa itu Securities <span className="text-[#4CD137]">Crowd</span>{" "}
             <span className="text-[#3C2B90]">Funding?</span>
           </h2>
-          <p className="text-gray-600 text-sm leading-relaxed">
+          <p className="text-gray-600 relative text-sm leading-relaxed">
             <strong>Securities Crowd Funding</strong> merupakan langkah mudah bagi
             Pemodal untuk memiliki bisnis dengan cara cepat dan dijalankan oleh
             praktisi yang berpengalaman di bidangnya, tanpa harus repot membangun
@@ -244,40 +350,39 @@ const Home: React.FC = () => {
 
         {/* Logos */}
         <div className="mt-16">
-          <h3 className="text-sm font-bold text-gray-500 mb-4">
+          <h3 className="text-sm relative font-bold text-gray-500 mb-4">
             TELAH DILIPUT OLEH
           </h3>
           <div className="flex flex-wrap justify-center items-center gap-6">
-            {/* <img src="/logos/kompas.png" alt="Kompas" className="h-6" />
-            <img src="/logos/detik.png" alt="Detik" className="h-6" />
-            <img src="/logos/cnbc.png" alt="CNBC" className="h-6" />
-            <img src="/logos/salaam.png" alt="Salaam Gateway" className="h-6" />
-            <img src="/logos/kontan.png" alt="Kontan" className="h-6" />
-            <img src="/logos/dailysocial.png" alt="Dailysocial" className="h-6" />
-            <img src="/logos/bisnis.png" alt="Bisnis.com" className="h-6" /> */}
+            <img src="/images/covered/kompas.png" alt="Kompas" className="h-6" />
+            <img src="/images/covered/detikcom.png" alt="Detik" className="h-6" />
+            <img src="/images/covered/cnbc.png" alt="CNBC" className="h-10" />
+            <img src="/images/covered/salaam.png" alt="Salaam Gateway" className="h-6" />
+            <img src="/images/covered/kontancoid.png" alt="Kontan" className="h-6" />
+            <img src="/images/covered/dailysocialid.png" alt="Dailysocial" className="h-6" />
+            <img src="/images/covered/bisnis.png" alt="Bisnis.com" className="h-6" />
           </div>
-
-          <h3 className="text-sm font-bold text-gray-500 mt-10">DIDUKUNG OLEH</h3>
-          {/* Add logos or sponsors here if needed */}
+         
         </div>
       </section>
 
+      <h3 className="text-sm relative text-center font-bold text-gray-500 mt-10">DIDUKUNG OLEH</h3>
 
       {/* DIDUKUNG OLEH Logos */}
       <div className="flex flex-wrap justify-center items-center gap-8 mt-6">
-        {/* <img src="/logos/kominfo.png" alt="Kominfo" className="h-10" />
-        <img src="/logos/danamon.png" alt="Danamon" className="h-10" />
-        <img src="/logos/aludi.png" alt="ALUDI" className="h-10" />
-        <img src="/logos/ksei.png" alt="KSEI" className="h-10" />
-        <img src="/logos/pse.png" alt="PSE" className="h-10" />
-        <img src="/logos/pefindo.png" alt="PEFINDO" className="h-10" />
-        <img src="/logos/rapidssl.png" alt="RapidSSL" className="h-10" /> */}
+        <img src="/images/supportby/kominfo.png" alt="Kominfo" className="h-32" />
+        <img src="/images/supportby/danamon.png" alt="Danamon" className="h-24" />
+        <img src="/images/supportby/aludi.png" alt="ALUDI" className="h-24" />
+        <img src="/images/supportby/ksei.png" alt="KSEI" className="h-24" />
+        <img src="/images/supportby/pse.png" alt="PSE" className="h-24" />
+        <img src="/images/supportby/pefindo.png" alt="PEFINDO" className="h-24" />
+        <img src="/images/supportby/rapidssl.png" alt="RapidSSL" className="h-24" />
       </div>
 
       <section className="bg-gray-100 text-black py-16 px-6 md:px-20">
         <div className="text-center mb-10">
-          <h2 className="text-2xl font-bold mb-2">FAQ</h2>
-          <p className="text-sm text-gray-600">Pertanyaan yang sering ditanyakan</p>
+          <h2 className="relative text-2xl font-bold mb-2">FAQ</h2>
+          <p className="relative text-sm text-gray-600">Pertanyaan yang sering ditanyakan</p>
         </div>
 
         {/* Tabs */}
@@ -339,7 +444,7 @@ const Home: React.FC = () => {
       </section>
 
       <section className="bg-white text-black px-6 md:px-20 py-16">
-        <h2 className="text-2xl font-bold text-center mb-6">DISCLAIMER</h2>
+        <h2 className="text-2xl relative font-bold text-center mb-6">DISCLAIMER</h2>
         <div className="max-h-[500px] relative  overflow-y-scroll p-6 border border-gray-300 rounded-lg space-y-4 text-justify text-sm leading-relaxed">
           <p className="text-1xl">
             PT Fintek Andalan Solusi Teknologi (“Fulusme”) adalah Penyelenggara Layanan Urun Dana melalui Penawaran Efek Berbasis Teknologi Informasi (Securities Crowdfunding) sebagaimana tunduk pada ketentuan Peraturan Otoritas Jasa Keuangan NOMOR 57/POJK.04/2020 tentang Penawaran Efek Melalui Layanan Urun Dana Berbasis Teknologi Informasi atau Securities Crowdfunding (“POJK 57/2020”), yang telah berizin dan diawasi OJK, kami menyatakan bahwa :
@@ -397,14 +502,72 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-
       {/* WhatsApp Floating Button */}
       <div className="fixed bottom-4 right-4 z-50">
         <button className="flex items-center bg-[#4CD137] text-white px-4 py-2 rounded-full shadow-lg">
-          {/* <img src="/whatsapp-icon.png" alt="WA" className="w-5 h-5 mr-2" /> */}
+          <img src="/images/wa.png" alt="WA" className="w-5 h-5 mr-2" />
           Butuh Bantuan?
         </button>
       </div>
+
+      <footer className="w-full bg-[#4821C1] relative text-white py-12 rounded-t-5xl">
+        <div className="container mx-auto px-6 md:px-20 grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Logo & Links */}
+          <div className="space-y-4">
+            <img src="/logo-footer.png" alt="MyApp Logo" className="h-12" />
+            <ul className="space-y-2 text-sm">
+              <li><a href="#" className="hover:underline">Syarat dan Ketentuan</a></li>
+              <li><a href="#" className="hover:underline">Kebijakan Privasi</a></li>
+              <li><a href="#" className="hover:underline">FAQ</a></li>
+            </ul>
+          </div>
+
+          {/* Alamat */}
+          <div className="space-y-2 text-sm">
+            <h4 className="text-white font-semibold">ALAMAT</h4>
+            <p className="text-white">Gedung Menara 165, Lantai 3</p>
+            <p className="text-white">Jl. TB. Simatupang Kav 1</p>
+            <p className="text-white">Cilandak, Pasar Minggu</p>
+            <p className="text-white">Jakarta Selatan, DKI Jakarta 12560</p>
+          </div>
+
+          {/* Informasi */}
+          <div className="space-y-2 text-sm">
+            <h4 className="font-semibold">INFORMASI</h4>
+            <ul className="space-y-2">
+              <li><a href="#" className="hover:underline">Beranda</a></li>
+              <li><a href="#" className="hover:underline">Daftar Bisnis</a></li>
+              <li><a href="#" className="hover:underline">Tentang Kami</a></li>
+              <li><a href="#" className="hover:underline">Pasar Sekunder</a></li>
+              <li><a href="#" className="hover:underline">Penerbit</a></li>
+            </ul>
+          </div>
+
+          {/* Kontak */}
+          <div className="space-y-2 text-sm">
+            <h4 className="font-semibold">HUBUNGI KAMI</h4>
+            <p className="text-white">Nomor Telepon</p>
+            <p className="text-white font-semibold">+62 21 388 20 133</p>
+            <p className="text-white">WhatsApp</p>
+            <p className="text-white font-semibold">+62 812 9990 0150</p>
+            <p className="text-white">Email</p>
+            <p className="text-white font-semibold">info@fulusme.id</p>
+            <div className="flex space-x-3 pt-2">
+              <a href="#"><i className="fab fa-facebook-f"></i></a>
+              <a href="#"><i className="fab fa-instagram"></i></a>
+              <a href="#"><i className="fab fa-youtube"></i></a>
+              <a href="#"><i className="fab fa-tumblr"></i></a>
+            </div>
+          </div>
+        </div>
+
+        {/* OJK & Sertifikat */}
+        <div className="container mx-auto px-6 md:px-20 mt-10 flex flex-wrap items-center justify-center space-x-6">
+          <img src="/images/covered/ojk.png" alt="OJK" className="h-10" />
+          <img src="/images/covered/iso.png" alt="ISO 27001:2013" className="h-10" />
+        </div>
+      </footer>
+
     </main>
   );
 };

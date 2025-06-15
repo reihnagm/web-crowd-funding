@@ -43,6 +43,16 @@ p {
   color: #171717;
 }
 
+.rounded-t-5xl {
+  border-top-left-radius: 2.5rem;
+  border-top-right-radius: 2.5rem;
+}
+
+.rounded-b-5xl {
+  border-bottom-left-radius: 2.5rem;
+  border-bottom-right-radius: 2.5rem;
+}
+
 .bg-red {
   background-color: #C82927;
 }
