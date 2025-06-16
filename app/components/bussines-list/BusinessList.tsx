@@ -137,27 +137,27 @@ const BussinesList: React.FC = () => {
             {/* Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
-                <div className="bg-white w-full max-w-md p-6 rounded-lg shadow-lg relative">
-                    <button
-                    onClick={closeModal}
-                    className="absolute top-4 left-4 text-gray-500 hover:text-black"
-                    >
-                    <X size={20} />
-                    </button>
-                    <div className="text-center text-black font-bold text-lg mb-4">Urutkan</div>
-                    <div className="flex flex-col gap-3">
-                    <button className="bg-gray-100 text-black py-2 rounded-md">Nama A - Z</button>
-                    <button className="bg-gray-100 text-black py-2 rounded-md">Nama Z - A</button>
-                    <button className="bg-gray-100 text-black py-2 rounded-md">Nilai Rendah ke Tinggi</button>
-                    <button className="bg-gray-100 text-black py-2 rounded-md">Nilai Tinggi ke Rendah</button>
-                    <button
+                    <div className="bg-white w-full max-w-md p-6 rounded-lg shadow-lg relative">
+                        <button
                         onClick={closeModal}
-                        className="text-sm text-gray-500 mt-2 underline"
-                    >
-                        Reset
-                    </button>
+                        className="absolute top-4 left-4 text-gray-500 hover:text-black"
+                        >
+                        <X size={20} />
+                        </button>
+                        <div className="text-center text-black font-bold text-lg mb-4">Urutkan</div>
+                        <div className="flex flex-col gap-3">
+                            <button className="bg-gray-100 text-black py-2 rounded-md">Nama A - Z</button>
+                            <button className="bg-gray-100 text-black py-2 rounded-md">Nama Z - A</button>
+                            <button className="bg-gray-100 text-black py-2 rounded-md">Nilai Rendah ke Tinggi</button>
+                            <button className="bg-gray-100 text-black py-2 rounded-md">Nilai Tinggi ke Rendah</button>
+                            <button
+                                onClick={closeModal}
+                                className="text-sm text-gray-500 mt-2 underline"
+                            >
+                                Reset
+                            </button>
+                        </div>
                     </div>
-                </div>
                 </div>
             )}
 
