@@ -92,7 +92,7 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
 
                             <div>
                                 <p className="text-xs text-[#677AB9] font-medium">Tenor</p>
-                                <p className="font-bold text-black">6 Bulan</p>
+                                <p className="font-bold text-black">{project.jangkaWaktu}</p>
                             </div>
 
                             <div className="bg-gray-100 p-3 rounded-lg">
@@ -220,9 +220,9 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
                         Lokasi proyek yang dijadikan dasar penerbitan obligasi ini adalah pada site area :
                         </p>
                         <ul className="list-decimal list-inside text-black text-sm mb-4">
-                        <li>JABODETABEK INNER</li>
-                        <li>JABODETABEK OUTER SERANG</li>
-                        <li>JABODETABEK OUTER TANGERANG</li>
+                            <li>JABODETABEK INNER</li>
+                            <li>JABODETABEK OUTER SERANG</li>
+                            <li>JABODETABEK OUTER TANGERANG</li>
                         </ul>
                         <p className="text-sm mb-4">
                         Pekerjaan dilakukan sejak 1 Januari 2024 s/d 31 Desember 2024
@@ -264,7 +264,7 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
                         </div>
                         <div className="flex flex-wrap justify-between">
                             <p className="text-xs font-bold text-[#677AB9]">Dana Terkumpul</p>
-                            <p className="text-xs font-bold">Rp 850.000.000</p>
+                            <p className="text-xs font-bold">{project.danaTerkumpul}</p>
                         </div>
                     </div>
 
@@ -294,7 +294,7 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
                         </div>
                         <div className="flex flex-wrap my-2 justify-between">
                             <p className="text-xs text-[#677AB9]">Minimal Investasi:</p>
-                            <p className="text-xs">Rp 1.000.000</p> 
+                            <p className="text-xs">{project.minimalInvestasi}</p> 
                         </div>
                         <div className="flex flex-wrap my-2 justify-between">
                             <p className="text-xs text-[#677AB9]">Harga Unit:</p> 
@@ -306,7 +306,7 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
                         </div>
                         <div className="flex flex-wrap my-2 justify-between"> 
                         <p className="text-xs text-[#677AB9]"> Total Unit (Rp) </p>
-                        <p className="text-xs"> Rp 850.000.000 </p> 
+                        <p className="text-xs"> {project.kebutuhanModal} </p> 
                         </div>
                         <div className="flex flex-wrap my-2 justify-between">
                             <p className="text-xs text-[#677AB9]">Periode Pengembalian:</p>
@@ -314,11 +314,11 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
                         </div>
                         <div className="flex flex-wrap my-2 justify-between">
                             <p className="text-xs text-[#677AB9]">Tenor:</p>
-                            <p className="text-xs">6 Bulan</p> 
+                            <p className="text-xs">{project.jangkaWaktu}</p> 
                         </div>
                         <div className="flex flex-wrap my-2 justify-between">
                             <p className="text-xs text-[#677AB9]">ROI (Proyeksi):</p> 
-                            <p className="text-xs">9.5% (19.01% p.a)</p>
+                            <p className="text-xs">{project.proyeksiROI}</p>
                         </div>
                     </div>
 
