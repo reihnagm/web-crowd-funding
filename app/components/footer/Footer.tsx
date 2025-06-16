@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
             <div className="container mx-auto px-6 md:px-20 grid grid-cols-1 md:grid-cols-5 gap-8">
              
                 <div className="space-y-4">
-                    <img src="/logo-footer.png" alt="MyApp Logo" className="h-12" />
+                    <img src="/images/img.jpg" alt="MyApp Logo" className="h-12" />
                     <ul className="space-y-2 text-sm">
                     <li><a href="#" className="hover:underline">Syarat dan Ketentuan</a></li>
                     <li><a href="#" className="hover:underline">Kebijakan Privasi</a></li>
@@ -25,9 +25,9 @@ const Footer: React.FC = () => {
                 <div className="space-y-2 text-sm">
                     <h4 className="font-semibold">INFORMASI</h4>
                     <ul className="space-y-2">
-                    <li><a href="#" className="hover:underline">Beranda</a></li>
-                    <li><a href="#" className="hover:underline">Daftar Bisnis</a></li>
-                    <li><a href="#" className="hover:underline">Tentang Kami</a></li>
+                    <li><a href="/" className="hover:underline">Beranda</a></li>
+                    <li><a href="/business-list" className="hover:underline">Daftar Bisnis</a></li>
+                    <li><a href="/about-us" className="hover:underline">Tentang Kami</a></li>
                     <li><a href="#" className="hover:underline">Pasar Sekunder</a></li>
                     <li><a href="#" className="hover:underline">Penerbit</a></li>
                     </ul>
@@ -50,9 +50,9 @@ const Footer: React.FC = () => {
                 </div>
 
                 {/* OJK & Sertifikat */}
-                <div className="container mx-auto px-6 md:px-20 mt-10 flex items-start justify-center space-x-6">
-                    <img src="/images/covered/ojk.png" alt="OJK" className="h-18" />
-                    <img src="/images/covered/iso.png" alt="ISO 27001:2013" className="h-18" />
+                <div className="flex items-start justify-center space-x-6">
+                    <img src="/images/covered/ojk.png" alt="OJK" className="h-12" />
+                    <img src="/images/covered/iso.png" alt="ISO 27001:2013"  className="h-12" />
                 </div>
 
             </div>

@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import Navbar from "@components/navbar/Navbar";
-import Footer from "@components/footer/Footer";
+import { useRouter } from "next/navigation";
 
 const Home: React.FC = () => {
+
+  const router = useRouter();
 
   const faqData = {
     Umum: [
@@ -113,7 +115,7 @@ const Home: React.FC = () => {
           untuk berinvestasi hari ini.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-40">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-24">
 
           {/* CARD - PROYEK BERAKHIR */}
           <div className="rounded-xl overflow-hidden shadow border">
@@ -130,7 +132,7 @@ const Home: React.FC = () => {
                 </span>
               </div>
             </div>
-            <div className="p-4 bg-gray-100">
+            <div className="p-4 bg-gray-100 h-full">
               <p className="font-semibold text-sm text-start mb-2">
                 PROYEK PENGADAAN MATERIAL DAN INSTALASI PERALATAN MITRA10 GARUT TAHUN 2024
               </p>
@@ -174,7 +176,7 @@ const Home: React.FC = () => {
                 </span>
               </div>
             </div>
-            <div className="p-4 bg-gray-100">
+            <div className="p-4 bg-gray-100 h-full">
               <p className="font-semibold text-sm text-start mb-2">
                 Jasa Pemeliharaan Perangkat Penunjang Infrastruktur Telekomunikasi Tower Bersama Group (TBG)
               </p>
@@ -182,6 +184,14 @@ const Home: React.FC = () => {
                 <li className="flex justify-between">
                   <span className="font-bold">Dana Terkumpul</span> 
                   <span className="font-bold">Rp 850.000.000</span>
+                </li>
+                <li>
+                  <div className="relative w-[77%] h-4 bg-purple-200 rounded-full my-2">
+                    <div className="absolute top-0 left-0 h-4 bg-[#3E268D] rounded-full" style={{ width: '100%' }}></div>
+                    <span className="absolute right-[-4px] top-1/2 -translate-y-1/2 translate-x-full bg-green-500 text-white text-xs font-bold px-2 rounded-full shadow">
+                      100%
+                    </span>
+                  </div>
                 </li>
                 <li className="flex justify-between">
                   <span>Kebutuhan Modal</span> 
@@ -218,7 +228,7 @@ const Home: React.FC = () => {
                 </span>
               </div>
             </div>
-            <div className="p-4 bg-gray-100">
+            <div className="p-4 bg-gray-100 h-full">
               <p className="font-semibold text-sm text-start mb-2">
                 Pembangunan Extention Bay Trafo Gardu Induk Balikpapan PT PLN Indonesia
               </p>
@@ -262,7 +272,7 @@ const Home: React.FC = () => {
                 </span>
               </div>
             </div>
-            <div className="p-4 bg-gray-100">
+            <div className="p-4 bg-gray-100 h-full">
               <p className="font-semibold text-sm text-start mb-2">
                 Renovasi Interior Resto M-Lounge
               </p>
@@ -293,7 +303,9 @@ const Home: React.FC = () => {
 
         </div>
 
-        <button className="bg-[#3C2B90] relative hover:bg-[#2d2171] text-white px-6 py-2 rounded-full font-semibold my-10">
+        <button onClick={() => {
+          router.push("/business-list")
+        }} className="bg-[#3C2B90] relative hover:bg-[#2d2171] text-white px-6 py-2 rounded-full font-semibold my-10">
           Lihat Proyek Selengkapnya
         </button>
 
@@ -327,23 +339,23 @@ const Home: React.FC = () => {
             <img src="/images/covered/dailysocialid.png" alt="Dailysocial" className="h-6" />
             <img src="/images/covered/bisnis.png" alt="Bisnis.com" className="h-6" />
           </div>
+
+          <h3 className="text-sm relative text-center font-bold text-gray-500 mt-10">DIDUKUNG OLEH</h3>
+
+          <div className="flex flex-wrap justify-center items-center gap-8 mt-6">
+            <img src="/images/supportby/kominfo.png" alt="Kominfo" className="h-32" />
+            <img src="/images/supportby/danamon.png" alt="Danamon" className="h-24" />
+            <img src="/images/supportby/aludi.png" alt="ALUDI" className="h-24" />
+            <img src="/images/supportby/ksei.png" alt="KSEI" className="h-24" />
+            <img src="/images/supportby/pse.png" alt="PSE" className="h-24" />
+            <img src="/images/supportby/pefindo.png" alt="PEFINDO" className="h-24" />
+            <img src="/images/supportby/rapidssl.png" alt="RapidSSL" className="h-24" />
+          </div>
          
         </div>
       </section>
 
-      <h3 className="text-sm relative text-center font-bold text-gray-500 mt-10">DIDUKUNG OLEH</h3>
-
-      <div className="flex flex-wrap justify-center items-center gap-8 mt-6">
-        <img src="/images/supportby/kominfo.png" alt="Kominfo" className="h-32" />
-        <img src="/images/supportby/danamon.png" alt="Danamon" className="h-24" />
-        <img src="/images/supportby/aludi.png" alt="ALUDI" className="h-24" />
-        <img src="/images/supportby/ksei.png" alt="KSEI" className="h-24" />
-        <img src="/images/supportby/pse.png" alt="PSE" className="h-24" />
-        <img src="/images/supportby/pefindo.png" alt="PEFINDO" className="h-24" />
-        <img src="/images/supportby/rapidssl.png" alt="RapidSSL" className="h-24" />
-      </div>
-
-      <section className="bg-gray-100 text-black py-16 px-6 md:px-20">
+      <section className="text-black py-16 px-6 md:px-20">
         <div className="text-center mb-10">
           <h2 className="relative text-2xl font-bold mb-2">FAQ</h2>
           <p className="relative text-sm text-gray-600">Pertanyaan yang sering ditanyakan</p>
@@ -355,7 +367,7 @@ const Home: React.FC = () => {
               key={tab}
               onClick={() => {
                 setActiveTab(tab);
-                setOpenIndex(null); // close all on tab switch
+                setOpenIndex(null); 
               }}
               className={`px-6 py-2 relative cursor-pointer rounded-full font-semibold transition-all duration-300 ${
                 activeTab === tab

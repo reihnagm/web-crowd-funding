@@ -202,8 +202,6 @@ const AboutUs: React.FC = () => {
                 </div>
             </section>
 
-        <Footer />
-
         </main>
     );
 };

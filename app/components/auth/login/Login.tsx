@@ -19,7 +19,7 @@ const Login: React.FC = () => {
   return (
     <div className="w-1/2  bg-white px-6 md:px-20 py-10">
       <div className="flex justify-between items-center mb-10">
-        <img src="https://www.shutterstock.com/image-vector/image-icon-trendy-flat-style-600nw-643080895.jpg" alt="MyApp Logo" className="w-20 h-20" />
+        <img src="/images/img.jpg" alt="MyApp Logo" className="w-20 h-20" />
         <a href="/">
           <button className="text-[#321B87] font-bold text-sm">&lt; Kembali Ke Beranda</button>
         </a>

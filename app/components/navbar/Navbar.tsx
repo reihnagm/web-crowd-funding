@@ -35,8 +35,8 @@ const Navbar: React.FC = () => {
                         Daftar Bisnis
                     </a>
                 </li>
-                <li className={pathname == "/aboutus" ? "text-[#4CD137]" : ""}>
-                    <a href="/aboutus">
+                <li className={pathname == "/about-us" ? "text-[#4CD137]" : ""}>
+                    <a href="/about-us">
                         Tentang Kami
                     </a>
                 </li>
@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
                     <a href="/auth/login">
                         <button
                             className={`px-5 py-2 rounded-full ${
-                            isSticky ? "bg-[#4CD137] text-white" : "bg-[#4CD137] text-white"
+                                isSticky ? "bg-[#4CD137] text-white" : "bg-[#4CD137] text-white"
                             }`}
                         >
                             Masuk

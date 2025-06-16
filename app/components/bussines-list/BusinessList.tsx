@@ -82,6 +82,7 @@ const projects: Project[] = [
 
 const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   const bgColor = project.statusColor === 'purple' ? 'bg-purple-900 text-purple-800' : 'bg-green-700 text-green-700';
+  const isFinish = project.status === 'Proyek Berjalan' ? "block" : "hidden"
 
   return (
     <div className="rounded-xl overflow-hidden shadow border">
@@ -94,12 +95,20 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
           </span>
         </div>
       </div>
-      <div className="p-4 bg-gray-100">
+      <div className="p-4 bg-gray-100 h-full">
         <p className="font-semibold text-sm text-start mb-2">{project.title}</p>
         <ul className="text-xs my-4 space-y-1">
           <li className="flex justify-between font-bold">
             <span>Dana Terkumpul</span>
             <span>{project.danaTerkumpul}</span>
+          </li>
+          <li className={isFinish}>
+            <div className="relative w-[80%] h-4 bg-purple-200 rounded-full my-2">
+              <div className="absolute top-0 left-0 h-4 bg-[#3E268D] rounded-full" style={{ width: '100%' }}></div>
+              <span className="absolute right-[-4px] top-1/2 -translate-y-1/2 translate-x-full bg-green-500 text-white text-xs font-bold px-2 rounded-full shadow">
+                100%
+              </span>
+            </div>
           </li>
           <li className="flex justify-between">
             <span>Kebutuhan Modal</span>
