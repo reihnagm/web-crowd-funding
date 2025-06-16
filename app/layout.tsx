@@ -11,6 +11,7 @@ import localFont from "next/font/local";
 
 import ModalLogout from "@components/modal/logout/Logout";
 import Footer from "@components/footer/Footer";
+import Navbar from "@components/navbar/Navbar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -43,14 +44,15 @@ export default function RootLayout({
                   </div>
                 ) 
               : ( 
-                  <div className="min-h-screen text-white relative overflow-hidden flex flex-col">
+                  <main className="min-h-screen text-white relative overflow-hidden flex flex-col">
+                    <Navbar />
                     <div className="flex flex-1">
                       <div className="flex-grow">
                         {children}
                       </div>
                     </div>
                     <Footer />
-                  </div>
+                  </main>
                 ) 
               }
               <ModalLogout />

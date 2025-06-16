@@ -1,8 +1,6 @@
 'use client';
 
 import React, { useState } from "react";
-import Navbar from "@components/navbar/Navbar";
-import Footer from "@components/footer/Footer";
 
 const AboutUs: React.FC = () => {
 
@@ -30,35 +28,32 @@ const AboutUs: React.FC = () => {
     };
 
     return (
-        <main className="min-h-screen text-white relative overflow-hidden">
-            <Navbar />
-
+        <div>
             {selectedMember && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
                     <div className="bg-white rounded-lg p-6 w-11/12 md:w-2/3 max-w-lg relative">
-                    <button
-                        className="absolute text-black top-2 right-4 text-2xl font-bold"
-                        onClick={() => setSelectedMember(null)}
-                    >
-                        &times;
-                    </button>
-                    <div className="text-center">
-                        <img
-                        src={memberDetails[selectedMember].img}
-                        alt={memberDetails[selectedMember].name}
-                        className="w-28 h-28 rounded-full mx-auto object-cover mb-4"
-                        />
-                        <h3 className="text-xl text-black font-bold">{memberDetails[selectedMember].name}</h3>
-                        <p className="text-green-500 font-medium">{memberDetails[selectedMember].title}</p>
-                        <p className="mt-4 text-sm text-gray-700 whitespace-pre-line">
-                            {memberDetails[selectedMember].description}
-                        </p>
-                    </div>
+                        <button
+                            className="absolute text-black top-2 right-4 text-2xl font-bold"
+                            onClick={() => setSelectedMember(null)}
+                        >
+                            &times;
+                        </button>
+                        <div className="text-center">
+                            <img
+                            src={memberDetails[selectedMember].img}
+                            alt={memberDetails[selectedMember].name}
+                            className="w-28 h-28 rounded-full mx-auto object-cover mb-4"
+                            />
+                            <h3 className="text-xl text-black font-bold">{memberDetails[selectedMember].name}</h3>
+                            <p className="text-green-500 font-medium">{memberDetails[selectedMember].title}</p>
+                            <p className="mt-4 text-sm text-gray-700 whitespace-pre-line">
+                                {memberDetails[selectedMember].description}
+                            </p>
+                        </div>
                     </div>
                 </div>
             )}
 
-            {/* KOMITMEN KAMI Section */}
             <section className="w-full bg-[#4821C1] grid grid-cols-1 md:grid-cols-2 items-center px-10 md:px-20 py-40">
                 <div className="space-y-4 z-10 relative">
                     <h1 className="text-3xl md:text-4xl font-bold leading-tight text-green-500">KOMITMEN KAMI</h1>
@@ -89,7 +84,6 @@ const AboutUs: React.FC = () => {
                 </div>
             </section>
 
-            {/* New Section: Penerbit - MyApp - Pemodal */}
             <section className="w-full bg-[#1A104D] px-10 md:px-20 py-28">
                 <h2 className="text-3xl md:text-4xl font-bold text-center text-green-500 mb-16">MyApp</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
@@ -202,7 +196,7 @@ const AboutUs: React.FC = () => {
                 </div>
             </section>
 
-        </main>
+        </div>
     );
 };
 

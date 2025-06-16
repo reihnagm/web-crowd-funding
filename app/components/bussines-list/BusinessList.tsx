@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Navbar from '@components/navbar/Navbar';
 import { X } from "lucide-react";
 
 type Project = {
@@ -141,7 +140,6 @@ const BussinesList: React.FC = () => {
 
     return (
         <div>
-            <Navbar />
 
             {/* Modal */}
             {isModalOpen && (

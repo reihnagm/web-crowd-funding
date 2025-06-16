@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from "react";
-import Navbar from "@components/navbar/Navbar";
 import { useRouter } from "next/navigation";
 
 const Home: React.FC = () => {
@@ -54,8 +53,6 @@ const Home: React.FC = () => {
 
   return (
     <div>
-
-      <Navbar />
       
       {/* Hero Section */}
       <section className="bg-[#4821C1] rounded-b-5xl grid grid-cols-1 md:grid-cols-2 items-center px-10 md:px-20 py-40">
@@ -118,7 +115,10 @@ const Home: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-24">
 
           {/* CARD - PROYEK BERAKHIR */}
-          <div className="rounded-xl overflow-hidden shadow border">
+          <div onClick={() => {
+              router.push("/sukuk")
+            }} 
+            className="rounded-xl overflow-hidden shadow cursor-pointer border">
             <div className="relative h-40">
               <img
                 src="/images/mitra.jpg"
@@ -162,7 +162,10 @@ const Home: React.FC = () => {
           </div>
 
           {/* CARD - PROYEK BERJALAN */}
-          <div className="rounded-xl relative overflow-hidden shadow border">
+          <div onClick={() => {
+              router.push("/sukuk")
+            }}  
+            className="rounded-xl relative overflow-hidden shadow cursor-pointer border">
             <div className="relative h-40">
               <img
                 src="/images/tower.jpg"
@@ -214,7 +217,10 @@ const Home: React.FC = () => {
           </div>
 
           {/* CARD - PROYEK BERAKHIR */}
-          <div className="rounded-xl overflow-hidden shadow border">
+          <div onClick={() => {
+              router.push("/sukuk")
+            }} 
+            className="rounded-xl overflow-hidden shadow cursor-pointer border">
             <div className="relative h-40">
               <img
                 src="/images/pln.jpg"
@@ -258,7 +264,10 @@ const Home: React.FC = () => {
           </div>
 
           {/* CARD - PROYEK BERAKHIR */}
-          <div className="rounded-xl overflow-hidden shadow border">
+          <div onClick={() => {
+              router.push("/sukuk")
+            }} 
+            className="rounded-xl overflow-hidden shadow cursor-pointer border">
             <div className="relative h-40">
               <img
                 src="/images/resto.jpg"
@@ -478,7 +487,7 @@ const Home: React.FC = () => {
       </section>
 
       <div className="fixed bottom-4 right-4 z-50">
-        <button className="flex items-center bg-[#4CD137] text-white px-4 py-2 rounded-full shadow-lg">
+        <button className="flex items-center bg-[#4CD137] text-white px-4 py-2 font-bold rounded-full shadow-lg">
           <img src="/images/wa.png" alt="WA" className="w-5 h-5 mr-2" />
           Butuh Bantuan?
         </button>
