@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { X } from "lucide-react";
+import { useRouter } from 'next/navigation';
 
 type Project = {
   image: string;
@@ -80,11 +81,16 @@ const projects: Project[] = [
 ];
 
 const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
+
+  const router = useRouter();
+
   const bgColor = project.statusColor === 'purple' ? 'bg-purple-900 text-purple-800' : 'bg-green-700 text-green-700';
   const isFinish = project.status === 'Proyek Berjalan' ? "block" : "hidden"
 
   return (
-    <div className="rounded-xl overflow-hidden shadow border">
+    <div onClick={() => {
+        router.push("/sukuk")
+      }} className="rounded-xl cursor-pointer overflow-hidden shadow border">
       <div className="relative h-40">
         <img src={project.image} alt={project.alt} className="object-cover w-full h-full" />
         <div className={`absolute inset-0 ${project.statusColor === 'purple' ? 'bg-purple-900' : 'bg-green-700'} bg-opacity-60`} />

@@ -3,16 +3,33 @@
 import React, { useState } from "react";
 import { X } from "lucide-react";
 
+import type { Swiper as SwiperType } from 'swiper'
+
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Thumbs } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
+
 const Sukuk: React.FC = () => {
     const [showModal, setShowModal] = useState(false);
+    const [showLocationModal, setShowLocationModal] = useState(false);
+
     const [mode, setMode] = useState<"unit" | "nominal">("unit");
     const [unit, setUnit] = useState(1);
     const [nominalInput, setNominalInput] = useState("");
+
+    const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null)
 
     const hargaUnit = 100000;
     const nominal = unit * hargaUnit;
     const roi = 0.095;
     const keuntungan = nominal * roi;
+
+    const images = [
+        { src: '/images/tower.jpg', tags: ['Efek Bersifat Utang', 'Proyek Berakhir'] },
+        { src: '/images/resto.jpg', tags: ['Efek Bersifat Utang', 'Proyek Berakhir'] },
+        { src: '/images/mitra.jpg', tags: ['Efek Bersifat Utang', 'Proyek Berakhir'] },
+    ]
 
     const handleInputChange = (value: string) => {
         const numeric = value.replace(/[^\d]/g, ""); 
@@ -24,13 +41,11 @@ const Sukuk: React.FC = () => {
         }
     };
 
-    const formattedNominal = new Intl.NumberFormat("id-ID").format(nominal);
     const formattedKeuntungan = new Intl.NumberFormat("id-ID").format(keuntungan);
         
     return (
         <section className="py-28 px-4 md:px-12">
 
-            {/* Modal */}
             {showModal && (
                 <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center">
                     <div className="bg-white w-full max-w-md rounded-xl p-6 relative shadow-xl">
@@ -48,14 +63,14 @@ const Sukuk: React.FC = () => {
                                 <button
                                     onClick={() => setMode("unit")}
                                     className={`px-3 py-1 rounded-full border text-sm ${
-                                        mode === "unit" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-600"
+                                        mode === "unit" ? "bg-[#3E268D] text-white" : "bg-gray-100 text-gray-600"
                                     }`}>
                                     Unit
                                 </button>
                                 <button
                                     onClick={() => setMode("nominal")}
                                     className={`px-3 py-1 rounded-full border text-sm ${
-                                        mode === "nominal" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-600"
+                                        mode === "nominal" ? "bg-[#3E268D] text-white" : "bg-gray-100 text-gray-600"
                                     }`}
                                 >
                                 Nominal (Rp)
@@ -98,23 +113,108 @@ const Sukuk: React.FC = () => {
                     </div>
                 </div>
             )}
+
+            {showLocationModal && (
+                <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center">
+                    <div className="bg-white w-full max-w-lg rounded-xl p-6 relative shadow-xl">
+                    <button
+                        onClick={() => setShowLocationModal(false)}
+                        className="absolute right-4 top-4 text-gray-400 hover:text-gray-700"
+                    >
+                        <X />
+                    </button>
+
+                    <h2 className="text-xl font-semibold mb-4 flex items-center gap-2 text-black">
+                        📍 Lokasi
+                    </h2>
+
+                    <p className="text-sm text-black mb-4">
+                        Blok, Jl. Komp. BSD Blok Rp No.90, Lengkong Wetan, Serpong Sub-District,
+                        South Tangerang City, Banten 15310
+                    </p>
+
+                    <div className="bg-gray-100 rounded-lg px-4 py-2 flex justify-between items-center text-sm mb-4">
+                        <input
+                        type="text"
+                        value="https://maps.app.goo.gl/Zcm3fjeKTwzKN9Qs9"
+                        readOnly
+                        className="bg-transparent w-full outline-none text-black"
+                        />
+                        <button
+                            onClick={() => navigator.clipboard.writeText("https://maps.app.goo.gl/Zcm3fjeKTwzKN9Qs9")}
+                            className="ml-2 px-2 py-1 text-sm bg-[#677AB9] hover:bg-[#2a1a6a] text-white rounded"
+                        >
+                        Salin
+                        </button>
+                    </div>
+                    <a
+                        href="https://maps.app.goo.gl/Zcm3fjeKTwzKN9Qs9"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block text-center text-sm w-full bg-[#677AB9] hover:bg-[#2a1a6a] text-white py-2 rounded-lg font-semibold"
+                    >
+                        Go To Maps
+                    </a>
+                    </div>
+                </div>
+            )}
     
             <div className="grid md:grid-cols-2 gap-8">
+                
                 <div>
                     <div className="relative rounded-xl overflow-hidden">
-                        <img
-                        src="/images/tower.jpg"
-                        alt="Tower Maintenance"
-                        className="w-full h-64 object-cover"
-                        />
-                        <div className="absolute top-2 left-2 flex gap-2">
-                        <span className="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">
-                            Efek Bersifat Utang
-                        </span>
-                        <span className="bg-indigo-800 text-white text-xs font-bold px-3 py-1 rounded-full">
-                            Proyek Berakhir
-                        </span>
-                        </div>
+                        <Swiper
+                            modules={[Navigation, Thumbs]}
+                            navigation
+                            spaceBetween={10}
+                            thumbs={{ swiper: thumbsSwiper }}
+                            slidesPerView={1}
+                            className="rounded-xl"
+                        >
+                        {images.map((item, idx) => (
+                            <SwiperSlide key={idx}>
+                                <div className="relative">
+                                    <img
+                                    src={item.src}
+                                    alt={`Slide ${idx + 1}`}
+                                    className="w-full h-64 object-cover"
+                                    />
+                                    <div className="absolute top-2 left-2 flex gap-2 flex-wrap">
+                                    {item.tags.map((tag, i) => (
+                                        <span
+                                        key={i}
+                                        className={`text-white text-xs font-bold px-3 py-1 rounded-full ${
+                                            i === 0 ? 'bg-red-600' : 'bg-indigo-800'
+                                        }`}
+                                        >
+                                        {tag}
+                                        </span>
+                                    ))}
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                        </Swiper>
+                    </div>
+
+                    <div className="mt-4">
+                        <Swiper
+                            onSwiper={setThumbsSwiper}
+                            spaceBetween={10}
+                            slidesPerView={3}
+                            watchSlidesProgress
+                            className="cursor-pointer"
+                        >
+                            {images.map((item, idx) => (
+                                <SwiperSlide key={idx}>
+                                <img
+                                    src={item.src}
+                                    alt={`Thumbnail ${idx + 1}`}
+                                    className="w-full h-20 object-cover rounded-md border-2 border-transparent hover:border-blue-500 transition"
+                                />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
                     </div>
 
                     <div className="mt-6">
@@ -122,17 +222,19 @@ const Sukuk: React.FC = () => {
                         <p className="text-sm mb-4">
                         Penerbitan Efek Bersifat Utang ini akan digunakan oleh <strong>PT PAMENGKANG JAGAT ABADI</strong> untuk penguatan modal kerja dalam rangka proyek Jasa Pemeliharaan Perangkat Penunjang Infrastruktur Telekomunikasi Tower Bersama Group (TBG).
                         </p>
-                        <p className="text-black text-sm">Lokasi proyek yang dijadikan dasar penerbitan obligasi ini adalah pada site area :</p>
+                        <p className="text-black text-sm">
+                        Lokasi proyek yang dijadikan dasar penerbitan obligasi ini adalah pada site area :
+                        </p>
                         <ul className="list-decimal list-inside text-black text-sm mb-4">
-                            <li>JABODETABEK INNER</li>
-                            <li>JABODETABEK OUTER SERANG</li>
-                            <li>JABODETABEK OUTER TANGERANG</li>
+                        <li>JABODETABEK INNER</li>
+                        <li>JABODETABEK OUTER SERANG</li>
+                        <li>JABODETABEK OUTER TANGERANG</li>
                         </ul>
                         <p className="text-sm mb-4">
                         Pekerjaan dilakukan sejak 1 Januari 2024 s/d 31 Desember 2024
                         </p>
                         <p className="text-sm">
-                            <strong>PT PAMENGKANG JAGAT ABADI</strong> didirikan pada tahun 2004, merupakan perusahaan kontraktor sipil dan pemeliharaan tower yang menyediakan solusi terintegrasi.
+                        <strong>PT PAMENGKANG JAGAT ABADI</strong> didirikan pada tahun 2004, merupakan perusahaan kontraktor sipil dan pemeliharaan tower yang menyediakan solusi terintegrasi.
                         </p>
                     </div>
                 </div>
@@ -172,11 +274,23 @@ const Sukuk: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-lg p-2 flex justify-evenly text-xs text-center py-2">
-                        <span className="text-black font-bold">Prelisting</span>
-                        <span className="text-black font-bold">Listing</span>
-                        <span className="text-black font-bold">Pendanaan Terpenuhi</span>
-                        <span className="text-black font-bold">Berjalan</span>
+                    <div className="bg-white rounded-lg p-2 flex justify-evenly">
+                        <div className="flex gap-1 flex-col items-center">
+                            <div className="rounded-full w-4 h-4 flex items-center justify-center bg-[#3E268D] text-white"></div>
+                            <div className="text-xs text-center font-medium text-gray-900">Prelisting</div>
+                        </div>
+                         <div className="flex gap-1 flex-col items-center">
+                            <div className="rounded-full w-4 h-4 flex items-center justify-center bg-[#3E268D] text-white"></div>
+                            <div className="text-xs text-center font-medium text-gray-900">Listing</div>
+                        </div>
+                        <div className="flex gap-1 flex-col items-center">
+                            <div className="rounded-full w-4 h-4 flex items-center justify-center bg-[#3E268D] text-white"></div>
+                            <div className="text-xs text-center font-medium text-gray-900">Pendanaan Terpenuhi</div>
+                        </div>
+                         <div className="flex gap-1 flex-col items-center">
+                            <div className="rounded-full w-4 h-4 flex items-center justify-center bg-[#3E268D] text-white"></div>
+                            <div className="text-xs text-center font-medium text-gray-900">Berjalan</div>
+                        </div>
                     </div>
 
                     <div className="bg-white p-2 rounded-lg">
@@ -215,10 +329,10 @@ const Sukuk: React.FC = () => {
                     </div>
 
                     <div className="flex flex-wrap justify-evenly gap-4 mt-4 text-sm">
-                        <button  onClick={() => setShowModal(true)} className="bg-white text-black border px-4 py-2 rounded-md">Simulasi</button>
-                        <button className="bg-white text-black border px-4 py-2 rounded-md">Bagikan</button>
-                        <button className="bg-white text-black border px-4 py-2 rounded-md">Proposal</button>
-                        <button className="bg-white text-black border px-4 py-2 rounded-md">Lokasi</button>
+                        <button onClick={() => setShowModal(true)} className="bg-white text-xs text-black border px-4 py-2 rounded-md">Simulasi</button>
+                        <button className="bg-white text-xs text-black border px-4 py-2 rounded-md">Bagikan</button>
+                        <button className="bg-white text-xs text-black border px-4 py-2 rounded-md">Proposal</button>
+                        <button onClick={() => setShowLocationModal(true)}  className="bg-white text-xs text-black border px-4 py-2 rounded-md">Lokasi</button>
                     </div>
 
                     <button className="w-full bg-gray-300 text-white font-semibold py-2 rounded-md mt-4 cursor-not-allowed">
