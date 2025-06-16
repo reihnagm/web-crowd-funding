@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-        setIsSticky(window.scrollY > 50);
+            setIsSticky(window.scrollY > 50);
         };
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
@@ -41,12 +41,12 @@ const Navbar: React.FC = () => {
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="#">
                         Pasar Sekunder
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="#">
                         Penerbit
                     </a>
                 </li>

@@ -3,9 +3,141 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
+export const projects: Project[] = [
+  {
+    id: "55a56329-b1eb-438b-bd9e-111b5f191ad7",
+    medias: [
+      {
+        id: 1,
+        path: "/images/tower.jpg"
+      }
+    ],
+    alt: 'Mitra10 Garut',
+    status: 'Proyek Berakhir',
+    statusColor: 'purple',
+    title: 'PROYEK PENGADAAN MATERIAL DAN INSTALASI PERALATAN MITRA10 GARUT TAHUN 2024',
+    danaTerkumpul: 'Rp 500.000.000',
+    kebutuhanModal: 'Rp 500.000.000',
+    minimalInvestasi: 'Rp 1.000.000',
+    jangkaWaktu: '2 Bulan',
+    proyeksiROI: '4% (24% p.a)',
+  },
+  {
+    id: "0116a33a-6ec7-4c2b-9300-f4445007daa5",
+    medias: [
+      {
+        id: 1,
+        path: "/images/tower.jpg"
+      }
+    ],
+    alt: 'Tower Bersama Group',
+    status: 'Proyek Berjalan',
+    statusColor: 'green',
+    title: 'Jasa Pemeliharaan Perangkat Penunjang Infrastruktur Telekomunikasi Tower Bersama Group (TBG)',
+    danaTerkumpul: 'Rp 850.000.000',
+    kebutuhanModal: 'Rp 850.000.000',
+    minimalInvestasi: 'Rp 1.000.000',
+    jangkaWaktu: '6 Bulan',
+    proyeksiROI: '9.5% (19.01% p.a)',
+  },
+  {
+    id: "aeb6ed04-64cd-4171-a6e3-3234541dcffe",
+    medias: [
+      {
+        id: 1,
+        path: "/images/tower.jpg"
+      }
+    ],
+    alt: 'PLN Balikpapan',
+    status: 'Proyek Berakhir',
+    statusColor: 'purple',
+    title: 'Pembangunan Extention Bay Trafo Gardu Induk Balikpapan PT PLN Indonesia',
+    danaTerkumpul: 'Rp 300.000.000',
+    kebutuhanModal: 'Rp 300.000.000',
+    minimalInvestasi: 'Rp 1.000.000',
+    jangkaWaktu: '2 Bulan',
+    proyeksiROI: '18% p.a',
+  },
+  {
+    id: "879301b3-d18a-42f4-a7a8-4c09d1c98816",
+    medias: [
+      {
+        id: 1,
+        path: "/images/tower.jpg"
+      }
+    ],
+    alt: 'Renovasi Resto M-Lounge',
+    status: 'Proyek Berakhir',
+    statusColor: 'purple',
+    title: 'Renovasi Interior Resto M-Lounge',
+    danaTerkumpul: 'Rp 400.000.000',
+    kebutuhanModal: 'Rp 400.000.000',
+    minimalInvestasi: 'Rp 1.000.000',
+    jangkaWaktu: '12 Bulan',
+    proyeksiROI: '18% p.a',
+  },
+];
+
 const Home: React.FC = () => {
 
   const router = useRouter();
+
+  const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
+  
+    const router = useRouter();
+  
+    const bgColor = project.statusColor === 'purple' ? 'bg-purple-900 text-purple-800' : 'bg-green-700 text-green-700';
+    const isFinish = project.status === 'Proyek Berjalan' ? "block" : "hidden"
+  
+    return (
+      <div onClick={() => {
+        router.push(`/sukuk/${project.id}`)
+      }} className="rounded-xl cursor-pointer overflow-hidden shadow border">
+        <div className="relative h-40">
+          <img src={project.medias.length != 0 ? project.medias[0].path : "/images/img.jpg"} alt={project.alt} className="object-cover w-full h-full" />
+          <div className={`absolute inset-0 ${project.statusColor === 'purple' ? 'bg-purple-900' : 'bg-green-700'} bg-opacity-60`} />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <span className={`bg-white ${bgColor} text-xs font-bold px-4 py-1 rounded-full shadow`}>
+              {project.status}
+            </span>
+          </div>
+        </div>
+        <div className="p-4 bg-gray-100 h-full">
+          <p className="font-semibold text-sm text-start mb-2">{project.title}</p>
+          <ul className="text-xs my-4 space-y-1">
+            <li className="flex justify-between font-bold">
+              <span>Dana Terkumpul</span>
+              <span>{project.danaTerkumpul}</span>
+            </li>
+            <li className={isFinish}>
+              <div className="relative w-[80%] h-4 bg-purple-200 rounded-full my-2">
+                <div className="absolute top-0 left-0 h-4 bg-[#3E268D] rounded-full" style={{ width: '100%' }}></div>
+                <span className="absolute right-[-4px] top-1/2 -translate-y-1/2 translate-x-full bg-green-500 text-white text-xs font-bold px-2 rounded-full shadow">
+                  100%
+                </span>
+              </div>
+            </li>
+            <li className="flex justify-between">
+              <span>Kebutuhan Modal</span>
+              <span>{project.kebutuhanModal}</span>
+            </li>
+            <li className="flex justify-between">
+              <span>Minimal Investasi</span>
+              <span>{project.minimalInvestasi}</span>
+            </li>
+            <li className="flex justify-between">
+              <span>Jangka Waktu</span>
+              <span>{project.jangkaWaktu}</span>
+            </li>
+            <li className="flex justify-between">
+              <span>Proyeksi ROI</span>
+              <span>{project.proyeksiROI}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    );
+  };
 
   const faqData = {
     Umum: [
@@ -113,203 +245,9 @@ const Home: React.FC = () => {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-24">
-
-          {/* CARD - PROYEK BERAKHIR */}
-          <div onClick={() => {
-              router.push("/sukuk")
-            }} 
-            className="rounded-xl overflow-hidden shadow cursor-pointer border">
-            <div className="relative h-40">
-              <img
-                src="/images/mitra.jpg"
-                alt="Mitra10"
-                className="object-cover w-full h-full"
-              />
-              <div className="absolute inset-0 bg-purple-900 bg-opacity-60"></div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <span className="bg-white text-purple-800 text-xs font-bold px-4 py-1 rounded-full shadow">
-                  Proyek Berakhir
-                </span>
-              </div>
-            </div>
-            <div className="p-4 bg-gray-100 h-full">
-              <p className="font-semibold text-sm text-start mb-2">
-                PROYEK PENGADAAN MATERIAL DAN INSTALASI PERALATAN MITRA10 GARUT TAHUN 2024
-              </p>
-              <ul className="text-xs my-4 space-y-1">
-                <li className="flex justify-between">
-                  <span className="font-bold">Dana Terkumpul</span> 
-                  <span className="font-bold">Rp 500.000.000</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Kebutuhan Modal</span> 
-                  <span>Rp 500.000.000</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Minimal Investasi</span> 
-                  <span>Rp 1.000.000</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Jangka Waktu</span> 
-                  <span>2 Bulan</span>
-                </li>
-                 <li className="flex justify-between">
-                  <span>Proyeksi ROI</span> 
-                  <span>4%(24% p.a)</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* CARD - PROYEK BERJALAN */}
-          <div onClick={() => {
-              router.push("/sukuk")
-            }}  
-            className="rounded-xl relative overflow-hidden shadow cursor-pointer border">
-            <div className="relative h-40">
-              <img
-                src="/images/tower.jpg"
-                alt="Tower Bersama"
-                className="object-cover w-full h-full"
-              />
-              <div className="absolute inset-0 bg-green-700 bg-opacity-60"></div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <span className="bg-white text-green-700 text-xs font-bold px-4 py-1 rounded-full shadow">
-                  Proyek Berjalan
-                </span>
-              </div>
-            </div>
-            <div className="p-4 bg-gray-100 h-full">
-              <p className="font-semibold text-sm text-start mb-2">
-                Jasa Pemeliharaan Perangkat Penunjang Infrastruktur Telekomunikasi Tower Bersama Group (TBG)
-              </p>
-              <ul className="text-xs my-4 space-y-1">
-                <li className="flex justify-between">
-                  <span className="font-bold">Dana Terkumpul</span> 
-                  <span className="font-bold">Rp 850.000.000</span>
-                </li>
-                <li>
-                  <div className="relative w-[77%] h-4 bg-purple-200 rounded-full my-2">
-                    <div className="absolute top-0 left-0 h-4 bg-[#3E268D] rounded-full" style={{ width: '100%' }}></div>
-                    <span className="absolute right-[-4px] top-1/2 -translate-y-1/2 translate-x-full bg-green-500 text-white text-xs font-bold px-2 rounded-full shadow">
-                      100%
-                    </span>
-                  </div>
-                </li>
-                <li className="flex justify-between">
-                  <span>Kebutuhan Modal</span> 
-                  <span>Rp 850.000.000</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Minimal Investasi</span> 
-                  <span>Rp 1.000.000</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Jangka Waktu</span> 
-                  <span>6 Bulan</span>
-                </li>
-                 <li className="flex justify-between">
-                  <span>Proyeksi ROI</span> 
-                  <span>9.5%(19.01% p.a)</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* CARD - PROYEK BERAKHIR */}
-          <div onClick={() => {
-              router.push("/sukuk")
-            }} 
-            className="rounded-xl overflow-hidden shadow cursor-pointer border">
-            <div className="relative h-40">
-              <img
-                src="/images/pln.jpg"
-                alt="Mitra10"
-                className="object-cover w-full h-full"
-              />
-              <div className="absolute inset-0 bg-purple-900 bg-opacity-60"></div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <span className="bg-white text-purple-800 text-xs font-bold px-4 py-1 rounded-full shadow">
-                  Proyek Berakhir
-                </span>
-              </div>
-            </div>
-            <div className="p-4 bg-gray-100 h-full">
-              <p className="font-semibold text-sm text-start mb-2">
-                Pembangunan Extention Bay Trafo Gardu Induk Balikpapan PT PLN Indonesia
-              </p>
-              <ul className="text-xs my-4 space-y-1">
-                <li className="flex justify-between">
-                  <span className="font-bold">Dana Terkumpul</span> 
-                  <span className="font-bold">Rp 300.000.000</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Kebutuhan Modal</span> 
-                  <span>Rp 300.000.000</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Minimal Investasi</span> 
-                  <span>Rp 1.000.000</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Jangka Waktu</span> 
-                  <span>2 Bulan</span>
-                </li>
-                 <li className="flex justify-between">
-                  <span>Proyeksi ROI</span> 
-                  <span>18% p.a</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* CARD - PROYEK BERAKHIR */}
-          <div onClick={() => {
-              router.push("/sukuk")
-            }} 
-            className="rounded-xl overflow-hidden shadow cursor-pointer border">
-            <div className="relative h-40">
-              <img
-                src="/images/resto.jpg"
-                alt="Mitra10"
-                className="object-cover w-full h-full"
-              />
-              <div className="absolute inset-0 bg-purple-900 bg-opacity-60"></div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <span className="bg-white text-purple-800 text-xs font-bold px-4 py-1 rounded-full shadow">
-                  Proyek Berakhir
-                </span>
-              </div>
-            </div>
-            <div className="p-4 bg-gray-100 h-full">
-              <p className="font-semibold text-sm text-start mb-2">
-                Renovasi Interior Resto M-Lounge
-              </p>
-              <ul className="text-xs my-4 space-y-1">
-                <li className="flex justify-between">
-                  <span className="font-bold">Dana Terkumpul</span> 
-                  <span className="font-bold">Rp 400.000.000</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Kebutuhan Modal</span> 
-                  <span>Rp 400.000.000</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Minimal Investasi</span> 
-                  <span>Rp 1.000.000</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Jangka Waktu</span> 
-                  <span>12 Bulan</span>
-                </li>
-                 <li className="flex justify-between">
-                  <span>Proyeksi ROI</span> 
-                  <span>18% p.a</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
+          {projects.map((project, index) => (
+            <ProjectCard key={index} project={project} />
+          ))}
         </div>
 
         <button onClick={() => {

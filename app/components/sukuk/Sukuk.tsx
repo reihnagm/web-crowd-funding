@@ -10,7 +10,7 @@ import { Navigation, Thumbs } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
-const Sukuk: React.FC = () => {
+const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
     const [showModal, setShowModal] = useState(false);
     const [showLocationModal, setShowLocationModal] = useState(false);
 
@@ -24,12 +24,6 @@ const Sukuk: React.FC = () => {
     const nominal = unit * hargaUnit;
     const roi = 0.095;
     const keuntungan = nominal * roi;
-
-    const images = [
-        { src: '/images/tower.jpg', tags: ['Efek Bersifat Utang', 'Proyek Berakhir'] },
-        { src: '/images/resto.jpg', tags: ['Efek Bersifat Utang', 'Proyek Berakhir'] },
-        { src: '/images/mitra.jpg', tags: ['Efek Bersifat Utang', 'Proyek Berakhir'] },
-    ]
 
     const handleInputChange = (value: string) => {
         const numeric = value.replace(/[^\d]/g, ""); 
@@ -171,16 +165,16 @@ const Sukuk: React.FC = () => {
                             slidesPerView={1}
                             className="rounded-xl"
                         >
-                        {images.map((item, idx) => (
+                        {project.medias.map((item, idx) => (
                             <SwiperSlide key={idx}>
                                 <div className="relative">
                                     <img
-                                    src={item.src}
+                                    src={item.path}
                                     alt={`Slide ${idx + 1}`}
                                     className="w-full h-64 object-cover"
                                     />
                                     <div className="absolute top-2 left-2 flex gap-2 flex-wrap">
-                                    {item.tags.map((tag, i) => (
+                                    {/* {item.tags.map((tag, i) => (
                                         <span
                                         key={i}
                                         className={`text-white text-xs font-bold px-3 py-1 rounded-full ${
@@ -189,7 +183,7 @@ const Sukuk: React.FC = () => {
                                         >
                                         {tag}
                                         </span>
-                                    ))}
+                                    ))} */}
                                     </div>
                                 </div>
                             </SwiperSlide>
@@ -205,10 +199,10 @@ const Sukuk: React.FC = () => {
                             watchSlidesProgress
                             className="cursor-pointer"
                         >
-                            {images.map((item, idx) => (
+                            {project.medias.map((item, idx) => (
                                 <SwiperSlide key={idx}>
                                 <img
-                                    src={item.src}
+                                    src={item.path}
                                     alt={`Thumbnail ${idx + 1}`}
                                     className="w-full h-20 object-cover rounded-md border-2 border-transparent hover:border-blue-500 transition"
                                 />
@@ -243,7 +237,7 @@ const Sukuk: React.FC = () => {
 
                     <div className="bg-white rounded-lg p-2">
                         <h3 className="text-xl text-black font-bold">
-                            Jasa Pemeliharaan Perangkat Penunjang Infrastruktur Telekomunikasi Tower Bersama Group (TBG)
+                            {project.title}
                         </h3>
                         <div className="my-2">
                             <div className="flex flex-wrap justify-between">
