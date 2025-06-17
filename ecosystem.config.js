@@ -1,12 +1,12 @@
 module.exports = {
   apps: [
     {
-      name: "nextjs-secret-app",
+      name: "nextjs-web-crowd-fund",
       script: "npm",
       args: "run start",
       env: {
         NODE_ENV: "production",
-        PORT: 5222,
+        PORT: 3336,
       },
     },
   ],
