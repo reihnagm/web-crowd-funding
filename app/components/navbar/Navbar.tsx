@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
         >
             <div className="flex justify-between items-center px-10 py-6 text-sm font-semibold">
             <div className={`text-xl font-bold ${isSticky ? "text-[#321B87]" : "text-white"}`}>
-                MyApp
+                CapBridge
             </div>
             <ul className="flex gap-6 items-center">
                 <li className={pathname == "/" ? "text-[#4CD137]" : ""}>

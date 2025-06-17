@@ -11,13 +11,13 @@ const AboutUs: React.FC = () => {
             name: "Eva Marlina",
             title: "President Commissioner",
             img: "/images/default-profile.png",
-            description: `Berpengalaman di industri telekomunikasi sebagai Associate director dan Chief of Corporate Relation Affairs, dan memiliki pengalaman finansial yang mumpuni untuk mendukung jalannya MyApp.`,
+            description: `Berpengalaman di industri telekomunikasi sebagai Associate director dan Chief of Corporate Relation Affairs, dan memiliki pengalaman finansial yang mumpuni untuk mendukung jalannya CapBridge.`,
         },
         donald: {
             name: "Donald Akbar",
             title: "Chief Executive Officer",
             img: "/images/default-profile.png",
-            description: `Berkecimpung sebagai komisaris dan komisaris utama di beberapa perusahaan multi industri, membuatnya memiliki pengalaman yang panjang dan tajam sebagai pengawas jalannya MyApp . Dengan memiliki visi dan misi untuk memajukan bisnis dengan konsep Urun Dana/ securities Crowdfunding bagi seluruh masyarakat, diharapkan MyApp dapat bermanfaat bagi dunia bisnis di Indonesia.`,
+            description: `Berkecimpung sebagai komisaris dan komisaris utama di beberapa perusahaan multi industri, membuatnya memiliki pengalaman yang panjang dan tajam sebagai pengawas jalannya CapBridge . Dengan memiliki visi dan misi untuk memajukan bisnis dengan konsep Urun Dana/ securities Crowdfunding bagi seluruh masyarakat, diharapkan CapBridge dapat bermanfaat bagi dunia bisnis di Indonesia.`,
         },
         nanda: {
             name: "Nandana Pawitra",
@@ -58,7 +58,7 @@ const AboutUs: React.FC = () => {
                 <div className="space-y-4 z-10 relative">
                     <h1 className="text-3xl md:text-4xl font-bold leading-tight text-green-500">KOMITMEN KAMI</h1>
                     <p className="text-white text-sm leading-relaxed">
-                        MyApp berkomitmen untuk memberikan akses pembiayaan dan investasi yang lebih menguntungkan untuk investor dan pemilik bisnis
+                        CapBridge berkomitmen untuk memberikan akses pembiayaan dan investasi yang lebih menguntungkan untuk investor dan pemilik bisnis
                     </p>
                     <div className="flex gap-6 items-center">
                         <img src="/images/covered/ojk.png" alt="OJK Logo" className="h-12" />
@@ -85,7 +85,7 @@ const AboutUs: React.FC = () => {
             </section>
 
             <section className="w-full bg-[#1A104D] px-10 md:px-20 py-28">
-                <h2 className="text-3xl md:text-4xl font-bold text-center text-green-500 mb-16">MyApp</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-center text-green-500 mb-16">CapBridge</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
                     <div>
                         <div className="flex justify-center md:justify-start mb-4">
@@ -99,7 +99,7 @@ const AboutUs: React.FC = () => {
                         <div className="flex justify-center md:justify-start mb-4">
                             <span className="text-3xl">🔥</span>
                         </div>
-                        <h3 className="text-xl font-bold mb-2">MyApp</h3>
+                        <h3 className="text-xl font-bold mb-2">CapBridge</h3>
                         <p className="text-1xl text-white">Selalu menjaga keseimbangan, kebutuhan kenyamanan dan keamanan pemodal dan penerbit</p>
                     </div>
 

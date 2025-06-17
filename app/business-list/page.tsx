@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import BussinesList from "@components/bussines-list/BusinessList";
 
 export const metadata: Metadata = {
-  title: "Daftar Bisnis | MyApp",
+  title: "Daftar Bisnis | CapBridge",
   description: "Daftar Bisnis",
 };
 

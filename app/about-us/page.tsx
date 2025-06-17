@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import AboutUs from "../components/aboutus/AboutUs";
 
 export const metadata: Metadata = {
-  title: "Tentang | MyApp",
+  title: "Tentang | CapBridge",
   description: "Tentang",
 };
 

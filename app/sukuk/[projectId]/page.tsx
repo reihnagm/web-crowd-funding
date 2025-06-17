@@ -1,24 +1,35 @@
-"use client"
-
 import React from "react";
-
-import { useParams } from 'next/navigation';
+import { Metadata } from "next";
 
 import Sukuk from "@components/sukuk/Sukuk";
+import { projects } from "@app/lib/data/projects";
 
-import { projects } from "@components/home/Home";
+interface Params {
+  projectId: string;
+}
 
-const SukukPage: React.FC = () => {
-  const params = useParams();
-  const { projectId } = params;
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const project = projects.find(p => p.id === params.projectId);
 
-  const project = projects.find(p => p.id === projectId);
+  if (!project) {
+    return {
+      title: 'Project not found',
+      description: 'The requested project could not be found.',
+    };
+  }
+
+  return {
+    title: project.title,
+    description: 'Sukuk project detail',
+  };
+}
+
+const SukukPage = ({ params }: { params: Params }) => {
+  const project = projects.find(p => p.id === params.projectId);
 
   if (!project) return <div>Project not found</div>;
 
-  return (
-    <Sukuk project={project} />
-  );
+  return <Sukuk project={project} />;
 };
 
 export default SukukPage;

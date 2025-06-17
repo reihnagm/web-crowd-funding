@@ -5,8 +5,8 @@ import type { Metadata } from "next";
 import Login from "@/app/components/auth/login/Login";
 
 export const metadata: Metadata = {
-  title: "Masuk | MyApp",
-  description: "MyApp",
+  title: "Masuk | CapBridge",
+  description: "CapBridge",
 };
 
 const LoginPage: React.FC = () => {

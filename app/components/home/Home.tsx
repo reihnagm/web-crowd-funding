@@ -2,81 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-
-export const projects: Project[] = [
-  {
-    id: "55a56329-b1eb-438b-bd9e-111b5f191ad7",
-    medias: [
-      {
-        id: 1,
-        path: "/images/tower.jpg"
-      }
-    ],
-    alt: 'Mitra10 Garut',
-    status: 'Proyek Berakhir',
-    statusColor: 'purple',
-    title: 'PROYEK PENGADAAN MATERIAL DAN INSTALASI PERALATAN MITRA10 GARUT TAHUN 2024',
-    danaTerkumpul: 'Rp 500.000.000',
-    kebutuhanModal: 'Rp 500.000.000',
-    minimalInvestasi: 'Rp 1.000.000',
-    jangkaWaktu: '2 Bulan',
-    proyeksiROI: '4% (24% p.a)',
-  },
-  {
-    id: "0116a33a-6ec7-4c2b-9300-f4445007daa5",
-    medias: [
-      {
-        id: 1,
-        path: "/images/tower.jpg"
-      }
-    ],
-    alt: 'Tower Bersama Group',
-    status: 'Proyek Berjalan',
-    statusColor: 'green',
-    title: 'Jasa Pemeliharaan Perangkat Penunjang Infrastruktur Telekomunikasi Tower Bersama Group (TBG)',
-    danaTerkumpul: 'Rp 850.000.000',
-    kebutuhanModal: 'Rp 850.000.000',
-    minimalInvestasi: 'Rp 1.000.000',
-    jangkaWaktu: '6 Bulan',
-    proyeksiROI: '9.5% (19.01% p.a)',
-  },
-  {
-    id: "aeb6ed04-64cd-4171-a6e3-3234541dcffe",
-    medias: [
-      {
-        id: 1,
-        path: "/images/tower.jpg"
-      }
-    ],
-    alt: 'PLN Balikpapan',
-    status: 'Proyek Berakhir',
-    statusColor: 'purple',
-    title: 'Pembangunan Extention Bay Trafo Gardu Induk Balikpapan PT PLN Indonesia',
-    danaTerkumpul: 'Rp 300.000.000',
-    kebutuhanModal: 'Rp 300.000.000',
-    minimalInvestasi: 'Rp 1.000.000',
-    jangkaWaktu: '2 Bulan',
-    proyeksiROI: '18% p.a',
-  },
-  {
-    id: "879301b3-d18a-42f4-a7a8-4c09d1c98816",
-    medias: [
-      {
-        id: 1,
-        path: "/images/tower.jpg"
-      }
-    ],
-    alt: 'Renovasi Resto M-Lounge',
-    status: 'Proyek Berakhir',
-    statusColor: 'purple',
-    title: 'Renovasi Interior Resto M-Lounge',
-    danaTerkumpul: 'Rp 400.000.000',
-    kebutuhanModal: 'Rp 400.000.000',
-    minimalInvestasi: 'Rp 1.000.000',
-    jangkaWaktu: '12 Bulan',
-    proyeksiROI: '18% p.a',
-  },
-];
+import { projects } from "@app/lib/data/projects";
 
 const Home: React.FC = () => {
 
@@ -142,8 +68,8 @@ const Home: React.FC = () => {
   const faqData = {
     Umum: [
       {
-        question: "Apa itu MyApp?",
-        answer:"MyApp adalah Penyelenggara Layanan Urun Dana Berbasis Teknologi Informasi (Securities Crowdfunding) yang merupakan tempat bertemunya Pemodal dan Penerbit dalam satu wadah platform.",
+        question: "Apa itu CapBridge?",
+        answer:"CapBridge adalah Penyelenggara Layanan Urun Dana Berbasis Teknologi Informasi (Securities Crowdfunding) yang merupakan tempat bertemunya Pemodal dan Penerbit dalam satu wadah platform.",
       },
       {
         question: "Apa itu Efek?",
@@ -157,10 +83,10 @@ const Home: React.FC = () => {
     Pemodal: [
       {
         question: "Apa itu Pemodal?",
-        answer:"Anda bisa mendaftar di platform MyApp, melakukan verifikasi, dan mulai berinvestasi pada proyek yang tersedia.",
+        answer:"Anda bisa mendaftar di platform CapBridge, melakukan verifikasi, dan mulai berinvestasi pada proyek yang tersedia.",
       },
       {
-        question: "Bagaimana cara berinvestasi di MyApp?",
+        question: "Bagaimana cara berinvestasi di CapBridge?",
         answer:"Untuk berinvestasi, langkah pertama Anda harus memiliki akun di Fulusme. Berikut tata cara pembuatan Akun Pemodal : \n • Daftarkan diri Anda pada tautan berikut. \n • Masukkan data diri anda, email, dan nomor ponsel yang anda pakai \n • Setelah memasukkan nomor ponsel pada langkah pertama, anda akan diminta memasukkan kode OTP yang dikirimkan ke nomor ponsel anda \n • Kemudian masukkan kata sandi yang ingin anda gunakan \n • Anda harus membaca dan menyetujui syarat dan ketentuan kami sebelum mendaftarkan diri. Kemudian akan dikirimkan email verifikasi pada email yang anda masukkan \n • Verifikasi email dan kemudian masuk menggunakan Email dan kata sandi anda. \n • Langkah berikutnya adalah proses KYC yang berada di posisi sebelah kiri Dashboard, dimana Anda harus mengisi semua tahapan dan pertanyaan yang ada. Setelah Anda mengisi semua data pada proses KYC, maka akan dilakukan verifikasi data oleh tim Fulusme yang memerlukan waktu 2x24 jam di hari kerja. \n • Anda akan menerima pemberitahuan via email terkait status verifikasi data Anda. Jika data Anda sudah terverifikasi, maka Anda dapat mulai berinvestasi di Fulusme.",
       },
       {
@@ -171,7 +97,7 @@ const Home: React.FC = () => {
     Penerbit: [
       {
         question: "Apa itu Penerbit?",
-        answer:"Penerbit adalah pihak yang mencari pendanaan melalui platform MyApp dengan menawarkan efek kepada publik.",
+        answer:"Penerbit adalah pihak yang mencari pendanaan melalui platform CapBridge dengan menawarkan efek kepada publik.",
       },
       {
         question: "Bagaimana jika masa penawaran (45 Hari) berakhir namun pendanaan belum terkumpul?",
@@ -191,10 +117,10 @@ const Home: React.FC = () => {
         {/* Left content */}
         <div className="space-y-6 z-10 relative">
           <h1 className="text-3xl md:text-4xl font-bold leading-tight">
-            Selamat Datang di MyApp
+            Selamat Datang di CapBridge
           </h1>
           <p className="text-white text-sm leading-relaxed">
-            MyApp adalah Penyelenggara Layanan Urun Dana Berbasis Teknologi Informasi
+            CapBridge adalah Penyelenggara Layanan Urun Dana Berbasis Teknologi Informasi
             (Securities Crowdfunding) yang telah mendapatkan izin dari OJK melalui Surat
             Keputusan Anggota Dewan Komisioner OJK Nomor KEP-45/D.04/2022 pada 4 Juli 2022.
           </p>
