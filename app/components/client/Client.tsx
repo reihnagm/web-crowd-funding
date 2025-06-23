@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { store } from "@redux/store";
 import { Provider } from "react-redux";
@@ -22,12 +22,18 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export default function ClientLayout({ children }: { children: React.ReactNode }) {
+export default function ClientLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
 
   return (
     <Provider store={store}>
-      <div className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <div
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         {pathname === "/auth/login" || pathname === "/auth/register" ? (
           <div className="w-full flex items-center justify-center h-screen">
             {children}

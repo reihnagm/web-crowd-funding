@@ -1,7 +1,9 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
+
 import { RegisterModel } from "@interfaces/auth/register";
+import { LoginModel } from "../interfaces/auth/login";
 
 export const LoginAdmin = async (val: string, password: string) => {
   try {
@@ -62,6 +64,38 @@ export const UpdatePassword = async (password: string) => {
   }
 };
 
+export const LoginUser = async (login: LoginModel) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:6565/api/v1/auth/login`,
+      {
+        email: login.email,
+        password: login.password,
+      }
+    );
+
+    Swal.fire({
+      icon: "success",
+      title: "Success",
+      text: "Berhasil login!",
+      timer: 2000,
+      showConfirmButton: false,
+    });
+
+    return response.data;
+  } catch (e: any) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: e?.response?.data?.message || e.message,
+      timer: 2000,
+      showConfirmButton: false,
+    });
+
+    throw e;
+  }
+};
+
 export const RegisterUser = async (register: RegisterModel) => {
   try {
     const response = await axios.post(
@@ -83,8 +117,7 @@ export const RegisterUser = async (register: RegisterModel) => {
       showConfirmButton: false,
     });
 
-    const data = response.data;
-    return data;
+    return response.data;
   } catch (e: any) {
     Swal.fire({
       icon: "error",

@@ -1,6 +1,11 @@
 import { LoginModel } from "@interfaces/auth/login";
 import { RegisterModel } from "@interfaces/auth/register";
-import { LoginAdmin, RegisterUser, UpdatePassword } from "@lib/authService";
+import {
+  LoginAdmin,
+  LoginUser,
+  RegisterUser,
+  UpdatePassword,
+} from "@lib/authService";
 import {
   AsyncThunk,
   createAsyncThunk,
@@ -24,17 +29,23 @@ export const updatePasswordAsync = createAsyncThunk(
   }
 );
 
-export const registerAsync = createAsyncThunk(
-  "auth/register",
-  async ({ register }: { register: RegisterModel }) => {
-    const response = await RegisterUser(register);
-    return response;
+export const loginAsync = createAsyncThunk<AuthResponse, { login: LoginModel }>(
+  "auth/login",
+  async ({ login }) => {
+    return await LoginUser(login);
   }
 );
 
+export const registerAsync = createAsyncThunk<
+  AuthResponse,
+  { register: RegisterModel }
+>("auth/register", async ({ register }) => {
+  return await RegisterUser(register);
+});
+
 interface AuthState {
   loading: boolean;
-  data: LoginModel | null;
+  data: AuthDataResponse | null;
   isAuthenticated: boolean;
   showPassword: boolean;
   email: string;
@@ -58,15 +69,21 @@ const initialState: AuthState = {
 
 const handleAuthAsyncThunk = <Returned, ThunkArg>(
   builder: any,
-  asyncThunk: AsyncThunk<Returned, ThunkArg, {}>
+  asyncThunk: AsyncThunk<Returned, ThunkArg, {}>,
+  onFulfilled?: (state: AuthState, action: PayloadAction<Returned>) => void
 ) => {
   builder
     .addCase(asyncThunk.pending, (state: AuthState) => {
       state.loading = true;
     })
-    .addCase(asyncThunk.fulfilled, (state: AuthState) => {
-      state.loading = false;
-    })
+    .addCase(
+      asyncThunk.fulfilled,
+      (state: AuthState, action: PayloadAction<Returned>) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+        if (onFulfilled) onFulfilled(state, action);
+      }
+    )
     .addCase(asyncThunk.rejected, (state: AuthState) => {
       state.loading = false;
     });
@@ -101,12 +118,53 @@ export const authSlice = createSlice({
       state.isAuthenticated = false;
       state.error = null;
     },
+    logout(state) {
+      state.token = null;
+      state.data = null;
+      state.isAuthenticated = false;
+      state.error = null;
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("authUser");
+      }
+    },
+    loadSession(state) {
+      if (typeof window !== "undefined") {
+        const token = localStorage.getItem("authToken");
+        const user = localStorage.getItem("authUser");
+
+        if (token && user) {
+          state.token = token;
+          state.data = JSON.parse(user);
+          state.isAuthenticated = true;
+        }
+      }
+    },
   },
   extraReducers: (builder) => {
-    handleAuthAsyncThunk(builder, registerAsync);
+    handleAuthAsyncThunk(builder, loginAsync, (_, action) => {
+      if (typeof window !== "undefined") {
+        localStorage.setItem("authToken", action.payload.data.token);
+        localStorage.setItem("authUser", JSON.stringify(action.payload.data));
+      }
+    });
+
+    handleAuthAsyncThunk(builder, registerAsync, (_, action) => {
+      if (typeof window !== "undefined") {
+        localStorage.setItem("authToken", action.payload.data.token);
+        localStorage.setItem("authUser", JSON.stringify(action.payload.data));
+      }
+    });
   },
 });
 
-export const { setEmail, setLoading, setPassword, setShowPassword, setError } =
-  authSlice.actions;
+export const {
+  setEmail,
+  setLoading,
+  setPassword,
+  setShowPassword,
+  setError,
+  logout,
+  loadSession,
+} = authSlice.actions;
 export default authSlice.reducer;

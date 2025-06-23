@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@redux/store";
-import { setEmail } from "@redux/slices/authSlice";
 import { registerAsync } from "@redux/slices/authSlice";
 import { useState } from "react";
 import Swal from "sweetalert2";
@@ -12,8 +11,7 @@ const Register: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
 
-  const email = useSelector((state: RootState) => state.auth.email);
-
+  const [email, setEmail] = useState("");
   const [userType, setUserType] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -117,7 +115,7 @@ const Register: React.FC = () => {
           <input
             type="email"
             value={email}
-            onChange={(e) => dispatch(setEmail(e.target.value))}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full p-3 bg-[#F1F5F9] rounded text-black"
           />
         </div>

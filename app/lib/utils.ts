@@ -31,6 +31,14 @@ export const formatRupiah = (amount: number | string) => {
     }).format(Number(amount));
 };
 
+export const formatInputRupiah = (value: string) => {
+  const cleaned = value.replace(/[^\d]/g, ""); // remove anything not a digit
+  if (!cleaned) return ""; // avoid NaN if empty
+  const number = parseInt(cleaned, 10);
+  return `Rp ${number.toLocaleString("id-ID")}`;
+};
+
+
 export const formatDate = (date: string | Date): string => {
     return moment(date).format("YYYY-MM-DD HH:mm:ss");
 };
