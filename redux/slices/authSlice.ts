@@ -1,9 +1,15 @@
-import { LoginModel } from '@/app/interfaces/auth/login';
-import { LoginAdmin, UpdatePassword } from '@lib/authService';
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { LoginModel } from "@interfaces/auth/login";
+import { RegisterModel } from "@interfaces/auth/register";
+import { LoginAdmin, RegisterUser, UpdatePassword } from "@lib/authService";
+import {
+  AsyncThunk,
+  createAsyncThunk,
+  createSlice,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 
 export const loginAdminAsync = createAsyncThunk(
-  'auth/login/admin',
+  "auth/login/admin",
   async ({ val, password }: { val: string; password: string }) => {
     const response = await LoginAdmin(val, password);
     return response;
@@ -11,20 +17,29 @@ export const loginAdminAsync = createAsyncThunk(
 );
 
 export const updatePasswordAsync = createAsyncThunk(
-  'auth/update-password', 
-  async ({ password } : { password: string}) => {
+  "auth/update-password",
+  async ({ password }: { password: string }) => {
     const response = await UpdatePassword(password);
     return response;
   }
-)
+);
+
+export const registerAsync = createAsyncThunk(
+  "auth/register",
+  async ({ register }: { register: RegisterModel }) => {
+    const response = await RegisterUser(register);
+    return response;
+  }
+);
 
 interface AuthState {
   loading: boolean;
   data: LoginModel | null;
   isAuthenticated: boolean;
   showPassword: boolean;
-  value: string;
+  email: string;
   password: string;
+  role: string;
   token: string | null;
   error: string | null;
 }
@@ -34,18 +49,35 @@ const initialState: AuthState = {
   loading: false,
   isAuthenticated: false,
   showPassword: false,
+  email: "",
   password: "",
-  value: "",
+  role: "1",
   token: null,
   error: null,
 };
 
-const authSlice = createSlice({
-  name: 'auth',
+const handleAuthAsyncThunk = <Returned, ThunkArg>(
+  builder: any,
+  asyncThunk: AsyncThunk<Returned, ThunkArg, {}>
+) => {
+  builder
+    .addCase(asyncThunk.pending, (state: AuthState) => {
+      state.loading = true;
+    })
+    .addCase(asyncThunk.fulfilled, (state: AuthState) => {
+      state.loading = false;
+    })
+    .addCase(asyncThunk.rejected, (state: AuthState) => {
+      state.loading = false;
+    });
+};
+
+export const authSlice = createSlice({
+  name: "auth",
   initialState,
   reducers: {
     setEmail(state, action: PayloadAction<string>) {
-      state.value = action.payload;
+      state.email = action.payload;
     },
     setPassword(state, action: PayloadAction<string>) {
       state.password = action.payload;
@@ -71,20 +103,10 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-  builder
-    .addCase(loginAdminAsync.pending, (state) => {
-      state.loading = true; 
-    })
-    .addCase(loginAdminAsync.fulfilled, (state, action) => {
-      state.loading = false; 
-      state.data = action.payload;
-    })
-    .addCase(loginAdminAsync.rejected, (state, action) => {
-      state.loading = false;  
-      state.error = action.error.message || "Failed to login";
-    });
+    handleAuthAsyncThunk(builder, registerAsync);
   },
 });
 
-export const { setEmail, setLoading, setPassword, setShowPassword, setError } = authSlice.actions;
+export const { setEmail, setLoading, setPassword, setShowPassword, setError } =
+  authSlice.actions;
 export default authSlice.reducer;

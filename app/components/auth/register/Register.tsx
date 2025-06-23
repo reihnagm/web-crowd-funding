@@ -4,25 +4,63 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@redux/store";
 import { setEmail } from "@redux/slices/authSlice";
+import { registerAsync } from "@redux/slices/authSlice";
+import { useState } from "react";
+import Swal from "sweetalert2";
 
 const Register: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
 
-  const email = useSelector((state: RootState) => state.auth.value);
+  const email = useSelector((state: RootState) => state.auth.email);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [userType, setUserType] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    router.push("/");
+
+    if (!userType || !firstName || !email || !phone || !password) {
+      Swal.fire({
+        icon: "warning",
+        title: "Form Belum Lengkap",
+        text: "Mohon isi semua field wajib.",
+      });
+      return;
+    }
+
+    try {
+      await dispatch(
+        registerAsync({
+          register: {
+            fullname: `${firstName} ${lastName}`,
+            email,
+            phone,
+            password,
+            role: userType === "Individu" ? "1" : "2",
+          },
+        })
+      ).unwrap();
+
+      router.push("/");
+    } catch (error: any) {
+      console.error("Register failed:", error);
+    }
   };
 
   return (
-    <div className="w-1/2 bg-white px-6 md:px-20 py-10">
+    <div className="w-full md:w-1/2 bg-white px-6 md:px-20 py-10">
       <div className="flex justify-between items-center mb-10">
         <img src="/images/img.jpg" alt="CapBridge Logo" className="w-20 h-20" />
-        <a href="/">
-          <button className="text-[#321B87] font-bold text-sm">&lt; Kembali Ke Beranda</button>
-        </a>
+        <button
+          onClick={() => router.push("/")}
+          className="text-[#321B87] font-bold text-sm"
+        >
+          &lt; Kembali Ke Beranda
+        </button>
       </div>
 
       <h1 className="text-3xl font-medium text-[#321B87] mb-2">
@@ -35,22 +73,42 @@ const Register: React.FC = () => {
 
       <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
         <div>
-          <label className="font-bold text-[#321B87] block mb-1">Daftar Sebagai</label>
-          <select className="w-full p-3 bg-[#F1F5F9] rounded text-black">
-            <option>Pilih Tipe Pemodal</option>
-            <option>Individu</option>
-            <option>Institusi</option>
+          <label className="font-bold text-[#321B87] block mb-1">
+            Daftar Sebagai
+          </label>
+          <select
+            value={userType}
+            onChange={(e) => setUserType(e.target.value)}
+            className="w-full p-3 bg-[#F1F5F9] rounded text-black"
+          >
+            <option value="">Pilih Tipe Pemodal</option>
+            <option value="Individu">Individu</option>
+            <option value="Institusi">Institusi</option>
           </select>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="font-bold text-[#321B87] block mb-1">Nama Depan</label>
-            <input type="text" className="w-full p-3 bg-[#F1F5F9] rounded text-black" />
+            <label className="font-bold text-[#321B87] block mb-1">
+              Nama Depan
+            </label>
+            <input
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="w-full p-3 bg-[#F1F5F9] rounded text-black"
+            />
           </div>
           <div>
-            <label className="font-bold text-[#321B87] block mb-1">Nama Belakang (Opsional)</label>
-            <input type="text" className="w-full p-3 bg-[#F1F5F9] rounded text-black" />
+            <label className="font-bold text-[#321B87] block mb-1">
+              Nama Belakang (Opsional)
+            </label>
+            <input
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              className="w-full p-3 bg-[#F1F5F9] rounded text-black"
+            />
           </div>
         </div>
 
@@ -58,30 +116,53 @@ const Register: React.FC = () => {
           <label className="font-bold text-[#321B87] block mb-1">Email</label>
           <input
             type="email"
-            className="w-full p-3 bg-[#F1F5F9] rounded text-black"
             value={email}
             onChange={(e) => dispatch(setEmail(e.target.value))}
+            className="w-full p-3 bg-[#F1F5F9] rounded text-black"
           />
         </div>
 
         <div>
-          <label className="font-bold text-[#321B87] block mb-1">Nomor Handphone</label>
+          <label className="font-bold text-[#321B87] block mb-1">
+            Nomor Handphone
+          </label>
           <input
             type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className="w-full p-3 bg-[#F1F5F9] rounded text-black"
+          />
+        </div>
+
+        <div>
+          <label className="font-bold text-[#321B87] block mb-1">
+            Password
+          </label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="w-full p-3 bg-[#F1F5F9] rounded text-black"
           />
         </div>
 
         <div className="flex flex-row flex-wrap justify-between">
-          <p className="w-1/2">Butuh pertanyaan? <a href="javascript:void(0)" className="text-[#321B87] cursor-pointer font-bold hover:underline">Hubungi Kami</a> </p>
+          <p className="w-full md:w-1/2 text-sm">
+            Butuh pertanyaan?{" "}
+            <a
+              href="#"
+              className="text-[#321B87] cursor-pointer font-bold hover:underline"
+            >
+              Hubungi Kami
+            </a>
+          </p>
           <button
             type="submit"
-            className="w-1/4 bg-[#321B87] text-white py-3 rounded-full font-bold hover:bg-[#2A1572] transition"
+            className="w-full md:w-1/4 mt-4 md:mt-0 bg-[#321B87] text-white py-3 rounded-full font-bold hover:bg-[#2A1572] transition"
           >
             Daftar
           </button>
         </div>
-
       </form>
     </div>
   );

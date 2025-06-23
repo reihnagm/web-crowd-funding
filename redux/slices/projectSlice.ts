@@ -4,7 +4,7 @@ import {
   projectStore,
   projectUpdate,
 } from "@lib/projectService";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, AsyncThunk } from "@reduxjs/toolkit";
 
 interface ProjectState {
   loading: boolean;
@@ -43,51 +43,31 @@ export const projectDeleteAsync = createAsyncThunk(
   }
 );
 
+const handleAsyncThunk = <Returned, ThunkArg>(
+  builder: any,
+  asyncThunk: AsyncThunk<Returned, ThunkArg, {}>
+) => {
+  builder
+    .addCase(asyncThunk.pending, (state: ProjectState) => {
+      state.loading = true;
+    })
+    .addCase(asyncThunk.fulfilled, (state: ProjectState) => {
+      state.loading = false;
+    })
+    .addCase(asyncThunk.rejected, (state: ProjectState) => {
+      state.loading = false;
+    });
+};
+
 export const projectSlice = createSlice({
   name: "project",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder
-      .addCase(projectListAsync.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(projectListAsync.fulfilled, (state) => {
-        state.loading = false;
-      })
-      .addCase(projectListAsync.rejected, (state) => {
-        state.loading = false;
-      });
-    builder
-      .addCase(projectStoreAsync.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(projectStoreAsync.fulfilled, (state) => {
-        state.loading = false;
-      })
-      .addCase(projectStoreAsync.rejected, (state) => {
-        state.loading = false;
-      });
-    builder
-      .addCase(projectStoreAsync.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(projectStoreAsync.fulfilled, (state) => {
-        state.loading = false;
-      })
-      .addCase(projectStoreAsync.rejected, (state) => {
-        state.loading = false;
-      });
-    builder
-      .addCase(projectUpdateAsync.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(projectUpdateAsync.fulfilled, (state) => {
-        state.loading = false;
-      })
-      .addCase(projectUpdateAsync.rejected, (state) => {
-        state.loading = false;
-      });
+    handleAsyncThunk(builder, projectListAsync);
+    handleAsyncThunk(builder, projectStoreAsync);
+    handleAsyncThunk(builder, projectUpdateAsync);
+    handleAsyncThunk(builder, projectDeleteAsync);
   },
 });
 
