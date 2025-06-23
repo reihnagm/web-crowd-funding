@@ -1,21 +1,42 @@
-type Project = {
+interface ApiResponse {
+  status: number;
+  error: boolean;
+  message: string;
+  data: Project[];
+}
+
+interface Project {
   id: string;
-  medias: ProjectMedia[];
-  alt: string;
-  status: "Proyek Berakhir" | "Proyek Berjalan";
-  statusColor: "purple" | "green";
   title: string;
   goal: string;
-  modal: string;
-  unitPrice: string;
-  unitTotal: string;
-  numberOfUnit: string;
-  minInvest: string;
-  periode: string;
+  medias: ProjectMedia[];
+  location: ProjectLocation;
+  doc: Document;
+  capital: string;
   roi: string;
-};
+  min_invest: string;
+  unit_price: string;
+  unit_total: string;
+  number_of_unit: string;
+  periode: string;
+  created_at: string;
+  updated_at: string;
+}
 
-type ProjectMedia = {
+interface ProjectMedia {
   id: number;
   path: string;
-};
+}
+
+interface ProjectLocation {
+  id: number;
+  name: string;
+  url: string;
+  lat: string;
+  lng: string;
+}
+
+interface Document {
+  id: string;
+  path: string;
+}
