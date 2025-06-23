@@ -1,16 +1,21 @@
 "use client";
 
 import { loginAsync } from "@/redux/slices/authSlice";
-import { AppDispatch } from "@redux/store";
+import { AppDispatch, RootState } from "@redux/store";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { Eye, EyeOff } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
+  const loading = useSelector((state: RootState) => state.auth.loading);
+
   const router = useRouter();
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -69,12 +74,22 @@ const Login: React.FC = () => {
           <label className="font-bold text-[#321B87] block mb-1">
             Kata Sandi
           </label>
-          <input
-            type="password"
-            className="w-full p-3 bg-[#F1F5F9] rounded text-black"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              className="w-full p-3 bg-[#F1F5F9] rounded text-black pr-10"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-3 text-gray-500"
+              aria-label="Toggle password visibility"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
         </div>
 
         <div className="flex flex-row flex-wrap justify-between">
@@ -92,9 +107,12 @@ const Login: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="w-1/4 bg-[#321B87] text-white py-3 rounded-full font-bold hover:bg-[#2A1572] transition"
+            disabled={loading}
+            className={`w-1/4 bg-[#321B87] text-white py-3 rounded-full font-bold transition ${
+              loading ? "opacity-60 cursor-not-allowed" : "hover:bg-[#2A1572]"
+            }`}
           >
-            Masuk
+            {loading ? "Loading..." : "Masuk"}
           </button>
         </div>
       </form>

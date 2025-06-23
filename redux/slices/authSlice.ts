@@ -1,5 +1,8 @@
 import { LoginModel } from "@interfaces/auth/login";
 import { RegisterModel } from "@interfaces/auth/register";
+
+import Cookies from "js-cookie";
+
 import {
   LoginAdmin,
   LoginUser,
@@ -50,7 +53,6 @@ interface AuthState {
   showPassword: boolean;
   email: string;
   password: string;
-  role: string;
   token: string | null;
   error: string | null;
 }
@@ -62,7 +64,6 @@ const initialState: AuthState = {
   showPassword: false,
   email: "",
   password: "",
-  role: "1",
   token: null,
   error: null,
 };
@@ -144,6 +145,11 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     handleAuthAsyncThunk(builder, loginAsync, (_, action) => {
       if (typeof window !== "undefined") {
+        Cookies.set("email", action.payload.data.email, {
+          expires: 365,
+          secure: true,
+          sameSite: "strict",
+        });
         localStorage.setItem("authToken", action.payload.data.token);
         localStorage.setItem("authUser", JSON.stringify(action.payload.data));
       }
@@ -151,6 +157,11 @@ export const authSlice = createSlice({
 
     handleAuthAsyncThunk(builder, registerAsync, (_, action) => {
       if (typeof window !== "undefined") {
+        Cookies.set("email", action.payload.data.email, {
+          expires: 365,
+          secure: true,
+          sameSite: "strict",
+        });
         localStorage.setItem("authToken", action.payload.data.token);
         localStorage.setItem("authUser", JSON.stringify(action.payload.data));
       }

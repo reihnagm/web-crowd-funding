@@ -126,5 +126,7 @@ export const RegisterUser = async (register: RegisterModel) => {
       timer: 2000,
       showConfirmButton: false,
     });
+
+    throw e;
   }
 };

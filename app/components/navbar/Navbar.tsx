@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import { AppDispatch, RootState } from "@redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { loadSession, logout } from "@redux/slices/authSlice";
+import Link from "next/link";
 
 const Navbar: React.FC = () => {
   const [isSticky, setIsSticky] = useState(false);
@@ -28,24 +29,26 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     dispatch(loadSession());
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
       {pathname != "/verification" &&
+        auth.data?.role != "admin" &&
         auth.isAuthenticated &&
         !auth.data?.verify && (
           <div className="fixed top-0 left-0 w-full z-50 bg-yellow-400 text-black text-center text-sm py-2 px-4 font-medium">
             Akun Anda belum terverifikasi.{" "}
-            <a href="/verification" className="underline font-semibold">
+            <Link href="/verification" className="underline font-semibold">
               Verifikasi sekarang
-            </a>
+            </Link>
           </div>
         )}
 
       <nav
         className={`fixed ${
           pathname != "/verification" &&
+          auth.data?.role != "admin" &&
           auth.isAuthenticated &&
           !auth.data?.verify
             ? "top-8"
@@ -84,31 +87,31 @@ const Navbar: React.FC = () => {
           >
             <ul className="flex flex-col gap-6 text-white text-base font-semibold pt-16">
               <li className={pathname == "/" ? "text-[#4CD137]" : "text-white"}>
-                <a href="/">Beranda</a>
+                <Link href="/">Beranda</Link>
               </li>
               <li
                 className={
                   pathname == "/business-list" ? "text-[#4CD137]" : "text-white"
                 }
               >
-                <a href="/business-list">Daftar Bisnis</a>
+                <Link href="/business-list">Daftar Bisnis</Link>
               </li>
               <li
                 className={
                   pathname == "/about-us" ? "text-[#4CD137]" : "text-white"
                 }
               >
-                <a href="/about-us">Tentang Kami</a>
+                <Link href="/about-us">Tentang Kami</Link>
               </li>
               <li>
-                <a className="text-white" href="#">
+                <Link className="text-white" href="#">
                   Pasar Sekunder
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="text-white" href="#">
+                <Link className="text-white" href="#">
                   Penerbit
-                </a>
+                </Link>
               </li>
               {auth.isAuthenticated ? (
                 <>
@@ -132,9 +135,9 @@ const Navbar: React.FC = () => {
                 </li>
               )}
               <li>
-                <a className="text-white" href="/auth/register">
+                <Link className="text-white" href="/auth/register">
                   Daftar
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -148,21 +151,21 @@ const Navbar: React.FC = () => {
 
           <ul className="hidden md:flex flex gap-6 items-center">
             <li className={pathname == "/" ? "text-[#4CD137]" : ""}>
-              <a href="/">Beranda</a>
+              <Link href="/">Beranda</Link>
             </li>
             <li
               className={pathname == "/business-list" ? "text-[#4CD137]" : ""}
             >
-              <a href="/business-list">Daftar Bisnis</a>
+              <Link href="/business-list">Daftar Bisnis</Link>
             </li>
             <li className={pathname == "/about-us" ? "text-[#4CD137]" : ""}>
-              <a href="/about-us">Tentang Kami</a>
+              <Link href="/about-us">Tentang Kami</Link>
             </li>
             <li>
-              <a href="#">Pasar Sekunder</a>
+              <Link href="#">Pasar Sekunder</Link>
             </li>
             <li>
-              <a href="#">Penerbit</a>
+              <Link href="#">Penerbit</Link>
             </li>
             {auth.isAuthenticated ? (
               <>
@@ -195,7 +198,7 @@ const Navbar: React.FC = () => {
               <></>
             ) : (
               <li>
-                <a href="/auth/register">Daftar</a>
+                <Link href="/auth/register">Daftar</Link>
               </li>
             )}
           </ul>

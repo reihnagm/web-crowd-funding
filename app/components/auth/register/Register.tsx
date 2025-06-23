@@ -1,8 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@redux/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@redux/store";
+import { Eye, EyeOff } from "lucide-react";
 import { registerAsync } from "@redux/slices/authSlice";
 import { useState } from "react";
 import Swal from "sweetalert2";
@@ -17,6 +18,8 @@ const Register: React.FC = () => {
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -134,14 +137,24 @@ const Register: React.FC = () => {
 
         <div>
           <label className="font-bold text-[#321B87] block mb-1">
-            Password
+            Kata Sandi
           </label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 bg-[#F1F5F9] rounded text-black"
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              className="w-full p-3 bg-[#F1F5F9] rounded text-black pr-10"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-3 text-gray-500"
+              aria-label="Toggle password visibility"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
         </div>
 
         <div className="flex flex-row flex-wrap justify-between">
