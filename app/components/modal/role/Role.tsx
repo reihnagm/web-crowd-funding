@@ -100,6 +100,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
               </h3>
               <div className="space-y-4">
                 <div className="flex flex-wrap gap-4">
+                  {/* Nama */}
                   <div className="flex-1">
                     <label className="block text-sm font-medium text-gray-500 mb-1">
                       Nama
@@ -112,6 +113,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       placeholder="Nama"
                     />
                   </div>
+
+                  {/* KTP */}
                   <div className="flex-1">
                     <label className="block text-sm font-medium text-gray-500 mb-1">
                       KTP
@@ -127,6 +130,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                 </div>
 
                 <div className="flex flex-wrap gap-4">
+                  {/* Tempat Tanggal Lahir */}
                   <div className="flex-1">
                     <label className="block text-sm font-medium text-gray-500 mb-1">
                       Tempat Tanggal Lahir
@@ -139,6 +143,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       placeholder="Tempat Tanggal Lahir"
                     />
                   </div>
+
+                  {/* Gender */}
                   <div className="flex-1">
                     <div className="flex flex-col flex-wrap gap-4">
                       <div>
@@ -171,6 +177,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                 </div>
 
                 <div className="flex flex-wrap gap-4">
+                  {/* Status Pernikahan */}
                   <div className="flex-1">
                     <label className="block text-sm font-medium text-gray-500 mb-1">
                       Status Pernikahan
@@ -183,9 +190,10 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       placeholder="Status Pernikahan"
                     />
                   </div>
+                  {/* Pendidikan Terakhir */}
                   <div className="flex-1">
                     <label className="block text-sm font-medium text-gray-500 mb-1">
-                      Pendidikan Terahkir
+                      Pendidikan Terakhir
                     </label>
                     <input
                       type="text"
@@ -266,6 +274,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                 </h3>
                 <div className="space-y-4">
                   <div className="flex flex-wrap gap-4">
+                    {/* Nama Bank */}
                     <div className="flex-1">
                       <label className="block text-sm font-medium text-gray-500 mb-1">
                         Nama Bank
@@ -278,6 +287,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                         placeholder="Nama Bank"
                       />
                     </div>
+                    {/* Nomor Rekening */}
                     <div className="flex-1">
                       <label className="block text-sm font-medium text-gray-500 mb-1">
                         Nomor Rekening
@@ -293,6 +303,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                   </div>
 
                   <div className="flex flex-wrap gap-4">
+                    {/* Nama Pemilik Rekening */}
                     <div className="flex-1">
                       <label className="block text-sm font-medium text-gray-500 mb-1">
                         Nama Pemilik Rekening
@@ -305,6 +316,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                         placeholder="Nama Pemilik Rekening"
                       />
                     </div>
+                    {/* Cabang Bank */}
                     <div className="flex-1">
                       <label className="block text-sm font-medium text-gray-500 mb-1">
                         Cabang Bank
@@ -317,6 +329,70 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                         placeholder="Masukkan cabang bank"
                       />
                     </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Informasi Pekerjaan */}
+
+              <div className="my-4">
+                <h3 className="text-black mb-2 font-semibold text-sm">
+                  Informasi Pekerjaan
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex flex-wrap gap-4">
+                    {/* Nama Perusahaan */}
+                    <div className="flex-1">
+                      <label className="block text-sm font-medium text-gray-500 mb-1">
+                        Nama Perusahaan
+                      </label>
+                      <input
+                        type="text"
+                        value={namaRekening}
+                        onChange={(e) => setNamaRekening(e.target.value)}
+                        className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        placeholder="Nama Bank"
+                      />
+                    </div>
+                    {/* Jabatan */}
+                    <div className="flex-1">
+                      <label className="block text-sm font-medium text-gray-500 mb-1">
+                        Jabatan
+                      </label>
+                      <input
+                        type="text"
+                        value={noRekening}
+                        onChange={(e) => setNoRekening(e.target.value)}
+                        className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        placeholder="Jabatan"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-500 mb-1">
+                      Alamat Perusahaan
+                    </label>
+                    <input
+                      type="text"
+                      value={pemilikRekening}
+                      onChange={(e) => setPemilikRekening(e.target.value)}
+                      className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Alamat Sesuai KTP dan Alamat Domisili"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-500 mb-1">
+                      Penghasilan Bulanan
+                    </label>
+                    <input
+                      type="text"
+                      value={pemilikRekening}
+                      onChange={(e) => setPemilikRekening(e.target.value)}
+                      className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Penghasilan Bulanan"
+                    />
                   </div>
                 </div>
               </div>
