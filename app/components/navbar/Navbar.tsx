@@ -7,6 +7,7 @@ import { AppDispatch, RootState } from "@redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { loadSession, logout } from "@redux/slices/authSlice";
 import Link from "next/link";
+import RoleModal from "@components/modal/role/Role";
 
 const Navbar: React.FC = () => {
   const [isSticky, setIsSticky] = useState(false);
@@ -18,6 +19,8 @@ const Navbar: React.FC = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const auth = useSelector((state: RootState) => state.auth);
+
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -134,8 +137,8 @@ const Navbar: React.FC = () => {
                   </a>
                 </li>
               )}
-              <li>
-                <Link className="text-white" href="/auth/register">
+              <li onClick={() => setShowModal(true)}>
+                <Link className="text-white" href="#">
                   Daftar
                 </Link>
               </li>
@@ -197,13 +200,15 @@ const Navbar: React.FC = () => {
             {auth.isAuthenticated ? (
               <></>
             ) : (
-              <li>
-                <Link href="/auth/register">Daftar</Link>
+              <li onClick={() => setShowModal(true)}>
+                <Link href="#">Daftar</Link>
               </li>
             )}
           </ul>
         </div>
       </nav>
+
+      <RoleModal open={showModal} onClose={() => setShowModal(false)} />
     </>
   );
 };
