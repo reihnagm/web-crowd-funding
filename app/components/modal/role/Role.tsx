@@ -328,7 +328,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                         <input
                           type="text"
                           className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                          placeholder="Struktur Pemodalan"
+                          placeholder="Jabatan"
                         />
                       </div>
                       {/* Jabatan Direksi */}
@@ -339,7 +339,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                         <input
                           type="text"
                           className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                          placeholder="Laporan Keuangan"
+                          placeholder="Jabatan"
                         />
                       </div>
                     </div>
@@ -394,6 +394,155 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <div className="flex flex-wrap gap-4">
+                  {/* Nama Komisaris */}
+                  <div className="flex-1">
+                    <label className="block text-sm font-medium text-gray-500 mb-1">
+                      Jenis Obligasi
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Jenis Obligasi"
+                    />
+                  </div>
+                  {/* Nama Direksi */}
+                  <div className="flex-1">
+                    <label className="block text-sm font-medium text-gray-500 mb-1">
+                      Nilai Nominal
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Nama Direksi"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-4">
+                  {/* Jangka Waktu */}
+                  <div className="flex-1">
+                    <label className="block text-sm font-medium text-gray-500 mb-1">
+                      Jangka Waktu
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Jangka Waktu"
+                    />
+                  </div>
+                  {/* Tingkat Bunga */}
+                  <div className="flex-1">
+                    <label className="block text-sm font-medium text-gray-500 mb-1">
+                      Tingkat Bunga
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Tingkat Bunga"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-4">
+                  {/* Jadwal Pembayaran Bunga */}
+                  <div className="flex-1">
+                    <label className="block text-sm font-medium text-gray-500 mb-1">
+                      Jadwal Pembayaran Bunga
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Jadwal Pembayaran Bunga"
+                    />
+                  </div>
+                  {/* Jadwal Pembayaran Pokok */}
+                  <div className="flex-1">
+                    <label className="block text-sm font-medium text-gray-500 mb-1">
+                      Jadwal Pembayaran Pokok
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Jadwal Pembayaran Pokok"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-4">
+                  {/* Penggunaan Dana */}
+                  <div className="flex-1">
+                    <label className="block text-sm font-medium text-gray-500 mb-1">
+                      Penggunaan Dana
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Penggunaan Dana"
+                    />
+                  </div>
+                  {/* Jadwal Pembayaran Pokok */}
+                  <div className="flex-1">
+                    <label className="block text-sm font-medium text-gray-500 mb-1">
+                      Jaminan Kolateral
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Jaminan Kolateral"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label
+                    className="block text-sm font-medium text-gray-500 mb-1"
+                    htmlFor="description"
+                  >
+                    Deskripsi Pekerjaan
+                  </label>
+                  <textarea
+                    id="description"
+                    className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Tuliskan deskripsi mu dengan jelas di sini"
+                    rows={4}
+                  />
+                </div>
+                <div className="flex flex-wrap items-center justify-between">
+                  <div className="flex flex-col flex-wrap gap-4">
+                    <div>
+                      <label className="block text-gray-500 text-sm font-medium">
+                        Apakah di Biayai oleh APBN/APBD
+                      </label>
+                    </div>
+                    <div className="flex gap-6">
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name="gender"
+                          value="L"
+                          className="accent-black"
+                        />
+                        <span className="text-sm text-black">APBN</span>
+                      </label>
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name="gender"
+                          value="P"
+                          className="accent-black"
+                        />
+                        <span className="text-sm text-black">APBD</span>
+                      </label>
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 font-semibold"
+                  >
+                    Submit Data
+                  </button>
                 </div>
               </div>
             </div>
