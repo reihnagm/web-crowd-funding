@@ -8,10 +8,22 @@ interface RoleModalProps {
 }
 
 const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
-  const [namaRekening, setNamaRekening] = useState("");
+  const [name, setName] = useState("");
+  const [maritalStatus, setMaritalStatus] = useState("");
+  const [nameBank, setNameBank] = useState("");
   const [noRekening, setNoRekening] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [companyAddress, setCompanyAddress] = useState("");
+  const [monthlyIncome, setMonthlyIncome] = useState("");
+  const [position, setPosition] = useState("");
+  const [lastEducation, setLastEducation] = useState("");
+  const [work, setWork] = useState("");
   const [noKtp, setNoKtp] = useState("");
-  const [pemilikRekening, setPemilikRekening] = useState("");
+  const [noTelp, setNoTlp] = useState("");
+  const [accountOwner, setAccountOwner] = useState("");
+  const [bankBranch, setBankBranch] = useState("");
+  const [address, setAddress] = useState("");
+  const [email, setEmail] = useState("");
   const [step, setStep] = useState<"select" | "penerbit" | "pemodal">("select");
 
   if (!open) return null;
@@ -93,9 +105,19 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
         )}
 
         {step === "pemodal" && (
-          <div className="py-12 px-8 w-full flex flex-col">
+          <div className="py-2 px-8 w-full flex flex-col">
             <div className="my-4">
-              <h3 className="text-black mb-2 font-semibold text-sm">
+              <div className="center text-center space-y-2">
+                <h4 className="text-black text-2xl center block">
+                  Isi Data Sebagai Pemodal
+                </h4>
+                <p className="text-sm text-gray-500">
+                  Untuk memastikan kelancaran proses verifikasi dan layanan yang
+                  optimal, kami <br /> mengajak Anda untuk melengkapi seluruh
+                  data secara jujur, benar, dan akurat.
+                </p>
+              </div>
+              <h3 className="text-black my-4 font-semibold text-sm">
                 Informasi Pribadi
               </h3>
               <div className="space-y-4">
@@ -107,8 +129,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={namaRekening}
-                      onChange={(e) => setNamaRekening(e.target.value)}
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Nama"
                     />
@@ -121,8 +143,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={noRekening}
-                      onChange={(e) => setNoRekening(e.target.value)}
+                      value={noKtp}
+                      onChange={(e) => setNoKtp(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="KTP"
                     />
@@ -137,8 +159,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={pemilikRekening}
-                      onChange={(e) => setPemilikRekening(e.target.value)}
+                      value={accountOwner}
+                      onChange={(e) => setAccountOwner(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Tempat Tanggal Lahir"
                     />
@@ -184,8 +206,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={pemilikRekening}
-                      onChange={(e) => setPemilikRekening(e.target.value)}
+                      value={maritalStatus}
+                      onChange={(e) => setMaritalStatus(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Status Pernikahan"
                     />
@@ -197,8 +219,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={pemilikRekening}
-                      onChange={(e) => setPemilikRekening(e.target.value)}
+                      value={lastEducation}
+                      onChange={(e) => setLastEducation(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Pendidikan Terakhir"
                     />
@@ -213,8 +235,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={pemilikRekening}
-                      onChange={(e) => setPemilikRekening(e.target.value)}
+                      value={work}
+                      onChange={(e) => setWork(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Pekerjaan"
                     />
@@ -227,8 +249,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={pemilikRekening}
-                      onChange={(e) => setPemilikRekening(e.target.value)}
+                      value={noTelp}
+                      onChange={(e) => setNoTlp(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="No Tlp"
                     />
@@ -243,8 +265,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                   </label>
                   <input
                     type="text"
-                    value={pemilikRekening}
-                    onChange={(e) => setPemilikRekening(e.target.value)}
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
                     className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     placeholder="Alamat Sesuai KTP dan Alamat Domisili"
                   />
@@ -258,8 +280,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                   </label>
                   <input
                     type="text"
-                    value={pemilikRekening}
-                    onChange={(e) => setPemilikRekening(e.target.value)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     placeholder="Alamat Email Aktif"
                   />
@@ -281,8 +303,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       </label>
                       <input
                         type="text"
-                        value={namaRekening}
-                        onChange={(e) => setNamaRekening(e.target.value)}
+                        value={nameBank}
+                        onChange={(e) => setNameBank(e.target.value)}
                         className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         placeholder="Nama Bank"
                       />
@@ -310,8 +332,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       </label>
                       <input
                         type="text"
-                        value={pemilikRekening}
-                        onChange={(e) => setPemilikRekening(e.target.value)}
+                        value={accountOwner}
+                        onChange={(e) => setAccountOwner(e.target.value)}
                         className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         placeholder="Nama Pemilik Rekening"
                       />
@@ -323,8 +345,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       </label>
                       <input
                         type="text"
-                        value={pemilikRekening}
-                        onChange={(e) => setPemilikRekening(e.target.value)}
+                        value={bankBranch}
+                        onChange={(e) => setBankBranch(e.target.value)}
                         className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         placeholder="Cabang Bank"
                       />
@@ -348,8 +370,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       </label>
                       <input
                         type="text"
-                        value={namaRekening}
-                        onChange={(e) => setNamaRekening(e.target.value)}
+                        value={companyName}
+                        onChange={(e) => setCompanyName(e.target.value)}
                         className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         placeholder="Nama Perusahaan"
                       />
@@ -361,8 +383,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       </label>
                       <input
                         type="text"
-                        value={noRekening}
-                        onChange={(e) => setNoRekening(e.target.value)}
+                        value={position}
+                        onChange={(e) => setPosition(e.target.value)}
                         className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         placeholder="Jabatan"
                       />
@@ -375,8 +397,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={pemilikRekening}
-                      onChange={(e) => setPemilikRekening(e.target.value)}
+                      value={companyAddress}
+                      onChange={(e) => setCompanyAddress(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Alamat Sesuai KTP dan Alamat Domisili"
                     />
@@ -388,8 +410,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={pemilikRekening}
-                      onChange={(e) => setPemilikRekening(e.target.value)}
+                      value={monthlyIncome}
+                      onChange={(e) => setMonthlyIncome(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Penghasilan Bulanan"
                     />
@@ -517,8 +539,6 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       </label>
                       <input
                         type="text"
-                        value={pemilikRekening}
-                        onChange={(e) => setPemilikRekening(e.target.value)}
                         className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         placeholder="Pernyataan Kebenaran Data"
                       />
@@ -530,8 +550,6 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       </label>
                       <input
                         type="text"
-                        value={pemilikRekening}
-                        onChange={(e) => setPemilikRekening(e.target.value)}
                         className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         placeholder="Pernyataan Memahami Risiko Investasi"
                       />
@@ -543,8 +561,6 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       Tanda Tangan Pemohon
                     </label>
                     <textarea
-                      value={pemilikRekening}
-                      onChange={(e) => setPemilikRekening(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Tanda Tangan Pemohon"
                     />
@@ -599,7 +615,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                         type="submit"
                         className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 font-semibold"
                       >
-                        SUBMIT DATA
+                        Submit Data
                       </button>
                     </div>
                   </div>
