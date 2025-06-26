@@ -537,6 +537,72 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       />
                     </div>
                   </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-500 mb-1">
+                      Tanda Tangan Pemohon
+                    </label>
+                    <textarea
+                      value={pemilikRekening}
+                      onChange={(e) => setPemilikRekening(e.target.value)}
+                      className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Tanda Tangan Pemohon"
+                    />
+                  </div>
+
+                  <div className="space-y-4">
+                    <label className="text-black mb-2 font-semibold text-sm">
+                      Lampiran Data
+                    </label>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Dokumen 1 */}
+                      <label className="flex items-center gap-3 border border-dashed border-gray-300 rounded-md px-4 py-3 cursor-pointer hover:bg-gray-50">
+                        <span>📄</span>
+                        <span className="text-sm text-gray-600">
+                          Upload dokumen Fotokopi KTP
+                        </span>
+                        <input type="file" className="hidden" />
+                      </label>
+
+                      {/* Dokumen 2 */}
+                      <label className="flex items-center gap-3 border border-dashed border-gray-300 rounded-md px-4 py-3 cursor-pointer hover:bg-gray-50">
+                        <span>📄</span>
+                        <span className="text-sm text-gray-600">
+                          Upload dokumen NPWP (jika ada)
+                        </span>
+                        <input type="file" className="hidden" />
+                      </label>
+
+                      {/* Dokumen 3 */}
+                      <label className="flex items-center gap-3 border border-dashed border-gray-300 rounded-md px-4 py-3 cursor-pointer hover:bg-gray-50">
+                        <span>📄</span>
+                        <span className="text-sm text-gray-600">
+                          Upload dokumen Rekening Koran
+                        </span>
+                        <input type="file" className="hidden" />
+                      </label>
+
+                      {/* Dokumen 4 */}
+                      <label className="flex items-center gap-3 border border-dashed border-gray-300 rounded-md px-4 py-3 cursor-pointer hover:bg-gray-50">
+                        <span>📄</span>
+                        <span className="text-sm text-gray-600">
+                          Upload dokumen Lainnya (Optional)
+                        </span>
+                        <input type="file" className="hidden" />
+                      </label>
+                    </div>
+
+                    {/* Tombol Submit */}
+                    <div className="flex justify-center pt-4">
+                      <button
+                        type="submit"
+                        className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 font-semibold"
+                      >
+                        SUBMIT DATA
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
