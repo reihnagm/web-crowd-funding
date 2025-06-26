@@ -18,7 +18,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white rounded-3xl overflow-scroll h-[90%] max-w-2xl w-full relative flex flex-col md:flex-row">
+      <div className="bg-white rounded-3xl overflow-y-scroll h-[700px] max-w-3xl w-full relative flex flex-col md:flex-row">
         {step !== "select" && (
           <button
             onClick={() => setStep("select")}
@@ -93,7 +93,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
         )}
 
         {step === "pemodal" && (
-          <div className="py-8 w-full flex flex-col items-center">
+          <div className="py-12 px-8 w-full flex flex-col">
             <div className="my-4">
               <h3 className="text-black mb-2 font-semibold text-sm">
                 Informasi Pribadi
@@ -326,7 +326,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                         value={pemilikRekening}
                         onChange={(e) => setPemilikRekening(e.target.value)}
                         className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        placeholder="Masukkan cabang bank"
+                        placeholder="Cabang Bank"
                       />
                     </div>
                   </div>
@@ -351,7 +351,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                         value={namaRekening}
                         onChange={(e) => setNamaRekening(e.target.value)}
                         className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        placeholder="Nama Bank"
+                        placeholder="Nama Perusahaan"
                       />
                     </div>
                     {/* Jabatan */}
@@ -403,7 +403,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                 <h3 className="text-black mb-2 font-semibold text-sm">
                   Profil Risiko
                 </h3>
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <div className="flex flex-wrap gap-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-500 mb-1">
@@ -419,119 +419,124 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </div>
                   </div>
 
-                  <div className="space-y-4">
-                    <div className="flex flex-wrap gap-4">
-                      <div>
-                        <label className="block text-gray-500 text-sm font-medium">
-                          Toleransi Resiko
-                        </label>
-                      </div>
-                      <div className="flex gap-6">
-                        <label className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            name="risk"
-                            value="rendah"
-                            className="accent-black"
-                          />
-                          <span className="text-sm text-black">Rendah</span>
-                        </label>
-                        <label className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            name="risk"
-                            value="sedang"
-                            className="accent-black"
-                          />
-                          <span className="text-sm text-black">Sedang</span>
-                        </label>
-                        <label className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            name="risk"
-                            value="tinggi"
-                            className="accent-black"
-                          />
-                          <span className="text-sm text-black">Tinggi</span>
-                        </label>
-                      </div>
+                  <div className="flex flex-wrap gap-4">
+                    <div>
+                      <label className="block text-gray-500 text-sm font-medium">
+                        Toleransi Resiko
+                      </label>
+                    </div>
+                    <div className="flex gap-6">
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name="risk"
+                          value="rendah"
+                          className="accent-black"
+                        />
+                        <span className="text-sm text-black">Rendah</span>
+                      </label>
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name="risk"
+                          value="sedang"
+                          className="accent-black"
+                        />
+                        <span className="text-sm text-black">Sedang</span>
+                      </label>
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name="risk"
+                          value="tinggi"
+                          className="accent-black"
+                        />
+                        <span className="text-sm text-black">Tinggi</span>
+                      </label>
                     </div>
                   </div>
 
-                  <div className="space-y-4">
-                    <div className="flex flex-wrap gap-4">
-                      <div>
-                        <label className="block text-gray-500 text-sm font-medium">
-                          Pengalaman Investasi
-                        </label>
-                      </div>
-                      <div className="flex gap-6">
-                        <label className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            name="experience"
-                            value="tidak_ada"
-                            className="accent-black"
-                          />
-                          <span className="text-sm text-black">Tidak ada</span>
-                        </label>
-                        <label className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            name="experience"
-                            value="kurang"
-                            className="accent-black"
-                          />
-                          <span className="text-sm text-black">Kurang</span>
-                        </label>
-                        <label className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            name="experience"
-                            value="cukup"
-                            className="accent-black"
-                          />
-                          <span className="text-sm text-black">Cukup</span>
-                        </label>
-                        <label className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            name="experience"
-                            value="banyak"
-                            className="accent-black"
-                          />
-                          <span className="text-sm text-black">Banyak</span>
-                        </label>
-                      </div>
+                  <div className="flex flex-wrap gap-4">
+                    <div>
+                      <label className="block text-gray-500 text-sm font-medium">
+                        Pengalaman Investasi
+                      </label>
+                    </div>
+                    <div className="flex gap-6">
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name="experience"
+                          value="tidak_ada"
+                          className="accent-black"
+                        />
+                        <span className="text-sm text-black">Tidak ada</span>
+                      </label>
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name="experience"
+                          value="kurang"
+                          className="accent-black"
+                        />
+                        <span className="text-sm text-black">Kurang</span>
+                      </label>
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name="experience"
+                          value="cukup"
+                          className="accent-black"
+                        />
+                        <span className="text-sm text-black">Cukup</span>
+                      </label>
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name="experience"
+                          value="banyak"
+                          className="accent-black"
+                        />
+                        <span className="text-sm text-black">Banyak</span>
+                      </label>
                     </div>
                   </div>
+                </div>
+              </div>
 
-                  {/* 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Pengalaman Investasi
-                    </label>
-                    <select className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                      <option value="">Pilih pengalaman</option>
-                      <option value="Tidak Ada">Tidak Ada</option>
-                      <option value="Kurang">Kurang</option>
-                      <option value="Cukup">Cukup</option>
-                      <option value="Banyak">Banyak</option>
-                    </select>
+              <div className="my-8">
+                <h3 className="text-black mb-2 font-semibold text-sm">
+                  Pernyataan dan Tanda Tangan
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex flex-wrap gap-4">
+                    {/* Pernyataan Kebenaran Data */}
+                    <div className="flex-1">
+                      <label className="block text-sm font-medium text-gray-500 mb-1">
+                        Pernyataan Kebenaran Data
+                      </label>
+                      <input
+                        type="text"
+                        value={pemilikRekening}
+                        onChange={(e) => setPemilikRekening(e.target.value)}
+                        className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        placeholder="Pernyataan Kebenaran Data"
+                      />
+                    </div>
+                    {/* Pernyataan Memahami Risiko Investasi */}
+                    <div className="flex-1">
+                      <label className="block text-sm font-medium text-gray-500 mb-1">
+                        Pernyataan Memahami Risiko Investasi
+                      </label>
+                      <input
+                        type="text"
+                        value={pemilikRekening}
+                        onChange={(e) => setPemilikRekening(e.target.value)}
+                        className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        placeholder="Pernyataan Memahami Risiko Investasi"
+                      />
+                    </div>
                   </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Pengetahuan tentang Pasar Modal
-                    </label>
-                    <select className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                      <option value="">Pilih pengalaman</option>
-                      <option value="Tidak Ada">Tidak Ada</option>
-                      <option value="Kurang">Kurang</option>
-                      <option value="Cukup">Cukup</option>
-                      <option value="Banyak">Banyak</option>
-                    </select>
-                  </div> */}
                 </div>
               </div>
             </div>
