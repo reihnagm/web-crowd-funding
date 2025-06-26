@@ -10,6 +10,7 @@ interface RoleModalProps {
 const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
   const [name, setName] = useState("");
   const [maritalStatus, setMaritalStatus] = useState("");
+  const [workDesc, setWorkDesc] = useState("");
   const [nameBank, setNameBank] = useState("");
   const [noRekening, setNoRekening] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -504,6 +505,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                   </label>
                   <textarea
                     id="description"
+                    value={workDesc}
+                    onChange={(e) => setWorkDesc(e.target.value)}
                     className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     placeholder="Tuliskan deskripsi mu dengan jelas di sini"
                     rows={4}
@@ -520,8 +523,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       <label className="flex items-center gap-2">
                         <input
                           type="radio"
-                          name="gender"
-                          value="L"
+                          name="funded"
+                          value="APBN"
                           className="accent-black"
                         />
                         <span className="text-sm text-black">APBN</span>
@@ -529,8 +532,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       <label className="flex items-center gap-2">
                         <input
                           type="radio"
-                          name="gender"
-                          value="P"
+                          name="funded"
+                          value="APBD"
                           className="accent-black"
                         />
                         <span className="text-sm text-black">APBD</span>
