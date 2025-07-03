@@ -1,10 +1,51 @@
 "use client";
 
 import React, { useState } from "react";
+import { z } from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from "react-hook-form";
 
 interface RoleModalProps {
   open: boolean;
   onClose: () => void;
+}
+
+const schema = z.object({
+    name: z.string().min(1, { message: "Name is required" }),
+    maritalStatus: z.string(),
+    nameBank: z.string(),
+    noRekening: z.string(),
+    companyName: z.string(),
+    companyAddress: z.string(),
+    monthlyIncome: z.string(),
+    position: z.string(),
+    lastEducation: z.string(),
+    work: z.string(),
+    noTelp: z.string(),
+    accountOwner: z.string(),
+    bankBranch: z.string(),
+    address: z.string(),
+    email: z.string(),
+    tep: z.string(),
+});
+
+type FormValues = {
+    name: string;
+    maritalStatus: string;
+    nameBank: string;
+    noRekening: string;
+    companyName: string;
+    companyAddress: string;
+    monthlyIncome: string;
+    position: string;
+    lastEducation: string;
+    work: string;
+    noTelp: string;
+    accountOwner: string;
+    bankBranch: string;
+    address: string;
+    email: string;
+    tep: string;
 }
 
 const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
@@ -26,6 +67,17 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
   const [step, setStep] = useState<"select" | "penerbit" | "pemodal">("select");
+
+  const { 
+        register,
+        control, 
+        handleSubmit, 
+        reset,
+        setValue,
+        formState: { errors } 
+    } = useForm<FormValues>({
+        resolver: zodResolver(schema),
+    });
 
   if (!open) return null;
 
@@ -136,11 +188,13 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
+                      {...register("name")}
                       value={noKtp}
                       onChange={(e) => setNoKtp(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Nomor Induk Perusahaan"
                     />
+                    {errors.name && <div className="text-danger mt-1">{errors.name.message}</div>}
                   </div>
                 </div>
 
@@ -1081,3 +1135,4 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
 };
 
 export default RoleModal;
+
