@@ -1,0 +1,1 @@
+export let API_BACKEND = "https://api-capbridge.langitdigital78.com"

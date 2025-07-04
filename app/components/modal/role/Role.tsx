@@ -3,7 +3,9 @@
 import React, { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
+import axios from "axios";
+import { API_BACKEND } from "@/app/utils/constant";
 
 interface RoleModalProps {
   open: boolean;
@@ -12,9 +14,9 @@ interface RoleModalProps {
 
 const schema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
+    placeOfBirth: z.string(),
+    gender: z.string(),
     maritalStatus: z.string(),
-    nameBank: z.string(),
-    noRekening: z.string(),
     companyName: z.string(),
     companyAddress: z.string(),
     monthlyIncome: z.string(),
@@ -27,13 +29,30 @@ const schema = z.object({
     address: z.string(),
     email: z.string(),
     tep: z.string(),
+    npwp: z.string(),
+    deedOfIncorp: z.string(),
+    numberOfEmploye: z.string(),
+    capitalStruktur: z.string(),
+    financialStatements: z.string(),
+    nameDirection: z.string(),
+    nameCommissioner: z.string(),
+    noKtp: z.string(),
+    nameBank: z.string(),
+    noRekening: z.string(),
+    experience: z.string(),
+    risk: z.string(),
+    dokumen1: z.any(),
+    dokumen2: z.any(),
+    dokumen3: z.any(),
+    dokumen4: z.any(),
+    password: z.any(),
 });
 
 type FormValues = {
     name: string;
+    placeOfBirth: string;
+    gender: string;
     maritalStatus: string;
-    nameBank: string;
-    noRekening: string;
     companyName: string;
     companyAddress: string;
     monthlyIncome: string;
@@ -46,39 +65,119 @@ type FormValues = {
     address: string;
     email: string;
     tep: string;
+    npwp: string;
+    deedOfIncorp: string;
+    numberOfEmploye: string;
+    capitalStruktur: string;
+    financialStatements: string;
+    nameDirection: string;
+    nameCommissioner: string;
+    noKtp: string;
+    nameBank: string;
+    noRekening: string;
+    experience: string;
+    risk: string;
+    dokumen1: any;
+    dokumen2: any;
+    dokumen3: any;
+    dokumen4: any;
+    password: string;
 }
 
 const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
-  const [name, setName] = useState("");
-  const [maritalStatus, setMaritalStatus] = useState("");
   const [workDesc, setWorkDesc] = useState("");
-  const [nameBank, setNameBank] = useState("");
-  const [noRekening, setNoRekening] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [companyAddress, setCompanyAddress] = useState("");
-  const [monthlyIncome, setMonthlyIncome] = useState("");
-  const [position, setPosition] = useState("");
-  const [lastEducation, setLastEducation] = useState("");
-  const [work, setWork] = useState("");
-  const [noKtp, setNoKtp] = useState("");
-  const [noTelp, setNoTlp] = useState("");
-  const [accountOwner, setAccountOwner] = useState("");
-  const [bankBranch, setBankBranch] = useState("");
-  const [address, setAddress] = useState("");
-  const [email, setEmail] = useState("");
   const [step, setStep] = useState<"select" | "penerbit" | "pemodal">("select");
+  const [linkKtp, setLinkKtp] = useState("")
+  const [linKnpwp, setLinkNpwp] = useState("")
+  const [linkRek, setLinkRek] = useState("")
+  const [linkOptional, setLinkOptional] = useState("")
 
-  const { 
-        register,
-        control, 
-        handleSubmit, 
-        reset,
-        setValue,
-        formState: { errors } 
-    } = useForm<FormValues>({
-        resolver: zodResolver(schema),
-    });
+  const onSubmitInvestor: SubmitHandler<FormValues> = async (data) => {
+    console.log("Data : " + JSON.stringify(data));
 
+    try {
+      const res = await axios.post(`${API_BACKEND}/api/v1/auth/register`, {
+        "fullname": data.name,
+        "email": data.email,
+        "phone": data.noTelp,
+        "role": "2",
+        "password": data.password,
+        "investor": {
+            "ktp": data.noKtp,
+            "address_ktp": data.address,
+            "gender": data.gender,
+            "status_marital": data.maritalStatus,
+            "last_edu": data.lastEducation,
+            "bank": {
+                "no": data.noRekening,
+                "name": data.nameBank,
+                "owner": data.accountOwner,
+                "branch": data.bankBranch
+            },
+            "job": {
+                "company_name": data.companyName,
+                "company_address":data.companyAddress,
+                "monthly_income": data.monthlyIncome,
+                "position": data.position
+            }
+        },
+      });
+      const result = await res.data;
+      console.log("Hasil:", result);
+    } catch (error) {
+      
+    }
+  }
+  
+  const [fileNames, setFileNames] = useState([
+    "Upload dokumen Fotokopi KTP",
+    "Upload dokumen NPWP (jika ada)",
+    "Upload dokumen Rekening Koran",
+    "Upload dokumen Lainnya (Optional)",
+  ]);
+
+
+  const handleFileChange = async (index: number, file?: File) => {
+    // const newFileNames = [...fileNames];
+    // newFileNames[index] = file ? file.name : fileNames[index];
+    // console.log("File " + newFileNames)
+    // console.log("File " , file)
+    // setFileNames(newFileNames);
+    const formData = new FormData();
+    formData.append("folder", "image");
+    formData.append("app", "capbridge");
+    formData.append("files", file ?? "");
+
+    try {
+      const res = await axios.put("http://157.245.193.49:3099/api/v1/media", 
+        formData,
+      );
+      const result = await res.data;
+      console.log("Hasil:", result.data[0].url);
+      if(index == 0) {
+        setLinkKtp(result.data[0].url);
+      } else if (index == 1){
+        setLinkNpwp(result.data[0].url)
+      } else if(index == 2){
+        setLinkRek(result.data[0].url)
+      } else {
+        setLinkOptional(result.data[0].url)
+      }
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+  
+  const pemodal = useForm<FormValues>({
+    // resolver: zodResolver(schema),
+  });
+
+
+  
+  
   if (!open) return null;
 
   return (
@@ -101,7 +200,6 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
         >
           ×
         </button>
-
         {step === "select" && (
           <>
             <div className="p-8 md:w-1/2 bg-white z-20">
@@ -174,11 +272,9 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Data Perusahaan"
-                    />
+                      />
                   </div>
 
                   {/* Nama Perusahaan */}
@@ -188,13 +284,9 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      {...register("name")}
-                      value={noKtp}
-                      onChange={(e) => setNoKtp(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Nomor Induk Perusahaan"
                     />
-                    {errors.name && <div className="text-danger mt-1">{errors.name.message}</div>}
                   </div>
                 </div>
 
@@ -206,8 +298,6 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={accountOwner}
-                      onChange={(e) => setAccountOwner(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Nomor Induk Perusahaan"
                     />
@@ -220,11 +310,9 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={accountOwner}
-                      onChange={(e) => setAccountOwner(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Akta Pendirian Perusahaan"
-                    />
+                      />
                   </div>
                 </div>
 
@@ -236,8 +324,6 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={maritalStatus}
-                      onChange={(e) => setMaritalStatus(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="SK Kumham"
                     />
@@ -249,8 +335,6 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={lastEducation}
-                      onChange={(e) => setLastEducation(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Akta Perubahan Terahkir"
                     />
@@ -265,8 +349,6 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                   </label>
                   <input
                     type="text"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
                     className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     placeholder="Alamat Perusahaan"
                   />
@@ -280,8 +362,6 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={maritalStatus}
-                      onChange={(e) => setMaritalStatus(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="NPWP Perusahaan"
                     />
@@ -293,8 +373,6 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={lastEducation}
-                      onChange={(e) => setLastEducation(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Jumlah Karyawan"
                     />
@@ -309,8 +387,6 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={maritalStatus}
-                      onChange={(e) => setMaritalStatus(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Struktur Pemodalan"
                     />
@@ -322,8 +398,6 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={lastEducation}
-                      onChange={(e) => setLastEducation(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Laporan Keuangan"
                     />
@@ -610,6 +684,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
         )}
 
         {step === "pemodal" && (
+          <form onSubmit={pemodal.handleSubmit(onSubmitInvestor)} data-tes='tes'>
           <div className="py-2 px-8 w-full flex flex-col">
             <div className="my-4">
               <div className="center text-center space-y-2">
@@ -630,15 +705,47 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                   {/* Nama */}
                   <div className="flex-1">
                     <label className="block text-sm font-medium text-gray-500 mb-1">
+                      Email
+                    </label>
+                    <input
+                      type="text"
+                      {...pemodal.register("email")}
+                      name="name"
+                      className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Email"
+                    />
+                    {pemodal.formState.errors.email && <div className="text-danger mt-1">{pemodal.formState.errors.email.message}</div>}
+                  </div>
+
+                  {/* KTP */}
+                  <div className="flex-1">
+                    <label className="block text-sm font-medium text-gray-500 mb-1">
+                      Password
+                    </label>
+                    <input
+                      type="text"
+                      {...pemodal.register("noKtp")}
+                      name="noKtp"
+                      className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Password"
+                    />
+                    {pemodal.formState.errors.password && <div className="text-danger mt-1">{pemodal.formState.errors.password.message}</div>}
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-4">
+                  {/* Nama */}
+                  <div className="flex-1">
+                    <label className="block text-sm font-medium text-gray-500 mb-1">
                       Nama
                     </label>
                     <input
                       type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      {...pemodal.register("name")}
+                      name="name"
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Nama"
                     />
+                    {pemodal.formState.errors.name && <div className="text-danger mt-1">{pemodal.formState.errors.name.message}</div>}
                   </div>
 
                   {/* KTP */}
@@ -648,11 +755,12 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={noKtp}
-                      onChange={(e) => setNoKtp(e.target.value)}
+                      {...pemodal.register("noKtp")}
+                      name="noKtp"
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="KTP"
                     />
+                    {pemodal.formState.errors.noKtp && <div className="text-danger mt-1">{pemodal.formState.errors.noKtp.message}</div>}
                   </div>
                 </div>
 
@@ -664,11 +772,11 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={accountOwner}
-                      onChange={(e) => setAccountOwner(e.target.value)}
+                      {...pemodal.register("placeOfBirth")}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Tempat Tanggal Lahir"
-                    />
+                      />
+                    {pemodal.formState.errors.placeOfBirth && <div className="text-danger mt-1">{pemodal.formState.errors.placeOfBirth.message}</div>}
                   </div>
 
                   {/* Gender */}
@@ -682,15 +790,17 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       <div className="flex gap-6">
                         <label className="flex items-center gap-2">
                           <input
+                            {...pemodal.register("gender")}
                             type="radio"
                             name="gender"
                             value="L"
                             className="accent-black"
-                          />
+                            />
                           <span className="text-sm text-black">Pria</span>
                         </label>
                         <label className="flex items-center gap-2">
                           <input
+                            {...pemodal.register("gender")}
                             type="radio"
                             name="gender"
                             value="P"
@@ -698,6 +808,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                           />
                           <span className="text-sm text-black">Wanita</span>
                         </label>
+                        {pemodal.formState.errors.gender && <div className="text-danger mt-1">{pemodal.formState.errors.gender.message}</div>}
                       </div>
                     </div>
                   </div>
@@ -711,11 +822,10 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={maritalStatus}
-                      onChange={(e) => setMaritalStatus(e.target.value)}
+                      {...pemodal.register("maritalStatus")}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Status Pernikahan"
-                    />
+                    />{pemodal.formState.errors.maritalStatus && <div className="text-danger mt-1">{pemodal.formState.errors.maritalStatus.message}</div>}
                   </div>
                   {/* Pendidikan Terakhir */}
                   <div className="flex-1">
@@ -724,11 +834,11 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={lastEducation}
-                      onChange={(e) => setLastEducation(e.target.value)}
+                      {...pemodal.register("lastEducation")}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Pendidikan Terakhir"
                     />
+                    {pemodal.formState.errors.lastEducation && <div className="text-danger mt-1">{pemodal.formState.errors.lastEducation.message}</div>}
                   </div>
                 </div>
 
@@ -740,11 +850,11 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={work}
-                      onChange={(e) => setWork(e.target.value)}
+                      {...pemodal.register("work")}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Pekerjaan"
-                    />
+                      />
+                      {pemodal.formState.errors.work && <div className="text-danger mt-1">{pemodal.formState.errors.work.message}</div>}
                   </div>
 
                   {/* No Telp */}
@@ -753,12 +863,12 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       No Tlp
                     </label>
                     <input
+                      {...pemodal.register("noTelp")}
                       type="text"
-                      value={noTelp}
-                      onChange={(e) => setNoTlp(e.target.value)}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="No Tlp"
-                    />
+                      />
+                      {pemodal.formState.errors.noTelp && <div className="text-danger mt-1">{pemodal.formState.errors.noTelp.message}</div>}
                   </div>
                 </div>
 
@@ -770,11 +880,11 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                   </label>
                   <input
                     type="text"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
+                    {...pemodal.register("address")}
                     className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     placeholder="Alamat Sesuai KTP dan Alamat Domisili"
-                  />
+                    />
+                    {pemodal.formState.errors.address && <div className="text-danger mt-1">{pemodal.formState.errors.address.message}</div>}
                 </div>
 
                 {/* Alamat Email Aktif */}
@@ -785,11 +895,11 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                   </label>
                   <input
                     type="text"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    {...pemodal.register("email")}
                     className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     placeholder="Alamat Email Aktif"
-                  />
+                    />
+                    {pemodal.formState.errors.email && <div className="text-danger mt-1">{pemodal.formState.errors.email.message}</div>}
                 </div>
               </div>
 
@@ -808,11 +918,11 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       </label>
                       <input
                         type="text"
-                        value={nameBank}
-                        onChange={(e) => setNameBank(e.target.value)}
+                        {...pemodal.register("nameBank")}
                         className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         placeholder="Nama Bank"
-                      />
+                        />
+                        {pemodal.formState.errors.nameBank && <div className="text-danger mt-1">{pemodal.formState.errors.nameBank.message}</div>}
                     </div>
                     {/* Nomor Rekening */}
                     <div className="flex-1">
@@ -821,11 +931,11 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       </label>
                       <input
                         type="text"
-                        value={noRekening}
-                        onChange={(e) => setNoRekening(e.target.value)}
+                        {...pemodal.register("noRekening")}
                         className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         placeholder="Nomor Rekening"
-                      />
+                        />
+                        {pemodal.formState.errors.noRekening && <div className="text-danger mt-1">{pemodal.formState.errors.noRekening.message}</div>}
                     </div>
                   </div>
 
@@ -837,11 +947,11 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       </label>
                       <input
                         type="text"
-                        value={accountOwner}
-                        onChange={(e) => setAccountOwner(e.target.value)}
+                        {...pemodal.register("accountOwner")}
                         className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         placeholder="Nama Pemilik Rekening"
                       />
+                      {pemodal.formState.errors.accountOwner && <div className="text-danger mt-1">{pemodal.formState.errors.accountOwner.message}</div>}
                     </div>
                     {/* Cabang Bank */}
                     <div className="flex-1">
@@ -850,11 +960,11 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       </label>
                       <input
                         type="text"
-                        value={bankBranch}
-                        onChange={(e) => setBankBranch(e.target.value)}
+                        {...pemodal.register("bankBranch")}
                         className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         placeholder="Cabang Bank"
                       />
+                      {pemodal.formState.errors.bankBranch && <div className="text-danger mt-1">{pemodal.formState.errors.bankBranch.message}</div>}
                     </div>
                   </div>
                 </div>
@@ -875,11 +985,11 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       </label>
                       <input
                         type="text"
-                        value={companyName}
-                        onChange={(e) => setCompanyName(e.target.value)}
+                        {...pemodal.register("companyName")}
                         className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         placeholder="Nama Perusahaan"
                       />
+                      {pemodal.formState.errors.companyName && <div className="text-danger mt-1">{pemodal.formState.errors.companyName.message}</div>}
                     </div>
                     {/* Jabatan */}
                     <div className="flex-1">
@@ -888,11 +998,11 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       </label>
                       <input
                         type="text"
-                        value={position}
-                        onChange={(e) => setPosition(e.target.value)}
+                        {...pemodal.register("position")}
                         className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         placeholder="Jabatan"
                       />
+                      {pemodal.formState.errors.position && <div className="text-danger mt-1">{pemodal.formState.errors.position.message}</div>}
                     </div>
                   </div>
 
@@ -902,11 +1012,11 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={companyAddress}
-                      onChange={(e) => setCompanyAddress(e.target.value)}
+                      {...pemodal.register("companyAddress")}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Alamat Sesuai KTP dan Alamat Domisili"
                     />
+                    {pemodal.formState.errors.companyAddress && <div className="text-danger mt-1">{pemodal.formState.errors.companyAddress.message}</div>}
                   </div>
 
                   <div>
@@ -915,11 +1025,11 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                     </label>
                     <input
                       type="text"
-                      value={monthlyIncome}
-                      onChange={(e) => setMonthlyIncome(e.target.value)}
+                      {...pemodal.register("monthlyIncome")}
                       className="w-full px-4 py-2 text-black border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Penghasilan Bulanan"
                     />
+                    {pemodal.formState.errors.monthlyIncome && <div className="text-danger mt-1">{pemodal.formState.errors.monthlyIncome.message}</div>}
                   </div>
                 </div>
               </div>
@@ -956,8 +1066,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       <label className="flex items-center gap-2">
                         <input
                           type="radio"
-                          name="risk"
                           value="rendah"
+                          {...pemodal.register("risk")}
                           className="accent-black"
                         />
                         <span className="text-sm text-black">Rendah</span>
@@ -965,8 +1075,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       <label className="flex items-center gap-2">
                         <input
                           type="radio"
-                          name="risk"
                           value="sedang"
+                          {...pemodal.register("risk")}
                           className="accent-black"
                         />
                         <span className="text-sm text-black">Sedang</span>
@@ -974,13 +1084,16 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       <label className="flex items-center gap-2">
                         <input
                           type="radio"
-                          name="risk"
                           value="tinggi"
+                          {...pemodal.register("risk")}
                           className="accent-black"
                         />
                         <span className="text-sm text-black">Tinggi</span>
                       </label>
                     </div>
+                    {pemodal.formState.errors.risk && (
+                      <p className="text-red-500 text-sm">{pemodal.formState.errors.risk.message}</p>
+                    )}
                   </div>
 
                   <div className="flex flex-wrap gap-4">
@@ -993,8 +1106,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       <label className="flex items-center gap-2">
                         <input
                           type="radio"
-                          name="experience"
                           value="tidak_ada"
+                          {...pemodal.register("experience")}
                           className="accent-black"
                         />
                         <span className="text-sm text-black">Tidak ada</span>
@@ -1002,8 +1115,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       <label className="flex items-center gap-2">
                         <input
                           type="radio"
-                          name="experience"
                           value="kurang"
+                          {...pemodal.register("experience")}
                           className="accent-black"
                         />
                         <span className="text-sm text-black">Kurang</span>
@@ -1011,8 +1124,8 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       <label className="flex items-center gap-2">
                         <input
                           type="radio"
-                          name="experience"
                           value="cukup"
+                          {...pemodal.register("experience")}
                           className="accent-black"
                         />
                         <span className="text-sm text-black">Cukup</span>
@@ -1020,13 +1133,16 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                       <label className="flex items-center gap-2">
                         <input
                           type="radio"
-                          name="experience"
                           value="banyak"
+                          {...pemodal.register("experience")}
                           className="accent-black"
                         />
                         <span className="text-sm text-black">Banyak</span>
                       </label>
                     </div>
+                    {pemodal.formState.errors.experience && (
+                      <p className="text-red-500 text-sm">{pemodal.formState.errors.experience.message}</p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1072,47 +1188,27 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
                   </div>
 
                   <div className="space-y-4">
-                    <label className="text-black mb-2 font-semibold text-sm">
-                      Lampiran Data
-                    </label>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {/* Dokumen 1 */}
-                      <label className="flex items-center gap-3 border border-dashed border-gray-300 rounded-md px-4 py-3 cursor-pointer hover:bg-gray-50">
-                        <span>📄</span>
-                        <span className="text-sm text-gray-600">
-                          Upload dokumen Fotokopi KTP
-                        </span>
-                        <input type="file" className="hidden" />
-                      </label>
-
-                      {/* Dokumen 2 */}
-                      <label className="flex items-center gap-3 border border-dashed border-gray-300 rounded-md px-4 py-3 cursor-pointer hover:bg-gray-50">
-                        <span>📄</span>
-                        <span className="text-sm text-gray-600">
-                          Upload dokumen NPWP (jika ada)
-                        </span>
-                        <input type="file" className="hidden" />
-                      </label>
-
-                      {/* Dokumen 3 */}
-                      <label className="flex items-center gap-3 border border-dashed border-gray-300 rounded-md px-4 py-3 cursor-pointer hover:bg-gray-50">
-                        <span>📄</span>
-                        <span className="text-sm text-gray-600">
-                          Upload dokumen Rekening Koran
-                        </span>
-                        <input type="file" className="hidden" />
-                      </label>
-
-                      {/* Dokumen 4 */}
-                      <label className="flex items-center gap-3 border border-dashed border-gray-300 rounded-md px-4 py-3 cursor-pointer hover:bg-gray-50">
-                        <span>📄</span>
-                        <span className="text-sm text-gray-600">
-                          Upload dokumen Lainnya (Optional)
-                        </span>
-                        <input type="file" className="hidden" />
-                      </label>
-                    </div>
+                    {["dokumen1", "dokumen2", "dokumen3", "dokumen4"].map(
+                      (field, index) => (
+                        <label
+                          key={field}
+                          className="flex items-center gap-3 border border-dashed border-gray-300 rounded-md px-4 py-3 cursor-pointer hover:bg-gray-50"
+                        >
+                          <span>📄</span>
+                          <span className="text-sm text-gray-600">
+                            {fileNames[index]}
+                          </span>
+                          <input
+                            type="file"
+                            {...pemodal.register(field as any)}
+                            className="hidden"
+                            onChange={(e) =>
+                              handleFileChange(index, e.target.files?.[0])
+                            }
+                          />
+                        </label>
+                      )
+                    )}
 
                     {/* Tombol Submit */}
                     <div className="flex justify-center pt-4">
@@ -1128,6 +1224,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ open, onClose }) => {
               </div>
             </div>
           </div>
+          </form>
         )}
       </div>
     </div>

@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { projects } from "@app/lib/data/projects";
 import { ProjectCard } from "@components/project/Project";
+import { IProjectData } from "@/app/interface/IProject";
+import { getAllProject } from "@/app/actions/GetAllProject";
 
 const Home: React.FC = () => {
 
@@ -11,6 +13,20 @@ const Home: React.FC = () => {
 
   const [activeTab, setActiveTab] = useState<"Umum" | "Pemodal" | "Penerbit">("Umum");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [project, seProject] = useState<IProjectData[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+      const fetchTopVideos = async () => {
+          setLoading(true);
+          const res = await getAllProject();
+          seProject(res?.data ?? []);
+          setLoading(false);
+      };
+
+      fetchTopVideos();
+  }, []);
+
 
   const faqData = {
     Umum: [
@@ -115,7 +131,7 @@ const Home: React.FC = () => {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-24">
-          {projects.map((project, index) => (
+          {project.map((project : IProjectData, index) => (
             <ProjectCard key={index} project={project} />
           ))}
         </div>
