@@ -7,44 +7,90 @@ import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const loading = useSelector((state: RootState) => state.auth.loading);
+  // const loading = useSelector((state: RootState) => state.auth.loading);
 
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+
+  //   if (!email || !password) {
+  //     Swal.fire({
+  //       icon: "warning",
+  //       title: "Form Belum Lengkap",
+  //       text: "Mohon isi semua field wajib.",
+  //     });
+  //     return;
+  //   }
+
+  //   try {
+  //     await dispatch(
+  //       loginAsync({
+  //         login: {
+  //           email: email,
+  //           password: password,
+  //         },
+  //       })
+  //     ).unwrap();
+
+  //     router.push("/");
+  //   } catch (error: any) {
+  //     console.error("Register failed:", error);
+  //   }
+  // };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!email || !password) {
-      Swal.fire({
+      return Swal.fire({
         icon: "warning",
         title: "Form Belum Lengkap",
         text: "Mohon isi semua field wajib.",
       });
-      return;
     }
 
+    setLoading(true);
     try {
-      await dispatch(
-        loginAsync({
-          login: {
-            email: email,
-            password: password,
-          },
-        })
-      ).unwrap();
+      const response = await axios.post(
+        "https://api-capbridge.langitdigital78.com/api/v1/auth/login",
+        {
+          email,
+          password,
+        }
+      );
+
+      console.log(response.data.data, "res");
+
+      // Simpan token dan user info ke localStorage
+      localStorage.setItem("user", JSON.stringify(response.data.data));
+
+      Swal.fire({
+        icon: "success",
+        title: "Login Berhasil",
+        timer: 1500,
+        showConfirmButton: false,
+      });
 
       router.push("/");
     } catch (error: any) {
-      console.error("Register failed:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Login Gagal",
+        text: error.response?.data?.message || "Terjadi kesalahan saat login.",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -93,7 +139,7 @@ const Login: React.FC = () => {
         </div>
 
         <div className="flex flex-row flex-wrap justify-between">
-          <div className="w-1/2">
+          {/* <div className="w-1/2">
             <p>Lupa Kata Sandi</p>
             <p>
               Belum Punya Akun?{" "}
@@ -104,7 +150,7 @@ const Login: React.FC = () => {
                 Daftar Sekarang
               </a>
             </p>
-          </div>
+          </div> */}
           <button
             type="submit"
             disabled={loading}
