@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { X } from "lucide-react";
 
 import type { Swiper as SwiperType } from "swiper";
@@ -9,8 +9,54 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Thumbs } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import { useParams } from "next/navigation";
+import axios from "axios";
 
-const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
+type Project = {
+  id: string;
+  title: string;
+  goal: string;
+  medias: {
+    id: number;
+    path: string;
+  }[];
+  location: {
+    id: number;
+    name: string;
+    url: string;
+    lat: string;
+    lng: string;
+  };
+  doc: {
+    id: string;
+    path: string;
+  };
+  capital: string;
+  roi: string;
+  min_invest: string;
+  unit_price: string;
+  unit_total: string;
+  number_of_unit: string;
+  periode: string;
+  type_of_bond: string;
+  nominal_value: string;
+  time_periode: string;
+  interest_rate: string;
+  interest_payment_schedule: string;
+  principal_payment_schedule: string;
+  use_of_funds: string;
+  collateral_guarantee: string;
+  desc_job: string;
+  is_apbn: boolean;
+  is_approved: boolean;
+  company: {
+    name: string;
+  };
+  created_at: string;
+  updated_at: string;
+};
+
+const Sukuk = () => {
   const [showModal, setShowModal] = useState(false);
   const [showLocationModal, setShowLocationModal] = useState(false);
 
@@ -25,6 +71,16 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
   const roi = 0.095;
   const keuntungan = nominal * roi;
 
+  const params = useParams();
+  // const id = params.id;
+  const id = "fe973f69-6ff4-4157-a3bc-0e04054cf101";
+  const [project, setProject] = useState<Project | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [userData, setUserData] = useState<any>(null);
+  const [hydrated, setHydrated] = useState(false);
+
+  console.log(id, "id");
+
   const handleInputChange = (value: string) => {
     const numeric = value.replace(/[^\d]/g, "");
     if (mode === "unit") {
@@ -36,6 +92,52 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
   };
 
   const formattedKeuntungan = new Intl.NumberFormat("id-ID").format(keuntungan);
+
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchProject = async () => {
+      try {
+        const response = await axios.get(
+          `https://api-capbridge.langitdigital78.com/api/v1/project/detail/${id}`
+        );
+        setProject(response.data.data);
+      } catch (error) {
+        console.error("Gagal ambil data project:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProject();
+  }, [id]);
+
+  const formatRupiah = (value?: string | number): string => {
+    if (value === undefined || value === null) return "-";
+
+    const number = typeof value === "string" ? parseInt(value) : value;
+
+    if (isNaN(number)) return "-";
+
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    }).format(number);
+  };
+
+  useEffect(() => {
+    setHydrated(true);
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUserData(parsedUser);
+      } catch (err) {
+        console.error("Gagal parsing user dari localStorage", err);
+      }
+    }
+  }, []);
 
   return (
     <section className="py-28 px-4 md:px-12">
@@ -104,7 +206,7 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
 
               <div>
                 <p className="text-xs text-[#677AB9] font-medium">Tenor</p>
-                <p className="font-bold text-black">{project.jangkaWaktu}</p>
+                <p className="font-bold text-black">{project?.time_periode}</p>
               </div>
 
               <div className="bg-gray-100 p-3 rounded-lg">
@@ -184,7 +286,7 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
               slidesPerView={1}
               className="rounded-xl"
             >
-              {project.medias.map((item, idx) => (
+              {project?.medias.map((item, idx) => (
                 <SwiperSlide key={idx}>
                   <div className="relative">
                     <img
@@ -192,8 +294,8 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
                       alt={`Slide ${idx + 1}`}
                       className="w-full h-64 object-cover"
                     />
-                    <div className="absolute top-2 left-2 flex gap-2 flex-wrap">
-                      {/* {item.tags.map((tag, i) => (
+                    {/* <div className="absolute top-2 left-2 flex gap-2 flex-wrap">
+                      {item.tags.map((tag, i) => (
                                         <span
                                         key={i}
                                         className={`text-white text-xs font-bold px-3 py-1 rounded-full ${
@@ -202,8 +304,8 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
                                         >
                                         {tag}
                                         </span>
-                                    ))} */}
-                    </div>
+                                    ))}
+                    </div> */}
                   </div>
                 </SwiperSlide>
               ))}
@@ -218,7 +320,7 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
               watchSlidesProgress
               className="cursor-pointer"
             >
-              {project.medias.map((item, idx) => (
+              {/* {project.medias.map((item, idx) => (
                 <SwiperSlide key={idx}>
                   <img
                     src={item.path}
@@ -226,7 +328,7 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
                     className="w-full h-20 object-cover rounded-md border-2 border-transparent hover:border-blue-500 transition"
                   />
                 </SwiperSlide>
-              ))}
+              ))} */}
             </Swiper>
           </div>
 
@@ -234,39 +336,17 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
             <h2 className="text-lg text-black font-semibold mb-2">
               Tentang Bisnis
             </h2>
-            <p className="text-sm mb-4">
-              Penerbitan Efek Bersifat Utang ini akan digunakan oleh{" "}
-              <strong>PT PAMENGKANG JAGAT ABADI</strong> untuk penguatan modal
-              kerja dalam rangka proyek Jasa Pemeliharaan Perangkat Penunjang
-              Infrastruktur Telekomunikasi Tower Bersama Group (TBG).
-            </p>
-            <p className="text-black text-sm">
-              Lokasi proyek yang dijadikan dasar penerbitan obligasi ini adalah
-              pada site area :
-            </p>
-            <ul className="list-decimal list-inside text-black text-sm mb-4">
-              <li>JABODETABEK INNER</li>
-              <li>JABODETABEK OUTER SERANG</li>
-              <li>JABODETABEK OUTER TANGERANG</li>
-            </ul>
-            <p className="text-sm mb-4">
-              Pekerjaan dilakukan sejak 1 Januari 2024 s/d 31 Desember 2024
-            </p>
-            <p className="text-sm">
-              <strong>PT PAMENGKANG JAGAT ABADI</strong> didirikan pada tahun
-              2004, merupakan perusahaan kontraktor sipil dan pemeliharaan tower
-              yang menyediakan solusi terintegrasi.
-            </p>
+            <p className="text-sm mb-4">{project?.desc_job}</p>
           </div>
         </div>
 
         <div className="bg-gray-100 rounded-xl p-3 shadow-md space-y-2">
           <div className="bg-white rounded-lg p-2">
-            <h3 className="text-xl text-black font-bold">{project.title}</h3>
+            <h3 className="text-xl text-black font-bold">{project?.title}</h3>
             <div className="my-2">
               <div className="flex flex-wrap justify-between">
                 <p className="text-xs text-[#677AB9]">Perusahaan</p>
-                <p className="text-sm">PT PAMENGKANG JAGAT ABADI</p>
+                <p className="text-sm">{project?.company.name}</p>
               </div>
               <div className="flex flex-wrap justify-between">
                 <p className="text-xs text-[#677AB9]">Kode Efek</p>
@@ -291,7 +371,7 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
             </div>
             <div className="flex flex-wrap justify-between">
               <p className="text-xs font-bold text-[#677AB9]">Dana Terkumpul</p>
-              <p className="text-xs font-bold">{project.danaTerkumpul}</p>
+              {/* <p className="text-xs font-bold">{project?.danaTerkumpul}</p> */}
             </div>
           </div>
 
@@ -329,31 +409,34 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
             </div>
             <div className="flex flex-wrap my-2 justify-between">
               <p className="text-xs text-[#677AB9]">Minimal Investasi:</p>
-              <p className="text-xs">{project.minimalInvestasi}</p>
+              <p className="text-xs">Rp 1.000.000</p>
             </div>
             <div className="flex flex-wrap my-2 justify-between">
               <p className="text-xs text-[#677AB9]">Harga Unit:</p>
-              <p className="text-xs">Rp 100.000</p>
+              <p className="text-xs">{formatRupiah(project?.nominal_value)}</p>
             </div>
             <div className="flex flex-wrap my-2 justify-between">
               <p className="text-xs text-[#677AB9]"> Jumlah Unit </p>
-              <p className="text-xs">8500</p>
+              <p className="text-xs">1</p>
             </div>
             <div className="flex flex-wrap my-2 justify-between">
               <p className="text-xs text-[#677AB9]"> Total Unit (Rp) </p>
-              <p className="text-xs"> {project.kebutuhanModal} </p>
+              <p className="text-xs">
+                {" "}
+                {formatRupiah(project?.nominal_value)}{" "}
+              </p>
             </div>
             <div className="flex flex-wrap my-2 justify-between">
               <p className="text-xs text-[#677AB9]">Periode Pengembalian:</p>
-              <p className="text-xs">Bulan ke-4, ke-5, ke-6</p>
+              <p className="text-xs">{project?.interest_payment_schedule}</p>
             </div>
             <div className="flex flex-wrap my-2 justify-between">
               <p className="text-xs text-[#677AB9]">Tenor:</p>
-              <p className="text-xs">{project.jangkaWaktu}</p>
+              <p className="text-xs">{project?.time_periode}</p>
             </div>
             <div className="flex flex-wrap my-2 justify-between">
               <p className="text-xs text-[#677AB9]">ROI (Proyeksi):</p>
-              <p className="text-xs">{project.proyeksiROI}</p>
+              {/* <p className="text-xs">{project.proyeksiROI}</p> */}
             </div>
           </div>
 
@@ -364,10 +447,28 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
             >
               Simulasi
             </button>
-            <button className="bg-white text-xs text-black border px-4 py-2 rounded-md">
+            <button
+              className="bg-white text-xs text-black border px-4 py-2 rounded-md"
+              onClick={() => {
+                navigator.clipboard
+                  .writeText(window.location.href)
+                  .then(() => {
+                    alert("Link berhasil disalin!");
+                    setTimeout(() => {
+                      console.log("Alert selesai");
+                    }, 2000);
+                  })
+                  .catch(() => {
+                    alert("Gagal menyalin link");
+                  });
+              }}
+            >
               Bagikan
             </button>
-            <button className="bg-white text-xs text-black border px-4 py-2 rounded-md">
+            <button
+              className="bg-white text-xs text-black border px-4 py-2 rounded-md"
+              onClick={() => window.open(project?.doc.path, "_blank")}
+            >
               Proposal
             </button>
             <button
@@ -378,9 +479,15 @@ const Sukuk: React.FC<{ project: Project }> = ({ project }) => {
             </button>
           </div>
 
-          <button className="w-full bg-gray-300 text-white font-semibold py-2 rounded-md mt-4 cursor-not-allowed">
-            Beli Efek
-          </button>
+          {hydrated && userData !== null ? (
+            <button className="w-full bg-purple-700 hover:bg-purple-600 text-white font-semibold py-2 rounded-md mt-4 cursor-pointer">
+              Beli Efek
+            </button>
+          ) : (
+            <button className="w-full bg-gray-300 text-white font-semibold py-2 rounded-md mt-4 cursor-not-allowed">
+              Beli Efek
+            </button>
+          )}
 
           <p className="text-xs text-center mt-2">
             Butuh Pertanyaan?{" "}
