@@ -20,6 +20,12 @@ const Navbar: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const auth = useSelector((state: RootState) => state.auth);
 
+  const user =
+    typeof window !== "undefined" ? localStorage.getItem("user") : null;
+  // const userData = user ? JSON.parse(user) : null;
+  const [userData, setUserData] = useState<any>(null);
+  const [hydrated, setHydrated] = useState(false);
+
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -32,6 +38,19 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     dispatch(loadSession());
+  }, []);
+
+  useEffect(() => {
+    setHydrated(true);
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUserData(parsedUser);
+      } catch (err) {
+        console.error("Gagal parsing user dari localStorage", err);
+      }
+    }
   }, []);
 
   return (
@@ -116,12 +135,15 @@ const Navbar: React.FC = () => {
                   Penerbit
                 </Link>
               </li>
-              {auth.isAuthenticated ? (
+              {hydrated && userData !== null ? (
                 <>
-                  <li>Halo, {auth.data?.email}</li>
+                  <li>Halo, {userData.email}</li>
                   <li>
                     <button
-                      onClick={() => dispatch(logout())}
+                      onClick={() => {
+                        localStorage.removeItem("user"); // atau juga token kalau ada
+                        window.location.href = "/auth/login"; // redirect
+                      }}
                       className="px-5 py-2 rounded-full bg-red-500 text-white"
                     >
                       Keluar
@@ -152,7 +174,7 @@ const Navbar: React.FC = () => {
             />
           )}
 
-          <ul className="hidden md:flex flex gap-6 items-center">
+          <ul className="hidden md:flex gap-6 items-center">
             <li className={pathname == "/" ? "text-[#4CD137]" : ""}>
               <Link href="/">Beranda</Link>
             </li>
@@ -170,12 +192,16 @@ const Navbar: React.FC = () => {
             <li>
               <Link href="#">Penerbit</Link>
             </li>
-            {auth.isAuthenticated ? (
+            {hydrated && userData !== null ? (
               <>
-                <li>Halo, {auth.data?.email}</li>
+                <li>Halo, {userData.email}</li>
                 <li>
                   <button
-                    onClick={() => dispatch(logout())}
+                    // onClick={() => dispatch(logout())}
+                    onClick={() => {
+                      localStorage.removeItem("user"); // atau juga token kalau ada
+                      window.location.href = "/auth/login"; // redirect
+                    }}
                     className="px-5 py-2 rounded-full bg-red-500 text-white"
                   >
                     Keluar
@@ -197,7 +223,7 @@ const Navbar: React.FC = () => {
                 </a>
               </li>
             )}
-            {auth.isAuthenticated ? (
+            {hydrated && userData !== null ? (
               <></>
             ) : (
               <li onClick={() => setShowModal(true)}>
