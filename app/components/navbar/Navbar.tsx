@@ -28,8 +28,6 @@ const Navbar: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
 
-  console.log(userData, "b");
-
   useEffect(() => {
     const handleScroll = () => {
       setIsSticky(window.scrollY > 50);
@@ -54,6 +52,7 @@ const Navbar: React.FC = () => {
       }
     }
   }, []);
+
   return (
     <>
       {pathname != "/verification" &&
